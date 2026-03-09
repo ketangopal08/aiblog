@@ -1,41 +1,59 @@
 <script setup lang="ts">
 import type { PostModel } from '~/models/PostModel'
-defineProps<{ post: PostModel }>()
+const props = defineProps<{ post: PostModel }>()
+const img = computed(() => props.post.featuredImage || `https://picsum.photos/seed/${props.post.id}/1200/600`)
 </script>
 
 <template>
   <article class="max-w-3xl mx-auto">
-    <img
-      v-if="post.featuredImage"
-      :src="post.featuredImage"
-      :alt="post.title"
-      class="w-full rounded-2xl mb-8 object-cover max-h-96"
-    />
 
-    <!-- Categories -->
-    <div class="flex gap-2 mb-4 flex-wrap">
-      <span
-        v-for="cat in post.categories"
-        :key="cat.id"
-        class="text-xs font-black uppercase tracking-widest text-[#ff5811] px-0 py-1"
-      >
-        {{ cat.name }}
-      </span>
+    <!-- ── Cinematic hero image ── -->
+    <div class="relative rounded-2xl overflow-hidden mb-10 -mx-4 sm:mx-0" style="height: clamp(260px, 45vw, 500px)">
+      <img
+        :src="img"
+        :alt="post.title"
+        class="absolute inset-0 w-full h-full object-cover"
+      />
+      <!-- layered gradients -->
+      <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
+      <div class="absolute inset-0 bg-gradient-to-r from-black/30 to-transparent" />
+
+      <!-- bottom overlay content -->
+      <div class="absolute bottom-0 left-0 right-0 p-6 flex flex-col gap-3">
+        <!-- categories -->
+        <div class="flex gap-2 flex-wrap">
+          <span
+            v-for="cat in post.categories"
+            :key="cat.id"
+            class="text-[10px] font-black uppercase tracking-widest text-white px-2.5 py-1 rounded-full"
+            style="background:#ff5811"
+          >
+            {{ cat.name }}
+          </span>
+        </div>
+        <!-- title on image -->
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-white leading-tight line-clamp-3 drop-shadow-lg">
+          {{ post.title }}
+        </h1>
+        <!-- meta -->
+        <div class="flex items-center gap-3 text-white/70 text-xs">
+          <span class="font-medium text-white/90">{{ post.author.name }}</span>
+          <span class="text-white/40">·</span>
+          <span>{{ post.formattedDate }}</span>
+          <span class="text-white/40">·</span>
+          <span class="flex items-center gap-1">
+            <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10"/><path stroke-linecap="round" d="M12 6v6l4 2"/>
+            </svg>
+            {{ post.readingTime }} min read
+          </span>
+        </div>
+      </div>
     </div>
-
-    <h1 class="text-4xl font-extrabold text-gray-900 dark:text-white mb-3 leading-tight">
-      {{ post.title }}
-    </h1>
-
-    <p class="text-sm text-gray-500 dark:text-gray-400 mb-8 border-b border-gray-200 dark:border-[#222222] pb-6">
-      By <span class="font-medium text-gray-700 dark:text-gray-300">{{ post.author.name }}</span>
-      &middot; {{ post.formattedDate }}
-      &middot; {{ post.readingTime }} min read
-    </p>
 
     <!-- Content -->
     <div
-      class="text-gray-800 dark:text-gray-200 leading-relaxed space-y-4 text-base prose-headings:text-gray-900 dark:prose-headings:text-white"
+      class="text-gray-800 dark:text-gray-200 leading-relaxed space-y-4 text-base"
       v-html="post.content"
     />
 
