@@ -5,8 +5,8 @@ defineProps<{ post: PostModel }>()
 
 <template>
   <NuxtLink :to="`/blog/${post.slug}`"
-    class="flex-shrink-0 w-52 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl overflow-hidden hover:shadow-md dark:hover:border-teal-600 transition group">
-    <div class="h-28 bg-gray-100 dark:bg-gray-800 overflow-hidden">
+    class="flex-shrink-0 w-52 bg-white dark:bg-[#161616] border border-gray-200 dark:border-[#222222] rounded-xl overflow-hidden hover:shadow-md dark:hover:border-teal-600 transition group">
+    <div class="h-28 bg-gray-100 dark:bg-[#1f1f1f] overflow-hidden">
       <img
         v-if="post.featuredImage"
         :src="post.featuredImage"

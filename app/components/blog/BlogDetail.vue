@@ -27,7 +27,7 @@ defineProps<{ post: PostModel }>()
       {{ post.title }}
     </h1>
 
-    <p class="text-sm text-gray-500 dark:text-gray-400 mb-8 border-b border-gray-200 dark:border-gray-800 pb-6">
+    <p class="text-sm text-gray-500 dark:text-gray-400 mb-8 border-b border-gray-200 dark:border-[#222222] pb-6">
       By <span class="font-medium text-gray-700 dark:text-gray-300">{{ post.author.name }}</span>
       &middot; {{ post.formattedDate }}
       &middot; {{ post.readingTime }} min read
@@ -40,11 +40,11 @@ defineProps<{ post: PostModel }>()
     />
 
     <!-- Tags -->
-    <div v-if="post.tags.length" class="mt-10 pt-6 border-t border-gray-200 dark:border-gray-800 flex gap-2 flex-wrap">
+    <div v-if="post.tags.length" class="mt-10 pt-6 border-t border-gray-200 dark:border-[#222222] flex gap-2 flex-wrap">
       <span
         v-for="tag in post.tags"
         :key="tag.id"
-        class="text-xs bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 px-3 py-1 rounded-full border border-gray-200 dark:border-gray-700"
+        class="text-xs bg-gray-100 dark:bg-[#1f1f1f] text-gray-600 dark:text-gray-400 px-3 py-1 rounded-full border border-gray-200 dark:border-[#2d2d2d]"
       >
         #{{ tag.name }}
       </span>

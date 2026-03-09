@@ -5,7 +5,7 @@ defineProps<{ post: PostModel }>()
 
 <template>
   <NuxtLink :to="`/blog/${post.slug}`"
-    class="block border border-gray-200 dark:border-gray-800 rounded-lg p-3 hover:border-teal-500 hover:bg-gray-50 dark:hover:bg-gray-900 transition group">
+    class="block border border-gray-200 dark:border-[#222222] rounded-lg p-3 hover:border-teal-500 hover:bg-gray-50 dark:hover:bg-gray-900 transition group">
     <h3 class="font-semibold text-gray-800 dark:text-gray-200 text-sm leading-snug group-hover:text-teal-600 dark:group-hover:text-teal-400 transition line-clamp-2 mb-1">
       {{ post.title }}
     </h3>

@@ -1,6 +1,17 @@
 <script setup lang="ts">
 const { isDark, toggleTheme } = useTheme()
 
+const scrolled = ref(false)
+
+onMounted(() => {
+  const onScroll = () => {
+    if (!scrolled.value && window.scrollY > 60) scrolled.value = true
+    else if (scrolled.value && window.scrollY < 10) scrolled.value = false
+  }
+  window.addEventListener('scroll', onScroll, { passive: true })
+  onUnmounted(() => window.removeEventListener('scroll', onScroll))
+})
+
 const NAV_LINKS = [
   { label: 'HOME',    to: '/' },
   { label: 'ABOUT',   to: '/about' },
@@ -13,27 +24,30 @@ const NAV_LINKS = [
 </script>
 
 <template>
-  <header class="bg-white dark:bg-[#0D0D0D] border-b border-gray-200 dark:border-gray-800 sticky top-0 z-50 transition-colors duration-300">
+  <header class="bg-white dark:bg-[#0D0D0D] border-b border-gray-200 dark:border-[#222222] sticky top-0 z-50 transition-colors duration-300">
 
     <!-- ── Top bar: social | logo (centered) | actions ── -->
-    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between relative">
+    <div
+      class="max-w-7xl mx-auto px-6 flex items-center justify-between relative overflow-hidden transition-all duration-300 ease-in-out"
+      :class="scrolled ? 'max-h-0 py-0 opacity-0' : 'max-h-40 py-4 opacity-100'"
+    >
 
       <!-- Social icons (3 circular) -->
       <div class="flex items-center gap-2 flex-shrink-0">
         <a href="#" aria-label="Facebook"
-          class="w-8 h-8 rounded-full border border-gray-300 dark:border-gray-700 flex items-center justify-center text-gray-500 dark:text-gray-400 hover:border-[#ff5811] hover:text-[#ff5811] transition">
+          class="w-8 h-8 rounded-full border border-gray-300 dark:border-[#2d2d2d] flex items-center justify-center text-gray-500 dark:text-gray-400 hover:border-[#ff5811] hover:text-[#ff5811] transition">
           <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
             <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
           </svg>
         </a>
         <a href="#" aria-label="X / Twitter"
-          class="w-8 h-8 rounded-full border border-gray-300 dark:border-gray-700 flex items-center justify-center text-gray-500 dark:text-gray-400 hover:border-[#ff5811] hover:text-[#ff5811] transition">
+          class="w-8 h-8 rounded-full border border-gray-300 dark:border-[#2d2d2d] flex items-center justify-center text-gray-500 dark:text-gray-400 hover:border-[#ff5811] hover:text-[#ff5811] transition">
           <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
             <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
           </svg>
         </a>
         <a href="#" aria-label="Instagram"
-          class="w-8 h-8 rounded-full border border-gray-300 dark:border-gray-700 flex items-center justify-center text-gray-500 dark:text-gray-400 hover:border-[#ff5811] hover:text-[#ff5811] transition">
+          class="w-8 h-8 rounded-full border border-gray-300 dark:border-[#2d2d2d] flex items-center justify-center text-gray-500 dark:text-gray-400 hover:border-[#ff5811] hover:text-[#ff5811] transition">
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
             <circle cx="12" cy="12" r="4"/>
@@ -64,7 +78,7 @@ const NAV_LINKS = [
         <button
           @click="toggleTheme"
           :title="isDark ? 'Switch to light mode' : 'Switch to dark mode'"
-          class="w-9 h-9 flex items-center justify-center border border-gray-300 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:border-[#ff5811] hover:text-[#ff5811] transition"
+          class="w-9 h-9 flex items-center justify-center border border-gray-300 dark:border-[#2d2d2d] text-gray-600 dark:text-gray-300 hover:border-[#ff5811] hover:text-[#ff5811] transition"
         >
           <!-- Sun (light mode) -->
           <svg v-if="!isDark" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -80,7 +94,7 @@ const NAV_LINKS = [
     </div>
 
     <!-- ── Nav bar ── -->
-    <nav class="border-t border-gray-200 dark:border-gray-800">
+    <nav class="border-t border-gray-200 dark:border-[#1f1f1f] bg-white dark:bg-[#0D0D0D]">
       <div class="max-w-7xl mx-auto px-6 flex items-center justify-center h-11 gap-0">
 
         <!-- Hamburger -->
@@ -98,13 +112,12 @@ const NAV_LINKS = [
           <template v-for="(link, i) in NAV_LINKS" :key="link.label">
             <NuxtLink
               :to="link.to"
-              class="text-[11px] font-bold text-gray-700 dark:text-gray-300 whitespace-nowrap px-4 transition hover:text-[#ff5811]"
-              :style="{ color: 'inherit' }"
+              class="text-[11px] font-bold text-gray-700 dark:text-gray-200 whitespace-nowrap px-4 transition hover:text-[#ff5811]"
               active-class="!text-[#ff5811]"
             >
               {{ link.label }}
             </NuxtLink>
-            <span v-if="i < NAV_LINKS.length - 1" class="text-gray-300 dark:text-gray-700 select-none flex-shrink-0 text-sm">|</span>
+            <span v-if="i < NAV_LINKS.length - 1" class="text-gray-300 dark:text-gray-600 select-none flex-shrink-0 text-sm">|</span>
           </template>
         </div>
 

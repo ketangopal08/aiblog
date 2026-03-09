@@ -4,7 +4,7 @@ defineProps<{ post: PostModel }>()
 </script>
 
 <template>
-  <article class="bg-white dark:bg-gray-900 group border-b border-gray-200 dark:border-gray-800 pb-5 mb-5 last:border-b-0">
+  <article class="bg-white dark:bg-[#161616] group border-b border-gray-200 dark:border-[#222222] pb-5 mb-5 last:border-b-0">
     <NuxtLink :to="`/blog/${post.slug}`" class="block overflow-hidden">
       <img
         v-if="post.featuredImage"
@@ -12,7 +12,7 @@ defineProps<{ post: PostModel }>()
         :alt="post.title"
         class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
       />
-      <div v-else class="w-full h-48 bg-gray-200 dark:bg-gray-800" />
+      <div v-else class="w-full h-48 bg-gray-200 dark:bg-[#1f1f1f]" />
     </NuxtLink>
     <div class="mt-3">
       <div class="flex gap-2 mb-1.5 flex-wrap">

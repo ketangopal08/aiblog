@@ -27,7 +27,7 @@ function nextSlide() {
 </script>
 
 <template>
-  <div class="bg-white dark:bg-[#0D0D0D] min-h-screen">
+  <div class="bg-white dark:bg-[#0D0D0D]">
     <SeoHead :seo="{ title: 'AI Blog – Home', description: 'Latest articles on GPT, Gemini, Claude and the AI world.' }" />
 
     <!-- ══════════════════════════════════
@@ -38,13 +38,13 @@ function nextSlide() {
 
         <!-- ── Left: featured card ── -->
         <!-- skeleton -->
-        <div v-if="!featuredPost" class="rounded-2xl overflow-hidden animate-pulse bg-gray-200 dark:bg-gray-800 h-[440px]" />
+        <div v-if="!featuredPost" class="rounded-2xl overflow-hidden animate-pulse bg-gray-200 dark:bg-[#1f1f1f] h-[440px]" />
 
         <!-- card -->
         <NuxtLink
           v-else
           :to="`/blog/${featuredPost.slug}`"
-          class="relative block rounded-2xl overflow-hidden group h-[440px] bg-gray-200 dark:bg-gray-800"
+          class="relative block rounded-2xl overflow-hidden group h-[440px] bg-gray-200 dark:bg-[#1f1f1f]"
         >
           <img
             v-if="featuredPost.featuredImage"
@@ -85,20 +85,20 @@ function nextSlide() {
           <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4 leading-tight">Latest post</h2>
 
           <!-- skeleton -->
-          <div v-if="!latestPosts.length" class="flex flex-col divide-y divide-gray-100 dark:divide-gray-800">
+          <div v-if="!latestPosts.length" class="flex flex-col divide-y divide-gray-100 dark:divide-[#222222]">
             <div v-for="n in 4" :key="n" class="flex gap-3 py-4 first:pt-0 animate-pulse">
-              <div class="w-[72px] h-[72px] flex-shrink-0 rounded-xl bg-gray-200 dark:bg-gray-800" />
+              <div class="w-[72px] h-[72px] flex-shrink-0 rounded-xl bg-gray-200 dark:bg-[#1f1f1f]" />
               <div class="flex-1 space-y-2 pt-1">
-                <div class="h-3 bg-gray-200 dark:bg-gray-800 rounded w-full" />
-                <div class="h-3 bg-gray-200 dark:bg-gray-800 rounded w-5/6" />
-                <div class="h-3 bg-gray-200 dark:bg-gray-800 rounded w-4/6" />
-                <div class="h-2.5 bg-gray-200 dark:bg-gray-800 rounded w-2/5 mt-2" />
+                <div class="h-3 bg-gray-200 dark:bg-[#1f1f1f] rounded w-full" />
+                <div class="h-3 bg-gray-200 dark:bg-[#1f1f1f] rounded w-5/6" />
+                <div class="h-3 bg-gray-200 dark:bg-[#1f1f1f] rounded w-4/6" />
+                <div class="h-2.5 bg-gray-200 dark:bg-[#1f1f1f] rounded w-2/5 mt-2" />
               </div>
             </div>
           </div>
 
           <!-- list -->
-          <div v-else class="flex flex-col divide-y divide-gray-100 dark:divide-gray-800">
+          <div v-else class="flex flex-col divide-y divide-gray-100 dark:divide-[#222222]">
             <NuxtLink
               v-for="post in latestPosts"
               :key="post.id"
@@ -106,7 +106,7 @@ function nextSlide() {
               class="flex items-start gap-3 py-4 first:pt-0 group"
             >
               <!-- square thumbnail -->
-              <div class="w-[72px] h-[72px] flex-shrink-0 rounded-xl overflow-hidden bg-gray-100 dark:bg-gray-800">
+              <div class="w-[72px] h-[72px] flex-shrink-0 rounded-xl overflow-hidden bg-gray-100 dark:bg-[#1f1f1f]">
                 <img
                   v-if="post.featuredImage"
                   :src="post.featuredImage"
@@ -134,7 +134,7 @@ function nextSlide() {
 
     <!-- divider -->
     <div class="max-w-6xl mx-auto px-5">
-      <hr class="border-gray-100 dark:border-gray-800" />
+      <hr class="border-gray-100 dark:border-[#222222]" />
     </div>
 
     <!-- ══════════════════════════════════
@@ -149,7 +149,7 @@ function nextSlide() {
           <button
             @click="prevSlide"
             :disabled="carouselIndex === 0"
-            class="w-9 h-9 rounded-full border border-gray-200 dark:border-gray-700 flex items-center justify-center text-gray-500 dark:text-gray-400 hover:text-[#ff5811] hover:border-[#ff5811] disabled:opacity-25 disabled:pointer-events-none transition"
+            class="w-9 h-9 rounded-full border border-gray-200 dark:border-[#2d2d2d] flex items-center justify-center text-gray-500 dark:text-gray-400 hover:text-[#ff5811] hover:border-[#ff5811] disabled:opacity-25 disabled:pointer-events-none transition"
             aria-label="Previous"
           >
             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -159,7 +159,7 @@ function nextSlide() {
           <button
             @click="nextSlide"
             :disabled="carouselIndex + 3 >= carouselPosts.length"
-            class="w-9 h-9 rounded-full border border-gray-200 dark:border-gray-700 flex items-center justify-center text-gray-500 dark:text-gray-400 hover:text-[#ff5811] hover:border-[#ff5811] disabled:opacity-25 disabled:pointer-events-none transition"
+            class="w-9 h-9 rounded-full border border-gray-200 dark:border-[#2d2d2d] flex items-center justify-center text-gray-500 dark:text-gray-400 hover:text-[#ff5811] hover:border-[#ff5811] disabled:opacity-25 disabled:pointer-events-none transition"
             aria-label="Next"
           >
             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -171,14 +171,14 @@ function nextSlide() {
 
       <!-- skeleton -->
       <div v-if="!carouselPosts.length" class="grid grid-cols-1 md:grid-cols-3 gap-5">
-        <div v-for="n in 3" :key="n" class="rounded-2xl border border-gray-100 dark:border-gray-800 overflow-hidden animate-pulse">
-          <div class="h-52 bg-gray-200 dark:bg-gray-800" />
+        <div v-for="n in 3" :key="n" class="rounded-2xl border border-gray-100 dark:border-[#222222] overflow-hidden animate-pulse">
+          <div class="h-52 bg-gray-200 dark:bg-[#1f1f1f]" />
           <div class="p-5 space-y-3">
-            <div class="h-3 bg-gray-200 dark:bg-gray-800 rounded w-20" />
-            <div class="h-5 bg-gray-200 dark:bg-gray-800 rounded w-3/4" />
-            <div class="h-5 bg-gray-200 dark:bg-gray-800 rounded w-1/2" />
-            <div class="h-3 bg-gray-200 dark:bg-gray-800 rounded w-full" />
-            <div class="h-3 bg-gray-200 dark:bg-gray-800 rounded w-5/6" />
+            <div class="h-3 bg-gray-200 dark:bg-[#1f1f1f] rounded w-20" />
+            <div class="h-5 bg-gray-200 dark:bg-[#1f1f1f] rounded w-3/4" />
+            <div class="h-5 bg-gray-200 dark:bg-[#1f1f1f] rounded w-1/2" />
+            <div class="h-3 bg-gray-200 dark:bg-[#1f1f1f] rounded w-full" />
+            <div class="h-3 bg-gray-200 dark:bg-[#1f1f1f] rounded w-5/6" />
           </div>
         </div>
       </div>
@@ -189,10 +189,10 @@ function nextSlide() {
           v-for="post in visibleCards"
           :key="post.id"
           :to="`/blog/${post.slug}`"
-          class="group flex flex-col rounded-2xl border border-gray-100 dark:border-gray-800 overflow-hidden bg-white dark:bg-gray-900 hover:shadow-lg transition-shadow duration-300"
+          class="group flex flex-col rounded-2xl border border-gray-100 dark:border-[#222222] overflow-hidden bg-white dark:bg-[#161616] hover:shadow-lg transition-shadow duration-300"
         >
           <!-- image -->
-          <div class="h-52 overflow-hidden bg-gray-100 dark:bg-gray-800 flex-shrink-0">
+          <div class="h-52 overflow-hidden bg-gray-100 dark:bg-[#1f1f1f] flex-shrink-0">
             <img
               v-if="post.featuredImage"
               :src="post.featuredImage"
