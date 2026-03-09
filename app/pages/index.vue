@@ -4,22 +4,31 @@ import type { PostModel } from '~/models/PostModel'
 const { $wp } = useNuxtApp()
 
 const allPosts = ref<PostModel[]>([])
+const featuredPost = ref<PostModel | null>(null)
 const { fetchCategories } = useCategories()
+
+const FEATURED_SLUG = 'claude-constitutional-ai-explained'
 
 await Promise.all([
   fetchCategories(),
-  (async () => { allPosts.value = await $wp.getPosts(1, 20) as PostModel[] })()
+  (async () => { allPosts.value = await $wp.getPosts(1, 20) as PostModel[] })(),
+  (async () => { featuredPost.value = await $wp.getPostBySlug(FEATURED_SLUG) as PostModel | null })(),
 ])
 
-const featuredPost  = computed(() => allPosts.value[0] ?? null)
-const latestPosts   = computed(() => allPosts.value.slice(1, 5))
-const carouselPosts = computed(() => allPosts.value.slice(1))
+// fallback to first post if slug not found
+if (!featuredPost.value) featuredPost.value = allPosts.value[0] ?? null
+
+const remainingPosts = computed(() =>
+  allPosts.value.filter(p => p.slug !== FEATURED_SLUG)
+)
+const latestPosts   = computed(() => remainingPosts.value.slice(0, 4))
+const carouselPosts = computed(() => remainingPosts.value)
 
 function postImg(post: PostModel, w = 800, h = 500) {
   return post.featuredImage || `https://picsum.photos/seed/${post.id}/${w}/${h}`
 }
 
-const moreNewsPosts = computed(() => allPosts.value.slice(5, 9))
+const moreNewsPosts = computed(() => remainingPosts.value.slice(4, 8))
 
 const carouselIndex = ref(0)
 const visibleCards  = computed(() => carouselPosts.value.slice(carouselIndex.value, carouselIndex.value + 3))
@@ -269,36 +278,38 @@ function nextSlide() {
           v-for="post in moreNewsPosts"
           :key="post.id"
           :to="`/blog/${post.slug}`"
-          class="group flex flex-col"
+          class="group flex flex-col bg-white dark:bg-[#161616] border border-gray-100 dark:border-[#222222] rounded-2xl overflow-hidden hover:shadow-md dark:hover:border-[#333] transition-shadow duration-300"
         >
           <!-- image -->
-          <div class="relative w-full aspect-[4/3] overflow-hidden mb-3">
+          <div class="relative w-full aspect-[4/3] overflow-hidden flex-shrink-0">
             <img
               :src="postImg(post, 600, 450)"
               :alt="post.title"
               class="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-500 ease-out"
             />
-            <!-- category pill on image -->
-            <span
-              class="absolute bottom-0 left-0 text-[10px] font-black uppercase tracking-wider text-white px-3 py-1.5"
-              style="background:#ff5811"
-            >
+            <!-- hover overlay -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <!-- category pill -->
+            <span class="absolute bottom-0 left-0 text-[10px] font-black uppercase tracking-wider text-white px-3 py-1.5 bg-[#ff5811]">
               {{ post.categories[0]?.name ?? 'AI' }}
             </span>
           </div>
 
-          <!-- title -->
-          <h3 class="text-base font-black text-gray-900 dark:text-white leading-snug line-clamp-3 group-hover:text-[#ff5811] transition-colors mb-2">
-            {{ post.title }}
-          </h3>
+          <!-- content -->
+          <div class="p-4 flex flex-col flex-1 gap-2">
+            <!-- title -->
+            <h3 class="text-sm font-black text-gray-900 dark:text-white leading-snug line-clamp-3 group-hover:text-[#ff5811] transition-colors">
+              {{ post.title }}
+            </h3>
 
-          <!-- meta: By Author — Date -->
-          <p class="text-xs text-gray-500 dark:text-gray-400 flex items-center gap-1.5 flex-wrap mt-auto">
-            <span>By</span>
-            <span class="font-bold text-gray-700 dark:text-gray-300">{{ post.author.name }}</span>
-            <span class="inline-block w-6 h-px bg-gray-400 dark:bg-gray-600 align-middle" />
-            <span>{{ post.formattedDate }}</span>
-          </p>
+            <!-- meta: By Author — Date -->
+            <p class="text-xs text-gray-500 dark:text-gray-400 flex items-center gap-1.5 flex-wrap mt-auto pt-1">
+              <span>By</span>
+              <span class="font-bold text-gray-700 dark:text-gray-300">{{ post.author.name }}</span>
+              <span class="inline-block w-5 h-px bg-gray-300 dark:bg-gray-600" />
+              <span>{{ post.formattedDate }}</span>
+            </p>
+          </div>
         </NuxtLink>
       </div>
 
