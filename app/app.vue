@@ -5,7 +5,7 @@ onMounted(() => initTheme())
 </script>
 
 <template>
-  <div class="min-h-screen flex flex-col bg-white dark:bg-gray-950 transition-colors duration-300">
+  <div class="min-h-screen flex flex-col bg-white dark:bg-[#0D0D0D] transition-colors duration-300">
     <NuxtRouteAnnouncer />
     <AppHeader />
     <main class="flex-1">

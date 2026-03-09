@@ -1,13 +1,18 @@
 <template>
-  <footer class="bg-gray-100 dark:bg-black border-t border-gray-200 dark:border-gray-800 transition-colors duration-300">
-    <div class="max-w-7xl mx-auto px-4 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-      <span class="text-xl font-black italic tracking-tighter text-gray-900 dark:text-white">
-        AI<span class="text-teal-500">Blog</span>
-      </span>
-      <p class="text-sm text-gray-500 dark:text-gray-600">&copy; {{ new Date().getFullYear() }} AIBlog. All rights reserved.</p>
-      <div class="flex gap-5 text-sm text-gray-500 dark:text-gray-500">
-        <NuxtLink to="/" class="hover:text-teal-500 transition">Home</NuxtLink>
-        <NuxtLink to="/about" class="hover:text-teal-500 transition">About</NuxtLink>
+  <footer class="bg-gray-100 dark:bg-[#0D0D0D] border-t-2 border-gray-900 dark:border-gray-700 transition-colors duration-300 mt-8">
+    <div class="max-w-7xl mx-auto px-4 py-8">
+      <div class="text-center mb-6">
+        <div class="text-3xl font-black text-[#ff5811] tracking-tight uppercase">AI Blog</div>
+        <div class="text-xs text-gray-400 tracking-widest uppercase mt-1">CLEAN | CREATIVE | PRACTICAL | SIMPLE TO SETUP</div>
+      </div>
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-gray-300 dark:border-gray-800 pt-5">
+        <p class="text-xs text-gray-500 dark:text-gray-600 uppercase tracking-widest">&copy; {{ new Date().getFullYear() }} AIBlog. All rights reserved.</p>
+        <div class="flex gap-6 text-xs font-bold text-gray-600 dark:text-gray-500 uppercase tracking-widest">
+          <NuxtLink to="/" class="hover:text-[#ff5811] transition">Home</NuxtLink>
+          <NuxtLink to="/about" class="hover:text-[#ff5811] transition">About</NuxtLink>
+          <a href="#" class="hover:text-[#ff5811] transition">Contact</a>
+          <a href="#" class="hover:text-[#ff5811] transition">Privacy</a>
+        </div>
       </div>
     </div>
   </footer>

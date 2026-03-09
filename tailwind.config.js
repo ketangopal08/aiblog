@@ -10,7 +10,11 @@ export default {
     './composables/**/*.{js,ts}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        serif: ['Lora', 'Georgia', 'serif'],
+      },
+    },
   },
   plugins: [],
 }
