@@ -14,6 +14,9 @@ export default {
       fontFamily: {
         serif: ['Lora', 'Georgia', 'serif'],
       },
+      colors: {
+        primary: '#ff5811',
+      },
     },
   },
   plugins: [],

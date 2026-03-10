@@ -21,14 +21,15 @@ if (!featuredPost.value) featuredPost.value = allPosts.value[0] ?? null
 const remainingPosts = computed(() =>
   allPosts.value.filter(p => p.slug !== FEATURED_SLUG)
 )
-const latestPosts   = computed(() => remainingPosts.value.slice(0, 4))
 const carouselPosts = computed(() => remainingPosts.value)
 
 function postImg(post: PostModel, w = 800, h = 500) {
   return post.featuredImage || `https://picsum.photos/seed/${post.id}/${w}/${h}`
 }
 
-const moreNewsPosts = computed(() => remainingPosts.value.slice(4, 8))
+const sideCards      = computed(() => remainingPosts.value.slice(0, 2))
+const horizontalPosts = computed(() => remainingPosts.value.slice(2, 6))
+const moreNewsPosts  = computed(() => remainingPosts.value.slice(6, 10))
 
 const carouselIndex = ref(0)
 const visibleCards  = computed(() => carouselPosts.value.slice(carouselIndex.value, carouselIndex.value + 3))
@@ -46,115 +47,126 @@ function nextSlide() {
     <SeoHead :seo="{ title: 'AI Blog – Home', description: 'Latest articles on GPT, Gemini, Claude and the AI world.' }" />
 
     <!-- ══════════════════════════════════
-         HERO — Featured card + Latest post
+         TOP — mini-hero (left) + list (right)
     ══════════════════════════════════ -->
-    <section class="max-w-6xl mx-auto px-5 pt-8 pb-10">
-      <div class="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-6">
+    <section class="max-w-7xl mx-auto px-5 pt-8 pb-6">
+      <div class="grid grid-cols-1 lg:grid-cols-[3fr_1fr] gap-6 items-start">
 
-        <!-- ── Left: featured card ── -->
-        <!-- skeleton -->
-        <div v-if="!featuredPost" class="rounded-2xl overflow-hidden animate-pulse bg-gray-200 dark:bg-[#1f1f1f] h-[440px]" />
+        <!-- ── LEFT: featured card + 2 stacked cards ── -->
+        <div class="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-4">
 
-        <!-- card -->
-        <NuxtLink
-          v-else
-          :to="`/blog/${featuredPost.slug}`"
-          class="relative block rounded-2xl overflow-hidden group h-[440px] bg-gray-200 dark:bg-[#1f1f1f]"
-        >
-          <img
-            :src="postImg(featuredPost, 1200, 700)"
-            :alt="featuredPost.title"
-            class="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700 ease-out"
-          />
+          <!-- featured skeleton -->
+          <div v-if="!featuredPost" class="rounded-2xl overflow-hidden animate-pulse bg-gray-200 dark:bg-[#1f1f1f] h-[420px]" />
 
-          <!-- strong bottom gradient -->
-          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-
-          <!-- text content -->
-          <div class="absolute bottom-0 left-0 right-0 p-7 flex flex-col gap-3">
-            <!-- category pill -->
-            <span class="inline-flex items-center gap-2 self-start bg-white dark:bg-white/95 rounded-full px-3 py-1 shadow-sm">
-              <span class="w-2 h-2 rounded-full flex-shrink-0" style="background:#ff5811"></span>
-              <span class="text-xs font-semibold text-gray-700 leading-none">
+          <!-- featured card -->
+          <NuxtLink
+            v-else
+            :to="`/blog/${featuredPost.slug}`"
+            class="relative block rounded-2xl overflow-hidden group h-[420px] bg-gray-200 dark:bg-[#1f1f1f]"
+          >
+            <img
+              :src="postImg(featuredPost, 1200, 700)"
+              :alt="featuredPost.title"
+              class="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700 ease-out"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
+            <div class="absolute bottom-0 left-0 right-0 p-6 flex flex-col gap-2.5">
+              <span class="text-xs font-black uppercase tracking-widest text-white self-start border-b-2 border-[#c8f135] pb-0.5">
                 {{ featuredPost.categories[0]?.name ?? 'AI' }}
               </span>
-            </span>
+              <h1 class="text-xl lg:text-[1.75rem] font-black text-white leading-tight line-clamp-3">
+                {{ featuredPost.title }}
+              </h1>
+              <p class="text-sm text-white/55">{{ featuredPost.formattedDate }}</p>
+            </div>
+          </NuxtLink>
 
-            <!-- title -->
-            <h1 class="text-2xl lg:text-[1.7rem] font-bold text-white leading-snug line-clamp-3">
-              {{ featuredPost.title }}
-            </h1>
-
-            <!-- meta -->
-            <p class="text-sm text-white/65 flex items-center gap-2">
-              <span>{{ featuredPost.formattedDate }}</span>
-              <span class="text-white/40">•</span>
-              <span>{{ featuredPost.readingTime }} min read</span>
-            </p>
+          <!-- 2 stacked overlay cards -->
+          <div class="flex flex-col gap-4 h-[420px]">
+            <template v-if="!sideCards.length">
+              <div v-for="n in 2" :key="n" class="flex-1 rounded-2xl animate-pulse bg-gray-200 dark:bg-[#1f1f1f]" />
+            </template>
+            <template v-else>
+              <NuxtLink
+                v-for="post in sideCards"
+                :key="post.id"
+                :to="`/blog/${post.slug}`"
+                class="relative flex-1 rounded-2xl overflow-hidden group bg-gray-200 dark:bg-[#1f1f1f]"
+              >
+                <img
+                  :src="postImg(post, 600, 400)"
+                  :alt="post.title"
+                  class="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700 ease-out"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
+                <div class="absolute bottom-0 left-0 right-0 p-4 flex flex-col gap-1.5">
+                  <span class="text-[10px] font-black uppercase tracking-widest text-white self-start border-b-2 border-[#c8f135] pb-0.5">
+                    {{ post.categories[0]?.name ?? 'AI' }}
+                  </span>
+                  <h3 class="text-sm font-black text-white leading-snug line-clamp-3">
+                    {{ post.title }}
+                  </h3>
+                  <p class="text-xs text-white/55">{{ post.formattedDate }}</p>
+                </div>
+              </NuxtLink>
+            </template>
           </div>
-        </NuxtLink>
 
-        <!-- ── Right: Latest post sidebar ── -->
-        <div class="flex flex-col">
-          <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4 leading-tight">Latest post</h2>
+        </div>
 
+        <!-- ── RIGHT: normal list ── -->
+        <div class="flex flex-col divide-y divide-gray-100 dark:divide-[#222222]">
           <!-- skeleton -->
-          <div v-if="!latestPosts.length" class="flex flex-col divide-y divide-gray-100 dark:divide-[#222222]">
-            <div v-for="n in 4" :key="n" class="flex gap-3 py-4 first:pt-0 animate-pulse">
-              <div class="w-[72px] h-[72px] flex-shrink-0 rounded-xl bg-gray-200 dark:bg-[#1f1f1f]" />
+          <template v-if="!horizontalPosts.length">
+            <div v-for="n in 5" :key="n" class="flex gap-3 py-4 first:pt-0 animate-pulse">
+              <div class="w-[68px] h-[68px] flex-shrink-0 rounded-lg bg-gray-200 dark:bg-[#1f1f1f]" />
               <div class="flex-1 space-y-2 pt-1">
-                <div class="h-3 bg-gray-200 dark:bg-[#1f1f1f] rounded w-full" />
-                <div class="h-3 bg-gray-200 dark:bg-[#1f1f1f] rounded w-5/6" />
-                <div class="h-3 bg-gray-200 dark:bg-[#1f1f1f] rounded w-4/6" />
-                <div class="h-2.5 bg-gray-200 dark:bg-[#1f1f1f] rounded w-2/5 mt-2" />
+                <div class="h-2.5 bg-gray-200 dark:bg-[#1f1f1f] rounded w-1/3" />
+                <div class="h-3.5 bg-gray-200 dark:bg-[#1f1f1f] rounded w-full" />
+                <div class="h-3.5 bg-gray-200 dark:bg-[#1f1f1f] rounded w-5/6" />
+                <div class="h-2.5 bg-gray-200 dark:bg-[#1f1f1f] rounded w-2/5 mt-1" />
               </div>
             </div>
-          </div>
+          </template>
 
-          <!-- list -->
-          <div v-else class="flex flex-col divide-y divide-gray-100 dark:divide-[#222222]">
-            <NuxtLink
-              v-for="post in latestPosts"
-              :key="post.id"
-              :to="`/blog/${post.slug}`"
-              class="flex items-start gap-3 py-4 first:pt-0 group"
-            >
-              <!-- square thumbnail -->
-              <div class="w-[72px] h-[72px] flex-shrink-0 rounded-xl overflow-hidden bg-gray-100 dark:bg-[#1f1f1f] relative">
-                <img
-                  :src="postImg(post, 200, 200)"
-                  :alt="post.title"
-                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-                <div class="absolute inset-0 bg-gradient-to-br from-transparent to-black/20 rounded-xl" />
-              </div>
-              <!-- text -->
-              <div class="flex-1 min-w-0">
-                <p class="text-sm font-semibold text-gray-900 dark:text-white leading-snug line-clamp-3 group-hover:text-[#ff5811] transition-colors">
-                  {{ post.title }}
-                </p>
-                <p class="mt-1.5 text-xs text-gray-400 dark:text-gray-500 flex items-center gap-1.5">
-                  <span>{{ post.formattedDate }}</span>
-                  <span>•</span>
-                  <span>{{ post.readingTime }} min read</span>
-                </p>
-              </div>
-            </NuxtLink>
-          </div>
+          <!-- list items -->
+          <NuxtLink
+            v-for="post in horizontalPosts"
+            :key="post.id"
+            :to="`/blog/${post.slug}`"
+            class="flex items-start gap-3 py-4 first:pt-0 group"
+          >
+            <div class="w-[68px] h-[68px] flex-shrink-0 rounded-lg overflow-hidden bg-gray-100 dark:bg-[#1f1f1f]">
+              <img
+                :src="postImg(post, 200, 200)"
+                :alt="post.title"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              />
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="text-[10px] font-black uppercase tracking-widest text-[#c8f135] mb-1">
+                {{ post.categories[0]?.name ?? 'AI' }}
+              </p>
+              <p class="text-sm font-semibold text-gray-900 dark:text-white leading-snug line-clamp-2 group-hover:text-[#ff5811] transition-colors">
+                {{ post.title }}
+              </p>
+              <p class="text-xs text-gray-400 dark:text-gray-500 mt-1">{{ post.formattedDate }}</p>
+            </div>
+          </NuxtLink>
         </div>
 
       </div>
     </section>
 
     <!-- divider -->
-    <div class="max-w-6xl mx-auto px-5">
+    <div class="max-w-7xl mx-auto px-5">
       <hr class="border-gray-100 dark:border-[#222222]" />
     </div>
 
     <!-- ══════════════════════════════════
          FOUNDERS CORNER — 3-card carousel
     ══════════════════════════════════ -->
-    <section class="max-w-6xl mx-auto px-5 py-10">
+    <section class="max-w-7xl mx-auto px-5 py-10">
 
       <!-- header -->
       <div class="flex items-center justify-between mb-7">
@@ -251,14 +263,14 @@ function nextSlide() {
     </section>
 
     <!-- divider -->
-    <div class="max-w-6xl mx-auto px-5">
+    <div class="max-w-7xl mx-auto px-5">
       <hr class="border-gray-100 dark:border-[#222222]" />
     </div>
 
     <!-- ══════════════════════════════════
          MORE NEWS — 4-col grid
     ══════════════════════════════════ -->
-    <section class="max-w-6xl mx-auto px-5 py-10">
+    <section class="max-w-7xl mx-auto px-5 py-10">
 
       <h2 class="text-2xl font-black text-gray-900 dark:text-white mb-7">More News</h2>
 
