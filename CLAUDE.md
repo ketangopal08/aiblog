@@ -6,15 +6,17 @@
 The project primary color is `#ff5811` (orange).
 It is registered in `tailwind.config.js` as `primary` → use `text-primary`, `bg-primary`, `border-primary`, `hover:text-primary`, etc.
 
-**Always use the primary color for:**
-- All links (NuxtLink text, hover states)
-- Category tags / labels
-- Tag pills on post detail
-- Any highlighted / accent text
-- Active nav items
-- Underline accents on overlay cards use `#c8f135` (yellow-green) as a secondary accent — do NOT replace this with primary
+**Use primary color ONLY for:**
+- Link text and hover states (`text-primary`, `hover:text-primary`)
+- Active / selected nav items
+- CTA buttons and interactive highlights
 
-Never use ad-hoc hex values like `#ff5811` directly in templates. Use the Tailwind token `primary` instead.
+**Do NOT use primary color for:**
+- Tag pills (use neutral gray: `bg-gray-100 dark:bg-[#1f1f1f] text-gray-600 dark:text-gray-400 border border-gray-200 dark:border-[#2d2d2d]`)
+- Decorative borders or underline accents on overlay cards (use `border-white/60` on dark backgrounds)
+- Category label text on image overlays (use `text-white`)
+
+**Never use raw hex values** in templates or style attributes. Always use the Tailwind `primary` token for the cases above.
 
 ---
 
@@ -52,6 +54,4 @@ Every blog post page (`BlogDetail.vue`) must follow this structure in order:
 ## Color Tokens
 | Token | Value | Usage |
 |-------|-------|-------|
-| `primary` | `#ff5811` | Links, tags, highlights, active states |
-| `#c8f135` | yellow-green | Overlay card category underline accent only |
-| `#00b894` | teal | Horizontal card category labels (secondary accent) |
+| `primary` | `#ff5811` | Links, tags, highlights, borders, active states — use everywhere |

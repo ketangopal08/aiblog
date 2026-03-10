@@ -18,8 +18,7 @@ const img = computed(() => props.post.featuredImage || `https://picsum.photos/se
       <!-- category pill on image -->
       <span
         v-if="post.categories[0]"
-        class="absolute top-3 left-3 text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-full text-white"
-        style="background:#ff5811"
+        class="absolute top-3 left-3 text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-full text-white bg-primary"
       >
         {{ post.categories[0].name }}
       </span>
@@ -30,7 +29,7 @@ const img = computed(() => props.post.featuredImage || `https://picsum.photos/se
     </NuxtLink>
 
     <div class="mt-3">
-      <h2 class="text-base font-black text-gray-900 dark:text-white leading-snug line-clamp-2 group-hover:text-[#ff5811] transition">
+      <h2 class="text-base font-black text-gray-900 dark:text-white leading-snug line-clamp-2 group-hover:text-primary transition">
         <NuxtLink :to="`/blog/${post.slug}`">{{ post.title }}</NuxtLink>
       </h2>
       <p class="text-xs text-gray-400 dark:text-gray-500 mt-1.5 uppercase tracking-widest font-bold">

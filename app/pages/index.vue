@@ -29,16 +29,17 @@ function postImg(post: PostModel, w = 800, h = 500) {
 
 const sideCards      = computed(() => remainingPosts.value.slice(0, 2))
 const horizontalPosts = computed(() => remainingPosts.value.slice(2, 6))
-const moreNewsPosts  = computed(() => remainingPosts.value.slice(6, 10))
+const moreNewsPosts  = computed(() => remainingPosts.value.slice(6, 12))
+const popularPosts   = computed(() => remainingPosts.value.slice(0, 4))
 
 const carouselIndex = ref(0)
-const visibleCards  = computed(() => carouselPosts.value.slice(carouselIndex.value, carouselIndex.value + 3))
+const visibleCards  = computed(() => carouselPosts.value.slice(carouselIndex.value, carouselIndex.value + 4))
 
 function prevSlide() {
-  if (carouselIndex.value >= 3) carouselIndex.value -= 3
+  if (carouselIndex.value >= 4) carouselIndex.value -= 4
 }
 function nextSlide() {
-  if (carouselIndex.value + 3 < carouselPosts.value.length) carouselIndex.value += 3
+  if (carouselIndex.value + 4 < carouselPosts.value.length) carouselIndex.value += 4
 }
 </script>
 
@@ -71,7 +72,7 @@ function nextSlide() {
             />
             <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
             <div class="absolute bottom-0 left-0 right-0 p-6 flex flex-col gap-2.5">
-              <span class="text-xs font-black uppercase tracking-widest text-white self-start border-b-2 border-[#c8f135] pb-0.5">
+              <span class="text-xs font-black uppercase tracking-widest text-white self-start border-b-2 border-white/60 pb-0.5">
                 {{ featuredPost.categories[0]?.name ?? 'AI' }}
               </span>
               <h1 class="text-xl lg:text-[1.75rem] font-black text-white leading-tight line-clamp-3">
@@ -100,7 +101,7 @@ function nextSlide() {
                 />
                 <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
                 <div class="absolute bottom-0 left-0 right-0 p-4 flex flex-col gap-1.5">
-                  <span class="text-[10px] font-black uppercase tracking-widest text-white self-start border-b-2 border-[#c8f135] pb-0.5">
+                  <span class="text-[10px] font-black uppercase tracking-widest text-white self-start border-b-2 border-white/60 pb-0.5">
                     {{ post.categories[0]?.name ?? 'AI' }}
                   </span>
                   <h3 class="text-sm font-black text-white leading-snug line-clamp-3">
@@ -144,10 +145,10 @@ function nextSlide() {
               />
             </div>
             <div class="flex-1 min-w-0">
-              <p class="text-[10px] font-black uppercase tracking-widest text-[#c8f135] mb-1">
+              <p class="text-[10px] font-black uppercase tracking-widest text-primary mb-1">
                 {{ post.categories[0]?.name ?? 'AI' }}
               </p>
-              <p class="text-sm font-semibold text-gray-900 dark:text-white leading-snug line-clamp-2 group-hover:text-[#ff5811] transition-colors">
+              <p class="text-sm font-semibold text-gray-900 dark:text-white leading-snug line-clamp-2 group-hover:text-primary transition-colors">
                 {{ post.title }}
               </p>
               <p class="text-xs text-gray-400 dark:text-gray-500 mt-1">{{ post.formattedDate }}</p>
@@ -175,7 +176,7 @@ function nextSlide() {
           <button
             @click="prevSlide"
             :disabled="carouselIndex === 0"
-            class="w-9 h-9 rounded-full border border-gray-200 dark:border-[#2d2d2d] flex items-center justify-center text-gray-500 dark:text-gray-400 hover:text-[#ff5811] hover:border-[#ff5811] disabled:opacity-25 disabled:pointer-events-none transition"
+            class="w-9 h-9 rounded-full border border-gray-200 dark:border-[#2d2d2d] flex items-center justify-center text-gray-500 dark:text-gray-400 hover:text-primary hover:border-primary disabled:opacity-25 disabled:pointer-events-none transition"
             aria-label="Previous"
           >
             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -184,8 +185,8 @@ function nextSlide() {
           </button>
           <button
             @click="nextSlide"
-            :disabled="carouselIndex + 3 >= carouselPosts.length"
-            class="w-9 h-9 rounded-full border border-gray-200 dark:border-[#2d2d2d] flex items-center justify-center text-gray-500 dark:text-gray-400 hover:text-[#ff5811] hover:border-[#ff5811] disabled:opacity-25 disabled:pointer-events-none transition"
+            :disabled="carouselIndex + 4 >= carouselPosts.length"
+            class="w-9 h-9 rounded-full border border-gray-200 dark:border-[#2d2d2d] flex items-center justify-center text-gray-500 dark:text-gray-400 hover:text-primary hover:border-primary disabled:opacity-25 disabled:pointer-events-none transition"
             aria-label="Next"
           >
             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -196,7 +197,7 @@ function nextSlide() {
       </div>
 
       <!-- skeleton -->
-      <div v-if="!carouselPosts.length" class="grid grid-cols-1 md:grid-cols-3 gap-5">
+      <div v-if="!carouselPosts.length" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         <div v-for="n in 3" :key="n" class="rounded-2xl border border-gray-100 dark:border-[#222222] overflow-hidden animate-pulse">
           <div class="h-52 bg-gray-200 dark:bg-[#1f1f1f]" />
           <div class="p-5 space-y-3">
@@ -210,7 +211,7 @@ function nextSlide() {
       </div>
 
       <!-- cards -->
-      <div v-else class="grid grid-cols-1 md:grid-cols-3 gap-5">
+      <div v-else class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         <NuxtLink
           v-for="post in visibleCards"
           :key="post.id"
@@ -236,14 +237,14 @@ function nextSlide() {
           <div class="flex flex-col flex-1 p-5 gap-2.5">
             <!-- category -->
             <div class="flex items-center gap-2">
-              <span class="w-2 h-2 rounded-full flex-shrink-0" style="background:#ff5811"></span>
+              <span class="w-2 h-2 rounded-full flex-shrink-0 bg-primary"></span>
               <span class="text-xs text-gray-400 dark:text-gray-500">
                 {{ post.categories[0]?.name ?? 'AI' }}
               </span>
             </div>
 
             <!-- title -->
-            <h3 class="text-[1.05rem] font-bold text-gray-900 dark:text-white leading-snug line-clamp-2 group-hover:text-[#ff5811] transition-colors">
+            <h3 class="text-[1.05rem] font-bold text-gray-900 dark:text-white leading-snug line-clamp-2 group-hover:text-primary transition-colors">
               {{ post.title }}
             </h3>
 
@@ -268,61 +269,123 @@ function nextSlide() {
     </div>
 
     <!-- ══════════════════════════════════
-         MORE NEWS — 4-col grid
+         MORE NEWS — 3-col: featured | list | popular
     ══════════════════════════════════ -->
     <section class="max-w-7xl mx-auto px-5 py-10">
 
-      <h2 class="text-2xl font-black text-gray-900 dark:text-white mb-7">More News</h2>
-
       <!-- skeleton -->
-      <div v-if="!moreNewsPosts.length" class="grid grid-cols-2 lg:grid-cols-4 gap-6">
-        <div v-for="n in 4" :key="n" class="animate-pulse">
-          <div class="w-full aspect-[4/3] bg-gray-200 dark:bg-[#1f1f1f] rounded mb-3" />
-          <div class="h-4 bg-gray-200 dark:bg-[#1f1f1f] rounded w-3/4 mb-2" />
-          <div class="h-4 bg-gray-200 dark:bg-[#1f1f1f] rounded w-1/2 mb-3" />
-          <div class="h-3 bg-gray-200 dark:bg-[#1f1f1f] rounded w-2/3" />
+      <div v-if="!moreNewsPosts.length" class="grid grid-cols-1 lg:grid-cols-[2fr_2fr_1.5fr] gap-8">
+        <!-- left skeleton -->
+        <div class="animate-pulse">
+          <div class="w-full aspect-[4/3] bg-gray-200 dark:bg-[#1f1f1f] rounded-xl mb-4" />
+          <div class="h-3 bg-gray-200 dark:bg-[#1f1f1f] rounded w-1/4 mb-3" />
+          <div class="h-6 bg-gray-200 dark:bg-[#1f1f1f] rounded w-3/4 mb-2" />
+          <div class="h-6 bg-gray-200 dark:bg-[#1f1f1f] rounded w-1/2 mb-4" />
+          <div class="h-3 bg-gray-200 dark:bg-[#1f1f1f] rounded w-full mb-2" />
+          <div class="h-3 bg-gray-200 dark:bg-[#1f1f1f] rounded w-5/6" />
+        </div>
+        <!-- middle skeleton -->
+        <div class="flex flex-col divide-y divide-gray-100 dark:divide-[#222222]">
+          <div v-for="n in 5" :key="n" class="flex gap-4 py-4 animate-pulse">
+            <div class="w-24 h-20 flex-shrink-0 rounded-lg bg-gray-200 dark:bg-[#1f1f1f]" />
+            <div class="flex-1 space-y-2 pt-1">
+              <div class="h-4 bg-gray-200 dark:bg-[#1f1f1f] rounded w-full" />
+              <div class="h-4 bg-gray-200 dark:bg-[#1f1f1f] rounded w-5/6" />
+              <div class="h-3 bg-gray-200 dark:bg-[#1f1f1f] rounded w-full mt-1" />
+            </div>
+          </div>
+        </div>
+        <!-- right skeleton -->
+        <div class="animate-pulse">
+          <div class="h-5 bg-gray-200 dark:bg-[#1f1f1f] rounded w-1/2 mb-5 mx-auto" />
+          <div class="grid grid-cols-2 gap-3">
+            <div v-for="n in 4" :key="n" class="space-y-2">
+              <div class="w-full aspect-[4/3] bg-gray-200 dark:bg-[#1f1f1f] rounded" />
+              <div class="h-3 bg-gray-200 dark:bg-[#1f1f1f] rounded w-full" />
+              <div class="h-3 bg-gray-200 dark:bg-[#1f1f1f] rounded w-3/4" />
+              <div class="h-2.5 bg-gray-200 dark:bg-[#1f1f1f] rounded w-1/2" />
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- cards -->
-      <div v-else class="grid grid-cols-2 lg:grid-cols-4 gap-6">
-        <NuxtLink
-          v-for="post in moreNewsPosts"
-          :key="post.id"
-          :to="`/blog/${post.slug}`"
-          class="group flex flex-col bg-white dark:bg-[#161616] border border-gray-100 dark:border-[#222222] rounded-2xl overflow-hidden hover:shadow-md dark:hover:border-[#333] transition-shadow duration-300"
-        >
-          <!-- image -->
-          <div class="relative w-full aspect-[4/3] overflow-hidden flex-shrink-0">
-            <img
-              :src="postImg(post, 600, 450)"
-              :alt="post.title"
-              class="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-500 ease-out"
-            />
-            <!-- hover overlay -->
-            <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            <!-- category pill -->
-            <span class="absolute bottom-0 left-0 text-[10px] font-black uppercase tracking-wider text-white px-3 py-1.5 bg-[#ff5811]">
-              {{ post.categories[0]?.name ?? 'AI' }}
-            </span>
-          </div>
+      <!-- content -->
+      <div v-else class="grid grid-cols-1 lg:grid-cols-[2fr_2fr_1.5fr] gap-8 items-start">
 
-          <!-- content -->
-          <div class="p-4 flex flex-col flex-1 gap-2">
-            <!-- title -->
-            <h3 class="text-sm font-black text-gray-900 dark:text-white leading-snug line-clamp-3 group-hover:text-[#ff5811] transition-colors">
-              {{ post.title }}
-            </h3>
-
-            <!-- meta: By Author — Date -->
-            <p class="text-xs text-gray-500 dark:text-gray-400 flex items-center gap-1.5 flex-wrap mt-auto pt-1">
-              <span>By</span>
-              <span class="font-bold text-gray-700 dark:text-gray-300">{{ post.author.name }}</span>
-              <span class="inline-block w-5 h-px bg-gray-300 dark:bg-gray-600" />
-              <span>{{ post.formattedDate }}</span>
+        <!-- ── Col 1: large featured post ── -->
+        <template v-if="moreNewsPosts[0]">
+          <NuxtLink :to="`/blog/${moreNewsPosts[0].slug}`" class="group flex flex-col">
+            <div class="w-full aspect-[4/3] rounded-xl overflow-hidden mb-4">
+              <img
+                :src="postImg(moreNewsPosts[0], 800, 600)"
+                :alt="moreNewsPosts[0].title"
+                class="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500 ease-out"
+              />
+            </div>
+            <p class="text-xs font-black uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-2">
+              {{ moreNewsPosts[0].categories.map(c => c.name).join(', ') || 'AI' }}
             </p>
+            <h3 class="text-2xl font-black text-gray-900 dark:text-white leading-snug line-clamp-3 group-hover:text-primary transition-colors mb-2">
+              {{ moreNewsPosts[0].title }}
+            </h3>
+            <p class="text-xs text-gray-400 dark:text-gray-500 mb-3">
+              {{ moreNewsPosts[0].author.name }} &bull; {{ moreNewsPosts[0].formattedDate }}
+            </p>
+            <div class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed line-clamp-4" v-html="moreNewsPosts[0].excerpt" />
+          </NuxtLink>
+        </template>
+
+        <!-- ── Col 2: thumbnail list ── -->
+        <div class="flex flex-col divide-y divide-gray-100 dark:divide-[#222222]">
+          <NuxtLink
+            v-for="post in moreNewsPosts.slice(1, 6)"
+            :key="post.id"
+            :to="`/blog/${post.slug}`"
+            class="flex items-start gap-4 py-4 first:pt-0 group"
+          >
+            <div class="w-24 h-20 flex-shrink-0 rounded-lg overflow-hidden bg-gray-100 dark:bg-[#1f1f1f]">
+              <img
+                :src="postImg(post, 300, 250)"
+                :alt="post.title"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              />
+            </div>
+            <div class="flex-1 min-w-0">
+              <h4 class="text-sm font-bold text-gray-900 dark:text-white leading-snug line-clamp-2 group-hover:text-primary transition-colors mb-1">
+                {{ post.title }}
+              </h4>
+              <div class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed line-clamp-2" v-html="post.excerpt" />
+            </div>
+          </NuxtLink>
+        </div>
+
+        <!-- ── Col 3: popular posts 2×2 grid ── -->
+        <div class="border border-gray-100 dark:border-[#222222] rounded-2xl p-5">
+          <h3 class="text-base font-black text-gray-900 dark:text-white text-center mb-5">Popular Posts</h3>
+          <div class="grid grid-cols-2 gap-4">
+            <NuxtLink
+              v-for="post in popularPosts"
+              :key="post.id"
+              :to="`/blog/${post.slug}`"
+              class="group flex flex-col gap-2"
+            >
+              <div class="w-full aspect-[4/3] rounded-lg overflow-hidden bg-gray-100 dark:bg-[#1f1f1f]">
+                <img
+                  :src="postImg(post, 300, 225)"
+                  :alt="post.title"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+              <h5 class="text-xs font-bold text-gray-900 dark:text-white leading-snug line-clamp-3 group-hover:text-primary transition-colors">
+                {{ post.title }}
+              </h5>
+              <p class="text-[10px] text-gray-400 dark:text-gray-500">
+                {{ post.author.name }} &bull; {{ post.formattedDate }}
+              </p>
+            </NuxtLink>
           </div>
-        </NuxtLink>
+        </div>
+
       </div>
 
     </section>

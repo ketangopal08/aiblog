@@ -7,7 +7,7 @@ const img = computed(() => props.post.featuredImage || `https://picsum.photos/se
 <template>
   <NuxtLink
     :to="`/blog/${post.slug}`"
-    class="flex-shrink-0 w-52 bg-white dark:bg-[#161616] border border-gray-200 dark:border-[#222222] rounded-xl overflow-hidden hover:shadow-lg dark:hover:border-[#ff5811]/40 transition-all duration-300 group"
+    class="flex-shrink-0 w-52 bg-white dark:bg-[#161616] border border-gray-200 dark:border-[#222222] rounded-xl overflow-hidden hover:shadow-lg dark:hover:border-primary/40 transition-all duration-300 group"
   >
     <!-- image with overlay -->
     <div class="h-28 relative overflow-hidden">
@@ -19,15 +19,14 @@ const img = computed(() => props.post.featuredImage || `https://picsum.photos/se
       <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
       <!-- category on image -->
       <span
-        class="absolute bottom-2 left-2 text-[9px] font-black uppercase tracking-wider text-white px-2 py-0.5 rounded-full"
-        style="background:#ff5811"
+        class="absolute bottom-2 left-2 text-[9px] font-black uppercase tracking-wider text-white px-2 py-0.5 rounded-full bg-primary"
       >
         {{ post.categories[0]?.name ?? 'AI' }}
       </span>
     </div>
 
     <div class="p-3">
-      <h4 class="text-sm font-semibold text-gray-900 dark:text-white line-clamp-2 leading-snug group-hover:text-[#ff5811] transition">
+      <h4 class="text-sm font-semibold text-gray-900 dark:text-white line-clamp-2 leading-snug group-hover:text-primary transition">
         {{ post.title }}
       </h4>
       <p class="text-[10px] text-gray-400 dark:text-gray-500 mt-1.5 uppercase tracking-wide">

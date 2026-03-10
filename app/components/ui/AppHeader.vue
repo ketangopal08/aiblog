@@ -44,11 +44,11 @@ watch(menuOpen, (val) => {
         <!-- Drawer header -->
         <div class="flex items-center justify-between px-5 h-14 border-b border-gray-100 dark:border-[#222] flex-shrink-0">
           <NuxtLink to="/" class="text-base font-black tracking-tight text-gray-900 dark:text-white" @click="menuOpen = false">
-            theintelli<span style="color:#ff5811">prompt</span>
+            theintelli<span class="text-primary">prompt</span>
           </NuxtLink>
           <button
             @click="menuOpen = false"
-            class="w-8 h-8 flex items-center justify-center text-gray-500 dark:text-gray-400 hover:text-[#ff5811] transition"
+            class="w-8 h-8 flex items-center justify-center text-gray-500 dark:text-gray-400 hover:text-primary transition"
             aria-label="Close menu"
           >
             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -63,10 +63,10 @@ watch(menuOpen, (val) => {
             <li v-for="link in NAV_LINKS" :key="link.label">
               <NuxtLink
                 :to="link.to"
-                class="flex items-center gap-3 px-3 py-3 text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-[#ff5811] hover:bg-gray-50 dark:hover:bg-[#1a1a1a] rounded-lg transition group"
-                active-class="!text-[#ff5811] !bg-orange-50 dark:!bg-[#1a0f00]"
+                class="flex items-center gap-3 px-3 py-3 text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-primary hover:bg-gray-50 dark:hover:bg-[#1a1a1a] rounded-lg transition group"
+                active-class="!text-primary !bg-orange-50 dark:!bg-[#1a0f00]"
               >
-                <svg class="w-4 h-4 flex-shrink-0 text-gray-400 group-hover:text-[#ff5811] transition" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                <svg class="w-4 h-4 flex-shrink-0 text-gray-400 group-hover:text-primary transition" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" :d="link.icon" />
                 </svg>
                 {{ link.label }}
@@ -83,7 +83,7 @@ watch(menuOpen, (val) => {
           <!-- theme toggle -->
           <button
             @click="toggleTheme"
-            class="w-full flex items-center justify-center gap-2 text-xs font-semibold text-gray-500 dark:text-gray-400 hover:text-[#ff5811] transition py-1"
+            class="w-full flex items-center justify-center gap-2 text-xs font-semibold text-gray-500 dark:text-gray-400 hover:text-primary transition py-1"
           >
             <svg v-if="!isDark" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <circle cx="12" cy="12" r="4"/>
@@ -107,7 +107,7 @@ watch(menuOpen, (val) => {
         <button
           @click="menuOpen = !menuOpen"
           aria-label="Toggle menu"
-          class="w-10 h-10 flex items-center justify-center text-gray-800 dark:text-gray-100 hover:text-[#ff5811] transition"
+          class="w-10 h-10 flex items-center justify-center text-gray-800 dark:text-gray-100 hover:text-primary transition"
         >
           <span class="flex flex-col gap-[5px]">
             <span class="block w-5 h-[1.5px] bg-current transition-all duration-300" />
@@ -118,7 +118,7 @@ watch(menuOpen, (val) => {
 
         <span class="w-px h-5 bg-gray-300 dark:bg-[#333] mx-1" />
 
-        <button aria-label="Search" class="w-10 h-10 flex items-center justify-center text-gray-700 dark:text-gray-300 hover:text-[#ff5811] transition">
+        <button aria-label="Search" class="w-10 h-10 flex items-center justify-center text-gray-700 dark:text-gray-300 hover:text-primary transition">
           <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <circle cx="11" cy="11" r="7"/>
             <path stroke-linecap="round" d="M21 21l-4.35-4.35"/>
@@ -138,7 +138,7 @@ watch(menuOpen, (val) => {
         <button
           @click="toggleTheme"
           :title="isDark ? 'Light mode' : 'Dark mode'"
-          class="w-10 h-10 flex items-center justify-center text-gray-700 dark:text-gray-300 hover:text-[#ff5811] transition"
+          class="w-10 h-10 flex items-center justify-center text-gray-700 dark:text-gray-300 hover:text-primary transition"
         >
           <svg v-if="!isDark" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <circle cx="12" cy="12" r="4"/>
