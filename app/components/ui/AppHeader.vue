@@ -99,15 +99,15 @@ watch(menuOpen, (val) => {
     </Transition>
   </Teleport>
 
-  <header class="bg-white dark:bg-[#0D0D0D] border-b border-gray-200 dark:border-[#222222] sticky top-0 z-30">
-    <div class="relative flex items-center h-14 px-4 sm:px-6">
+  <!-- Row 1: brand bar (scrolls away) -->
+  <div class="bg-white dark:bg-[#0D0D0D] border-b border-gray-100 dark:border-[#1a1a1a]">
+      <div class="relative flex items-center h-14 px-4 sm:px-6">
 
-      <!-- LEFT: burger | divider | search -->
-      <div class="flex items-center gap-1 flex-shrink-0">
+        <!-- LEFT: burger -->
         <button
           @click="menuOpen = !menuOpen"
           aria-label="Toggle menu"
-          class="w-10 h-10 flex items-center justify-center text-gray-800 dark:text-gray-100 hover:text-primary transition"
+          class="w-10 h-10 flex items-center justify-center text-gray-800 dark:text-gray-100 hover:text-primary transition flex-shrink-0"
         >
           <span class="flex flex-col gap-[5px]">
             <span class="block w-5 h-[1.5px] bg-current transition-all duration-300" />
@@ -124,38 +124,50 @@ watch(menuOpen, (val) => {
             <path stroke-linecap="round" d="M21 21l-4.35-4.35"/>
           </svg>
         </button>
+
+        <!-- CENTER: logo -->
+        <NuxtLink to="/" class="absolute left-1/2 -translate-x-1/2 select-none whitespace-nowrap">
+          <span class="text-[1.35rem] font-black tracking-tight leading-none text-gray-900 dark:text-white">
+            theintelliprompt
+          </span>
+        </NuxtLink>
+
+        <!-- RIGHT: theme toggle + Subscribe -->
+        <div class="ml-auto flex items-center gap-2 flex-shrink-0">
+          <button
+            @click="toggleTheme"
+            :title="isDark ? 'Light mode' : 'Dark mode'"
+            class="w-10 h-10 flex items-center justify-center text-gray-700 dark:text-gray-300 hover:text-primary transition"
+          >
+            <svg v-if="!isDark" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="4"/>
+              <path stroke-linecap="round" d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+            </svg>
+            <svg v-else class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+            </svg>
+          </button>
+
+          <button class="hidden sm:flex items-center text-xs font-bold px-4 h-9 border border-gray-900 dark:border-white text-gray-900 dark:text-white hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900 transition">
+            Subscribe
+          </button>
+        </div>
+
       </div>
+  </div>
 
-      <!-- CENTER: logo -->
-      <NuxtLink to="/" class="absolute left-1/2 -translate-x-1/2 select-none whitespace-nowrap">
-        <span class="text-[1.35rem] font-black tracking-tight leading-none text-gray-900 dark:text-white">
-          theintelliprompt
-        </span>
-      </NuxtLink>
-
-      <!-- RIGHT: theme toggle + Subscribe -->
-      <div class="ml-auto flex items-center gap-2 flex-shrink-0">
-        <button
-          @click="toggleTheme"
-          :title="isDark ? 'Light mode' : 'Dark mode'"
-          class="w-10 h-10 flex items-center justify-center text-gray-700 dark:text-gray-300 hover:text-primary transition"
-        >
-          <svg v-if="!isDark" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="4"/>
-            <path stroke-linecap="round" d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
-          </svg>
-          <svg v-else class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
-          </svg>
-        </button>
-
-        <button class="hidden sm:flex items-center text-xs font-bold px-4 h-9 border border-gray-900 dark:border-white text-gray-900 dark:text-white hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900 transition">
-          Subscribe
-        </button>
-      </div>
-
-    </div>
-  </header>
+  <!-- Row 2: nav menu (sticky, desktop only) -->
+  <nav class="hidden lg:flex items-center justify-center bg-white dark:bg-[#0D0D0D] border-b border-gray-200 dark:border-[#222222] sticky top-0 z-30">
+    <NuxtLink
+      v-for="link in NAV_LINKS"
+      :key="link.label"
+      :to="link.to"
+      class="px-4 h-10 flex items-center text-xs font-bold uppercase tracking-wider text-gray-600 dark:text-gray-300 hover:text-primary border-b-2 border-transparent transition-colors"
+      active-class="!text-primary !border-primary"
+    >
+      {{ link.label }}
+    </NuxtLink>
+  </nav>
 </template>
 
 <style scoped>
