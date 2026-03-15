@@ -25,7 +25,7 @@ const img = computed(() => props.post.featuredImage || `https://picsum.photos/se
           <span
             v-for="cat in post.categories"
             :key="cat.id"
-            class="text-[10px] font-black uppercase tracking-widest text-white px-2.5 py-1 rounded-full bg-primary"
+            class="text-[10px] font-black uppercase tracking-widest text-white px-2.5 py-1 rounded-full bg-gray-900/80"
           >
             {{ cat.name }}
           </span>
@@ -71,7 +71,7 @@ const img = computed(() => props.post.featuredImage || `https://picsum.photos/se
     <div class="mt-10">
       <NuxtLink
         to="/"
-        class="text-sm font-bold text-primary hover:underline uppercase tracking-wide"
+        class="text-sm font-bold text-gray-900 dark:text-white hover:underline uppercase tracking-wide"
       >
         ← Back to all posts
       </NuxtLink>

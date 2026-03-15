@@ -14,9 +14,6 @@ export default {
       fontFamily: {
         sans: ['Sora', 'sans-serif'],
       },
-      colors: {
-        primary: '#ff5811',
-      },
     },
   },
   plugins: [],

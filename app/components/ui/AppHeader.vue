@@ -71,12 +71,12 @@ watch(menuOpen, (val) => {
         <!-- Drawer header -->
         <div class="flex items-center justify-between px-5 h-14 border-b border-gray-100 dark:border-[#222] flex-shrink-0">
           <NuxtLink to="/" class="text-base font-black tracking-tight text-gray-900 dark:text-white" @click="menuOpen = false">
-            theintelli<span class="text-primary">prompt</span>
+            theintelliprompt
           </NuxtLink>
           <button
             type="button"
             @click="menuOpen = false"
-            class="w-8 h-8 flex items-center justify-center text-gray-500 dark:text-gray-400 hover:text-primary transition"
+            class="w-8 h-8 flex items-center justify-center text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition"
             aria-label="Close menu"
           >
             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -93,11 +93,11 @@ watch(menuOpen, (val) => {
                 :to="link.to"
                 class="flex items-center gap-3 px-3 py-3 text-sm font-semibold
                        text-gray-700 dark:text-gray-300
-                       hover:text-primary hover:bg-gray-50 dark:hover:bg-[#1a1a1a]
+                       hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-[#1a1a1a]
                        rounded-lg transition group"
-                active-class="!text-primary !bg-orange-50 dark:!bg-[#1a0f00]"
+                active-class="!text-gray-900 dark:!text-white !bg-gray-100 dark:!bg-[#1a1a1a]"
               >
-                <svg class="w-4 h-4 flex-shrink-0 text-gray-400 group-hover:text-primary transition"
+                <svg class="w-4 h-4 flex-shrink-0 text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-200 transition"
                      fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" :d="link.icon" />
                 </svg>
@@ -119,7 +119,7 @@ watch(menuOpen, (val) => {
             type="button"
             @click="toggleTheme"
             class="w-full flex items-center justify-center gap-2 text-xs font-semibold
-                   text-gray-500 dark:text-gray-400 hover:text-primary transition py-1"
+                   text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition py-1"
           >
             <svg v-if="!isDark" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <circle cx="12" cy="12" r="4"/>
@@ -143,7 +143,7 @@ watch(menuOpen, (val) => {
         type="button"
         @click="menuOpen = !menuOpen"
         aria-label="Toggle menu"
-        class="w-10 h-10 flex items-center justify-center text-gray-800 dark:text-gray-100 hover:text-primary transition flex-shrink-0"
+        class="w-10 h-10 flex items-center justify-center text-gray-800 dark:text-gray-100 hover:text-gray-600 dark:hover:text-gray-300 transition flex-shrink-0"
       >
         <span class="flex flex-col gap-[5px]">
           <span class="block w-5 h-[1.5px] bg-current transition-all duration-300" />
@@ -154,7 +154,7 @@ watch(menuOpen, (val) => {
 
       <span class="w-px h-5 bg-gray-300 dark:bg-[#333] mx-1" />
 
-      <button type="button" aria-label="Search" class="w-10 h-10 flex items-center justify-center text-gray-700 dark:text-gray-300 hover:text-primary transition">
+      <button type="button" aria-label="Search" class="w-10 h-10 flex items-center justify-center text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition">
         <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
           <circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/>
         </svg>
@@ -163,7 +163,7 @@ watch(menuOpen, (val) => {
       <!-- Centre: logo -->
       <NuxtLink to="/" class="absolute left-1/2 -translate-x-1/2 select-none whitespace-nowrap">
         <span class="text-[1.2rem] font-black tracking-tight leading-none text-gray-900 dark:text-white">
-          theintelli<span class="text-primary">prompt</span>
+          theintelliprompt
         </span>
       </NuxtLink>
 
@@ -173,7 +173,7 @@ watch(menuOpen, (val) => {
           type="button"
           @click="toggleTheme"
           :title="isDark ? 'Light mode' : 'Dark mode'"
-          class="w-10 h-10 flex items-center justify-center text-gray-700 dark:text-gray-300 hover:text-primary transition"
+          class="w-10 h-10 flex items-center justify-center text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition"
         >
           <svg v-if="!isDark" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <circle cx="12" cy="12" r="4"/>
@@ -201,7 +201,7 @@ watch(menuOpen, (val) => {
       to="/"
       class="text-[38px] font-black text-gray-900 dark:text-white tracking-[-1.5px] leading-none inline-block mb-5"
     >
-      theintelli<span class="text-primary">prompt</span>
+      theintelliprompt
     </NuxtLink>
     <!-- Sentinel: IntersectionObserver watches this to know when masthead leaves viewport -->
     <div ref="mastheadSentinel" class="h-px" />
@@ -220,7 +220,7 @@ watch(menuOpen, (val) => {
         to="/"
         class="text-[15px] font-black text-gray-900 dark:text-white tracking-tight py-2 mr-4 flex-shrink-0"
       >
-        theintelli<span class="text-primary">prompt</span>
+        theintelliprompt
       </NuxtLink>
     </Transition>
 
@@ -233,8 +233,8 @@ watch(menuOpen, (val) => {
         class="px-4 h-11 flex items-center text-[11px] font-bold uppercase tracking-wider
                text-gray-600 dark:text-gray-300
                border-b-2 border-transparent
-               hover:text-primary transition-colors"
-        active-class="!text-primary !border-primary"
+               hover:text-gray-900 dark:hover:text-white transition-colors"
+        active-class="!text-gray-900 dark:!text-white !border-gray-900 dark:!border-white"
       >
         {{ link.label }}
       </NuxtLink>
@@ -242,7 +242,7 @@ watch(menuOpen, (val) => {
 
     <!-- Right: actions -->
     <div class="flex items-center gap-2 flex-shrink-0">
-      <button type="button" aria-label="Search" class="w-9 h-9 flex items-center justify-center text-gray-600 dark:text-gray-300 hover:text-primary transition">
+      <button type="button" aria-label="Search" class="w-9 h-9 flex items-center justify-center text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition">
         <svg class="w-[17px] h-[17px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
           <circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/>
         </svg>
@@ -251,7 +251,7 @@ watch(menuOpen, (val) => {
         type="button"
         @click="toggleTheme"
         :aria-label="isDark ? 'Switch to light mode' : 'Switch to dark mode'"
-        class="w-9 h-9 flex items-center justify-center text-gray-600 dark:text-gray-300 hover:text-primary transition"
+        class="w-9 h-9 flex items-center justify-center text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition"
       >
         <svg v-if="!isDark" class="w-[17px] h-[17px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
           <circle cx="12" cy="12" r="4"/>
@@ -261,7 +261,7 @@ watch(menuOpen, (val) => {
           <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
         </svg>
       </button>
-      <button type="button" class="bg-primary text-white text-[10px] font-bold px-4 py-1.5 rounded-full hover:bg-orange-600 transition">
+      <button type="button" class="bg-gray-900 text-white text-[10px] font-bold px-4 py-1.5 rounded-full hover:bg-gray-700 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-200 transition">
         Subscribe
       </button>
     </div>

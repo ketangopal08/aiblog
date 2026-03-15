@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Redesign Mockup v2 — theintelliprompt</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Sora', sans-serif; background: #fafafa; color: #111; line-height: 1.5; }
+
+  /* ── HEADER ── */
+  .masthead {
+    background: #fff;
+    border-bottom: 1px solid #ebebeb;
+    padding: 28px 32px 0;
+    text-align: center;
+  }
+  .masthead-tagline {
+    font-size: 10px;
+    font-weight: 600;
+    color: #bbb;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin-bottom: 10px;
+  }
+  .masthead-logo {
+    font-size: 38px;
+    font-weight: 900;
+    color: #111;
+    letter-spacing: -1.5px;
+    line-height: 1;
+    margin-bottom: 20px;
+  }
+  .masthead-logo span { color: #ff5811; }
+  .sticky-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid #f0f0f0;
+    padding: 0 4px;
+  }
+  .nav-links { display: flex; align-items: center; gap: 0; }
+  .nav-link {
+    font-size: 11px;
+    font-weight: 700;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 13px 16px;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+  }
+  .nav-link.active { color: #ff5811; border-bottom-color: #ff5811; }
+  .nav-actions { display: flex; align-items: center; gap: 10px; padding-right: 4px; }
+  .nav-icon { width: 17px; height: 17px; stroke: #888; fill: none; stroke-width: 2; cursor: pointer; flex-shrink: 0; }
+  .subscribe-btn {
+    background: #ff5811;
+    color: #fff;
+    font-family: 'Sora', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 7px 16px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    letter-spacing: 0.3px;
+  }
+
+  /* ── LAYOUT ── */
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+
+  /* ── HERO SECTION ── */
+  .hero-section { padding: 32px 0 0; }
+
+  /* 3-col hero grid: big | 2-stacked | list */
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 5fr 3.5fr 2.5fr;
+    gap: 16px;
+    align-items: stretch;
+  }
+
+  /* ── BIG HERO CARD ── */
+  .hero-main {
+    position: relative;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #1a1a2e;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+    min-height: 440px;
+  }
+  .hero-main-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 40%, #334155 100%);
+    /* placeholder for real image */
+  }
+  /* fake photo texture */
+  .hero-main-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 2px,
+        rgba(255,255,255,0.015) 2px,
+        rgba(255,255,255,0.015) 4px
+      );
+  }
+  .hero-main-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.1) 100%);
+  }
+  .hero-main-content {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 28px 28px 28px;
+  }
+  .cat-label {
+    font-size: 10px;
+    font-weight: 800;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+    display: block;
+  }
+  .hero-main-title {
+    font-size: 26px;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 12px;
+    letter-spacing: -0.5px;
+  }
+  .hero-main-date {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    font-weight: 500;
+  }
+
+  /* ── MIDDLE 2-STACKED CARDS ── */
+  .hero-middle {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .hero-mid-card {
+    position: relative;
+    border-radius: 14px;
+    overflow: hidden;
+    flex: 1;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+    min-height: 200px;
+  }
+  .hero-mid-bg {
+    position: absolute;
+    inset: 0;
+  }
+  .hero-mid-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.15) 60%, transparent 100%);
+  }
+  .hero-mid-content {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 16px 18px;
+  }
+  .cat-label-orange {
+    font-size: 9px;
+    font-weight: 800;
+    color: #ff5811;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+    display: block;
+  }
+  .hero-mid-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.3;
+    margin-bottom: 5px;
+  }
+  .hero-mid-date {
+    font-size: 11px;
+    color: rgba(255,255,255,0.5);
+  }
+
+  /* ── RIGHT LIST ── */
+  .hero-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border-left: 1px solid #ebebeb;
+    padding-left: 20px;
+  }
+  .hero-list-item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 14px 0;
+    border-bottom: 1px solid #f3f3f3;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .hero-list-item:first-child { padding-top: 0; }
+  .hero-list-item:last-child { border-bottom: none; }
+  .hero-list-thumb {
+    width: 72px;
+    height: 56px;
+    border-radius: 8px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .hero-list-thumb-inner {
+    width: 100%;
+    height: 100%;
+    background: #e5e7eb;
+  }
+  .hero-list-body { flex: 1; min-width: 0; }
+  .hero-list-cat {
+    font-size: 9px;
+    font-weight: 800;
+    color: #ff5811;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 4px;
+  }
+  .hero-list-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #111;
+    line-height: 1.35;
+    margin-bottom: 4px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .hero-list-date { font-size: 10px; color: #bbb; font-weight: 500; }
+
+  /* ── SECTION DIVIDER ── */
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 36px 0 24px;
+  }
+  .section-label h2 {
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #111;
+    white-space: nowrap;
+  }
+  .section-label-line { flex: 1; height: 1px; background: #ebebeb; }
+  .section-label-link {
+    font-size: 11px;
+    font-weight: 700;
+    color: #ff5811;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-decoration: none;
+  }
+
+  /* ── CARD GRID ── */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 44px;
+  }
+  .post-card {
+    border-radius: 12px;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid #ebebeb;
+    cursor: pointer;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .post-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.07); transform: translateY(-2px); }
+  .card-img { width: 100%; aspect-ratio: 16/9; position: relative; overflow: hidden; }
+  .card-img-inner { width: 100%; height: 100%; }
+  .card-reading-time {
+    position: absolute;
+    top: 10px; right: 10px;
+    background: rgba(0,0,0,0.5);
+    color: #fff;
+    font-size: 9px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 20px;
+  }
+  .card-body { padding: 16px 18px 18px; }
+  .card-cat { display: flex; align-items: center; gap: 6px; margin-bottom: 8px; }
+  .card-cat-dot { width: 6px; height: 6px; border-radius: 50%; background: #ff5811; flex-shrink: 0; }
+  .card-cat-name { font-size: 10px; font-weight: 700; color: #999; text-transform: uppercase; letter-spacing: 1px; }
+  .card-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #111;
+    line-height: 1.35;
+    margin-bottom: 8px;
+    letter-spacing: -0.2px;
+  }
+  .card-excerpt {
+    font-size: 12px;
+    color: #888;
+    line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 14px;
+  }
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 12px;
+    border-top: 1px solid #f5f5f5;
+    font-size: 11px;
+    color: #bbb;
+  }
+
+  /* ── NEWSLETTER BAND ── */
+  .newsletter-band {
+    background: #111;
+    border-radius: 16px;
+    padding: 40px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    margin-bottom: 52px;
+  }
+  .newsletter-copy h3 { font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 6px; letter-spacing: -0.5px; }
+  .newsletter-copy p { font-size: 13px; color: #666; }
+  .newsletter-form { display: flex; gap: 8px; flex-shrink: 0; }
+  .newsletter-input {
+    font-family: 'Sora', sans-serif;
+    font-size: 13px;
+    background: #1e1e1e;
+    border: 1px solid #2d2d2d;
+    color: #fff;
+    padding: 12px 18px;
+    border-radius: 8px;
+    outline: none;
+    width: 240px;
+  }
+  .newsletter-input::placeholder { color: #555; }
+  .newsletter-submit {
+    font-family: 'Sora', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    background: #ff5811;
+    color: #fff;
+    border: none;
+    padding: 12px 22px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  /* ── FOOTER ── */
+  .footer { background: #0a0a0a; padding: 48px 0 24px; border-top: 1px solid #1a1a1a; }
+  .footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+  .footer-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 40px; margin-bottom: 40px; }
+  .footer-brand { font-size: 20px; font-weight: 900; color: #fff; letter-spacing: -0.5px; }
+  .footer-brand span { color: #ff5811; }
+  .footer-tagline { font-size: 12px; color: #555; margin-top: 6px; }
+  .footer-socials { display: flex; gap: 10px; margin-top: 16px; }
+  .social-btn { width: 34px; height: 34px; border-radius: 50%; border: 1px solid #2a2a2a; display: flex; align-items: center; justify-content: center; color: #666; }
+  .footer-cols { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; padding-bottom: 36px; border-bottom: 1px solid #1a1a1a; }
+  .footer-col h4 { font-size: 10px; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 14px; }
+  .footer-col a { display: block; font-size: 12px; color: #555; text-decoration: none; margin-bottom: 10px; }
+  .footer-bottom { text-align: center; font-size: 11px; color: #3a3a3a; padding-top: 24px; }
+  .footer-bottom a { color: #555; text-decoration: none; margin-left: 10px; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="masthead">
+    <div class="masthead-tagline">Your AI Intelligence, Daily</div>
+    <div class="masthead-logo">theintelli<span>prompt</span></div>
+    <nav class="sticky-nav">
+      <div class="nav-links">
+        <a class="nav-link active" href="#">All</a>
+        <a class="nav-link" href="#">GPT</a>
+        <a class="nav-link" href="#">Gemini</a>
+        <a class="nav-link" href="#">Claude</a>
+        <a class="nav-link" href="#">AI</a>
+        <a class="nav-link" href="#">About</a>
+      </div>
+      <div class="nav-actions">
+        <svg class="nav-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
+        <svg class="nav-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path stroke-linecap="round" d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2"/></svg>
+        <button class="subscribe-btn">Subscribe</button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- HOMEPAGE -->
+<main>
+  <div class="container">
+    <section class="hero-section">
+
+      <!-- 3-COL HERO -->
+      <div class="hero-grid">
+
+        <!-- Col 1: Big hero -->
+        <a class="hero-main" href="#">
+          <div class="hero-main-bg"></div>
+          <!-- simulated photo with CSS gradient art -->
+          <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 70% 30%, rgba(100,120,180,0.3) 0%, transparent 60%), radial-gradient(ellipse at 20% 70%, rgba(60,80,140,0.4) 0%, transparent 50%);"></div>
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0.07;">
+            <svg width="200" height="200" fill="none" stroke="#fff" stroke-width="0.5" viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="40"/><circle cx="50" cy="50" r="28"/><circle cx="50" cy="50" r="16"/>
+              <line x1="50" y1="10" x2="50" y2="90"/><line x1="10" y1="50" x2="90" y2="50"/>
+            </svg>
+          </div>
+          <div class="hero-main-overlay"></div>
+          <div class="hero-main-content">
+            <span class="cat-label">Claude</span>
+            <h1 class="hero-main-title">Constitutional AI: How Anthropic Builds Safe Models</h1>
+            <div class="hero-main-date">February 5, 2025</div>
+          </div>
+        </a>
+
+        <!-- Col 2: 2 stacked -->
+        <div class="hero-middle">
+          <a class="hero-mid-card" href="#">
+            <div class="hero-mid-bg" style="background:linear-gradient(155deg,#1c3d5a 0%,#2d6a8e 60%,#4a9bb5 100%);"></div>
+            <div style="position:absolute;inset:0;opacity:0.12;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(255,255,255,0.05) 3px,rgba(255,255,255,0.05) 4px);"></div>
+            <div class="hero-mid-overlay"></div>
+            <div class="hero-mid-content">
+              <span class="cat-label-orange">GPT</span>
+              <div class="hero-mid-title">GPT-4o: Everything You Need to Know</div>
+              <div class="hero-mid-date">February 10, 2025</div>
+            </div>
+          </a>
+          <a class="hero-mid-card" href="#">
+            <div class="hero-mid-bg" style="background:linear-gradient(155deg,#1a3a28 0%,#2d6348 60%,#3d8a60 100%);"></div>
+            <div style="position:absolute;inset:0;opacity:0.12;background:repeating-linear-gradient(90deg,transparent,transparent 3px,rgba(255,255,255,0.05) 3px,rgba(255,255,255,0.05) 4px);"></div>
+            <div class="hero-mid-overlay"></div>
+            <div class="hero-mid-content">
+              <span class="cat-label-orange">Gemini</span>
+              <div class="hero-mid-title">Google Gemini Ultra vs GPT-4: The Real Comparison</div>
+              <div class="hero-mid-date">February 18, 2025</div>
+            </div>
+          </a>
+        </div>
+
+        <!-- Col 3: Thumbnail list -->
+        <div class="hero-list">
+          <a class="hero-list-item" href="#">
+            <div class="hero-list-thumb">
+              <div class="hero-list-thumb-inner" style="background:linear-gradient(135deg,#d1fae5,#6ee7b7);"></div>
+            </div>
+            <div class="hero-list-body">
+              <div class="hero-list-cat">Claude</div>
+              <div class="hero-list-title">Claude 3 Opus: The Best Coding Assistant?</div>
+              <div class="hero-list-date">March 1, 2025</div>
+            </div>
+          </a>
+          <a class="hero-list-item" href="#">
+            <div class="hero-list-thumb">
+              <div class="hero-list-thumb-inner" style="background:linear-gradient(135deg,#fef3c7,#fde68a);"></div>
+            </div>
+            <div class="hero-list-body">
+              <div class="hero-list-cat">GPT</div>
+              <div class="hero-list-title">Prompt Engineering Best Practices in 2025</div>
+              <div class="hero-list-date">March 5, 2025</div>
+            </div>
+          </a>
+          <a class="hero-list-item" href="#">
+            <div class="hero-list-thumb">
+              <div class="hero-list-thumb-inner" style="background:linear-gradient(135deg,#dbeafe,#93c5fd);"></div>
+            </div>
+            <div class="hero-list-body">
+              <div class="hero-list-cat">Gemini</div>
+              <div class="hero-list-title">Gemini Flash: Speed Without Sacrifice</div>
+              <div class="hero-list-date">March 8, 2025</div>
+            </div>
+          </a>
+          <a class="hero-list-item" href="#">
+            <div class="hero-list-thumb">
+              <div class="hero-list-thumb-inner" style="background:linear-gradient(135deg,#ede9fe,#c4b5fd);"></div>
+            </div>
+            <div class="hero-list-body">
+              <div class="hero-list-cat">Claude</div>
+              <div class="hero-list-title">Claude Haiku: Production-Ready AI on a Budget</div>
+              <div class="hero-list-date">March 9, 2025</div>
+            </div>
+          </a>
+        </div>
+
+      </div>
+
+      <!-- LATEST POSTS -->
+      <div class="section-label">
+        <h2>Latest Posts</h2>
+        <div class="section-label-line"></div>
+        <a class="section-label-link" href="#">View All →</a>
+      </div>
+
+      <div class="card-grid">
+        <div class="post-card">
+          <div class="card-img"><div class="card-img-inner" style="background:linear-gradient(135deg,#fef3c7,#fde68a);"></div><div class="card-reading-time">5 min read</div></div>
+          <div class="card-body">
+            <div class="card-cat"><div class="card-cat-dot"></div><span class="card-cat-name">GPT</span></div>
+            <div class="card-title">The Prompt Engineering Techniques That Actually Work in 2025</div>
+            <div class="card-excerpt">After testing hundreds of prompting strategies, here are the ones that consistently deliver results across GPT-4o and o3-mini.</div>
+            <div class="card-footer"><span>Alex Kim</span><span>Mar 11</span></div>
+          </div>
+        </div>
+        <div class="post-card">
+          <div class="card-img"><div class="card-img-inner" style="background:linear-gradient(135deg,#dbeafe,#bfdbfe);"></div><div class="card-reading-time">4 min read</div></div>
+          <div class="card-body">
+            <div class="card-cat"><div class="card-cat-dot"></div><span class="card-cat-name">Claude</span></div>
+            <div class="card-title">Claude 3.5 Sonnet vs Opus: Which Should You Use and When?</div>
+            <div class="card-excerpt">A practical breakdown of capabilities, cost, and speed to help you pick the right model for your use case.</div>
+            <div class="card-footer"><span>Maya Patel</span><span>Mar 10</span></div>
+          </div>
+        </div>
+        <div class="post-card">
+          <div class="card-img"><div class="card-img-inner" style="background:linear-gradient(135deg,#d1fae5,#a7f3d0);"></div><div class="card-reading-time">7 min read</div></div>
+          <div class="card-body">
+            <div class="card-cat"><div class="card-cat-dot"></div><span class="card-cat-name">Gemini</span></div>
+            <div class="card-title">How Google's Gemini 2.0 Handles Multimodal Tasks Better Than Anyone</div>
+            <div class="card-excerpt">Vision, audio, and code together — Gemini's multimodal approach is finally living up to the hype.</div>
+            <div class="card-footer"><span>Jordan Lee</span><span>Mar 8</span></div>
+          </div>
+        </div>
+        <div class="post-card">
+          <div class="card-img"><div class="card-img-inner" style="background:linear-gradient(135deg,#ede9fe,#ddd6fe);"></div><div class="card-reading-time">6 min read</div></div>
+          <div class="card-body">
+            <div class="card-cat"><div class="card-cat-dot"></div><span class="card-cat-name">AI</span></div>
+            <div class="card-title">The AGI Timeline Debate: Why Every Expert Seems to Disagree</div>
+            <div class="card-excerpt">From 2 years to never — the range of AGI predictions reveals as much about the predictor as the technology.</div>
+            <div class="card-footer"><span>Sam Chen</span><span>Mar 7</span></div>
+          </div>
+        </div>
+        <div class="post-card">
+          <div class="card-img"><div class="card-img-inner" style="background:linear-gradient(135deg,#fce7f3,#fbcfe8);"></div><div class="card-reading-time">5 min read</div></div>
+          <div class="card-body">
+            <div class="card-cat"><div class="card-cat-dot"></div><span class="card-cat-name">GPT</span></div>
+            <div class="card-title">Building Production Apps with the OpenAI Assistants API</div>
+            <div class="card-excerpt">Threads, tools, file search — a practical guide to shipping real products on top of the Assistants API.</div>
+            <div class="card-footer"><span>Alex Kim</span><span>Mar 6</span></div>
+          </div>
+        </div>
+        <div class="post-card">
+          <div class="card-img"><div class="card-img-inner" style="background:linear-gradient(135deg,#fff7ed,#fed7aa);"></div><div class="card-reading-time">3 min read</div></div>
+          <div class="card-body">
+            <div class="card-cat"><div class="card-cat-dot"></div><span class="card-cat-name">AI</span></div>
+            <div class="card-title">AI Regulation in 2025: What Every Developer Needs to Know</div>
+            <div class="card-excerpt">The EU AI Act is live and the US is catching up fast. Here's what it means for teams shipping AI products.</div>
+            <div class="card-footer"><span>Maya Patel</span><span>Mar 5</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- NEWSLETTER -->
+      <div class="newsletter-band">
+        <div class="newsletter-copy">
+          <h3>Stay ahead of AI.</h3>
+          <p>Weekly digest of the most important developments across GPT, Claude, Gemini and beyond.</p>
+        </div>
+        <div class="newsletter-form">
+          <input class="newsletter-input" type="email" placeholder="your@email.com" />
+          <button class="newsletter-submit">Subscribe →</button>
+        </div>
+      </div>
+
+    </section>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">theintelli<span>prompt</span></div>
+        <div class="footer-tagline">Your AI intelligence, daily.</div>
+        <div class="footer-socials">
+          <div class="social-btn"><svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></div>
+          <div class="social-btn"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div>
+          <div class="social-btn"><svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h4>AI Models</h4>
+        <a href="#">GPT Overview</a><a href="#">Prompt Engineering</a><a href="#">GPT Use Cases</a><a href="#">OpenAI News</a>
+      </div>
+      <div class="footer-col">
+        <h4>Claude</h4>
+        <a href="#">Claude Guides</a><a href="#">Claude vs Others</a><a href="#">Anthropic News</a><a href="#">Safety & Alignment</a>
+      </div>
+      <div class="footer-col">
+        <h4>Gemini</h4>
+        <a href="#">Gemini Basics</a><a href="#">Multimodal AI</a><a href="#">Google AI News</a><a href="#">Gemini vs GPT</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="#">About Us</a><a href="#">Contact</a><a href="#">Newsletter</a><a href="#">Advertise</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2025 theintelliprompt. All Rights Reserved.
+      <a href="#">Terms</a><a href="#">Privacy</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

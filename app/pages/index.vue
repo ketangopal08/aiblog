@@ -132,10 +132,10 @@ function postImg(post: PostModel, w = 800, h = 500) {
                   />
                 </div>
                 <div class="flex-1 min-w-0">
-                  <p class="text-[9px] font-extrabold text-primary uppercase tracking-widest mb-1">
+                  <p class="text-[9px] font-extrabold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-1">
                     {{ post.categories[0]?.name ?? 'AI' }}
                   </p>
-                  <p class="text-[13px] font-bold text-gray-900 dark:text-white leading-snug line-clamp-2 group-hover:text-primary transition-colors">
+                  <p class="text-[13px] font-bold text-gray-900 dark:text-white leading-snug line-clamp-2 group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors">
                     {{ post.title }}
                   </p>
                   <p class="text-[10px] text-gray-400 dark:text-gray-500 mt-0.5 font-medium">
@@ -158,7 +158,7 @@ function postImg(post: PostModel, w = 800, h = 500) {
             Latest Posts
           </h2>
           <div class="flex-1 h-px bg-gray-100 dark:bg-[#222]" />
-          <NuxtLink to="/" class="text-[11px] font-bold text-primary uppercase tracking-widest">
+          <NuxtLink to="/" class="text-[11px] font-bold text-gray-900 dark:text-white uppercase tracking-widest hover:underline">
             View All →
           </NuxtLink>
         </div>
@@ -193,8 +193,8 @@ function postImg(post: PostModel, w = 800, h = 500) {
           />
           <button
             type="submit"
-            class="font-sans text-[12px] font-bold bg-primary text-white
-                   px-5 py-3 rounded-lg hover:bg-orange-600 transition"
+            class="font-sans text-[12px] font-bold bg-white text-gray-900
+                   px-5 py-3 rounded-lg hover:bg-gray-100 transition"
           >
             Subscribe →
           </button>

@@ -30,7 +30,7 @@ defineProps<{ post: PostModel }>()
     <div class="flex flex-col flex-1 p-[18px] gap-2">
       <!-- Category -->
       <div class="flex items-center gap-1.5">
-        <span class="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" />
+        <span class="w-1.5 h-1.5 rounded-full bg-gray-400 dark:bg-gray-500 flex-shrink-0" />
         <span class="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest">
           {{ post.categories[0]?.name ?? 'AI' }}
         </span>
@@ -38,7 +38,7 @@ defineProps<{ post: PostModel }>()
 
       <!-- Title -->
       <h3 class="text-[15px] font-bold text-gray-900 dark:text-white leading-snug line-clamp-2
-                 tracking-[-0.2px] group-hover:text-primary transition-colors">
+                 tracking-[-0.2px] group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors">
         {{ post.title }}
       </h3>
 

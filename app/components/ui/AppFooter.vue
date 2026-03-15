@@ -49,7 +49,7 @@ const COLUMNS = [
       <div class="flex justify-between items-start gap-10 pt-12 pb-10">
         <div>
           <NuxtLink to="/" class="text-[20px] font-black text-white tracking-tight">
-            theintelli<span class="text-primary">prompt</span>
+            theintelliprompt
           </NuxtLink>
           <p class="text-[12px] text-[#555] mt-1.5">Your AI intelligence, daily.</p>
 

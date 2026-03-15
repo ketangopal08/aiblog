@@ -1,0 +1,98 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+<h2>Header & Navigation style?</h2>
+<p class="subtitle">The header is the first thing users see. Pick the structure that feels right.</p>
+
+<div class="cards">
+
+  <div class="card" data-choice="keep-refined" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#fff;padding:0;border:1px solid #eee;overflow:hidden;">
+      <!-- Bar 1: brand bar -->
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid #f0f0f0;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="width:16px;height:16px;display:flex;flex-direction:column;gap:3px;justify-content:center;">
+            <div style="width:14px;height:1.5px;background:#333;border-radius:1px;"></div>
+            <div style="width:14px;height:1.5px;background:#333;border-radius:1px;"></div>
+            <div style="width:14px;height:1.5px;background:#333;border-radius:1px;"></div>
+          </div>
+          <div style="width:1px;height:14px;background:#ddd;"></div>
+          <svg width="14" height="14" fill="none" stroke="#666" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+        </div>
+        <span style="font-family:'Sora',sans-serif;font-size:12px;font-weight:800;color:#111;letter-spacing:-0.5px;">theintelli<span style="color:#ff5811">prompt</span></span>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <svg width="14" height="14" fill="none" stroke="#666" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2"/></svg>
+          <div style="background:#111;color:#fff;font-size:7px;font-weight:700;padding:4px 10px;font-family:'Sora',sans-serif;">Subscribe</div>
+        </div>
+      </div>
+      <!-- Bar 2: category nav -->
+      <div style="display:flex;align-items:center;justify-content:center;gap:20px;padding:8px 14px;background:#fff;border-bottom:1px solid #eee;">
+        <span style="font-family:'Sora',sans-serif;font-size:8px;font-weight:700;color:#ff5811;text-transform:uppercase;letter-spacing:1.5px;border-bottom:2px solid #ff5811;padding-bottom:2px;">All</span>
+        <span style="font-family:'Sora',sans-serif;font-size:8px;font-weight:600;color:#aaa;text-transform:uppercase;letter-spacing:1.5px;">GPT</span>
+        <span style="font-family:'Sora',sans-serif;font-size:8px;font-weight:600;color:#aaa;text-transform:uppercase;letter-spacing:1.5px;">Claude</span>
+        <span style="font-family:'Sora',sans-serif;font-size:8px;font-weight:600;color:#aaa;text-transform:uppercase;letter-spacing:1.5px;">Gemini</span>
+        <span style="font-family:'Sora',sans-serif;font-size:8px;font-weight:600;color:#aaa;text-transform:uppercase;letter-spacing:1.5px;">AI</span>
+        <span style="font-family:'Sora',sans-serif;font-size:8px;font-weight:600;color:#aaa;text-transform:uppercase;letter-spacing:1.5px;">About</span>
+      </div>
+      <div style="padding:10px 14px;font-family:'Sora',sans-serif;font-size:8px;color:#bbb;">↑ Same two-bar structure, refined with Sora font + cleaner spacing</div>
+    </div>
+    <div class="card-body">
+      <h3>A — Refined Current (2 bars)</h3>
+      <p>Keep the brand bar + sticky category nav, just refine the typography, spacing and proportions with the new Sora font. Low-risk, high-polish.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="single-sticky" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#fff;padding:0;border:1px solid #eee;overflow:hidden;">
+      <!-- Single bar with everything -->
+      <div style="display:flex;align-items:center;padding:10px 14px;border-bottom:1px solid #f0f0f0;gap:12px;">
+        <!-- logo -->
+        <span style="font-family:'Sora',sans-serif;font-size:11px;font-weight:800;color:#111;letter-spacing:-0.5px;white-space:nowrap;">theintelli<span style="color:#ff5811">prompt</span></span>
+        <!-- nav links inline -->
+        <div style="display:flex;gap:12px;align-items:center;flex:1;justify-content:center;">
+          <span style="font-family:'Sora',sans-serif;font-size:8px;font-weight:700;color:#ff5811;text-transform:uppercase;letter-spacing:1px;">All</span>
+          <span style="font-family:'Sora',sans-serif;font-size:8px;font-weight:600;color:#aaa;text-transform:uppercase;letter-spacing:1px;">GPT</span>
+          <span style="font-family:'Sora',sans-serif;font-size:8px;font-weight:600;color:#aaa;text-transform:uppercase;letter-spacing:1px;">Claude</span>
+          <span style="font-family:'Sora',sans-serif;font-size:8px;font-weight:600;color:#aaa;text-transform:uppercase;letter-spacing:1px;">Gemini</span>
+          <span style="font-family:'Sora',sans-serif;font-size:8px;font-weight:600;color:#aaa;text-transform:uppercase;letter-spacing:1px;">AI</span>
+        </div>
+        <!-- right actions -->
+        <div style="display:flex;align-items:center;gap:8px;">
+          <svg width="13" height="13" fill="none" stroke="#666" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+          <svg width="13" height="13" fill="none" stroke="#666" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2"/></svg>
+          <div style="background:#ff5811;color:#fff;font-size:7px;font-weight:700;padding:4px 10px;border-radius:20px;font-family:'Sora',sans-serif;">Subscribe</div>
+        </div>
+      </div>
+      <div style="padding:10px 14px;font-family:'Sora',sans-serif;font-size:8px;color:#bbb;">↑ One compact sticky bar — logo left, nav centre, actions right. Always visible.</div>
+    </div>
+    <div class="card-body">
+      <h3>B — Single Sticky Bar</h3>
+      <p>Logo left, category nav centred, search + theme + subscribe right — all in one compact always-visible bar. Clean and space-efficient.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="hero-header" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#fff;padding:0;border:1px solid #eee;overflow:hidden;">
+      <!-- Big masthead -->
+      <div style="padding:14px 14px 0;text-align:center;border-bottom:1px solid #f0f0f0;">
+        <div style="font-family:'Sora',sans-serif;font-size:8px;font-weight:600;color:#bbb;text-transform:uppercase;letter-spacing:3px;margin-bottom:4px;">Your AI Intel, Daily</div>
+        <div style="font-family:'Sora',sans-serif;font-size:20px;font-weight:900;color:#111;letter-spacing:-1px;line-height:1;">theintelli<span style="color:#ff5811">prompt</span></div>
+        <div style="display:flex;align-items:center;justify-content:center;gap:16px;margin-top:8px;padding:6px 0;border-top:1px solid #f0f0f0;">
+          <svg width="13" height="13" fill="none" stroke="#666" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+          <span style="font-family:'Sora',sans-serif;font-size:7px;font-weight:700;color:#ff5811;text-transform:uppercase;letter-spacing:1.5px;">All</span>
+          <span style="font-family:'Sora',sans-serif;font-size:7px;font-weight:600;color:#aaa;text-transform:uppercase;letter-spacing:1.5px;">GPT</span>
+          <span style="font-family:'Sora',sans-serif;font-size:7px;font-weight:600;color:#aaa;text-transform:uppercase;letter-spacing:1.5px;">Claude</span>
+          <span style="font-family:'Sora',sans-serif;font-size:7px;font-weight:600;color:#aaa;text-transform:uppercase;letter-spacing:1.5px;">Gemini</span>
+          <span style="font-family:'Sora',sans-serif;font-size:7px;font-weight:600;color:#aaa;text-transform:uppercase;letter-spacing:1.5px;">AI</span>
+          <svg width="13" height="13" fill="none" stroke="#666" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2"/></svg>
+        </div>
+      </div>
+      <div style="padding:10px 14px;font-family:'Sora',sans-serif;font-size:8px;color:#bbb;">↑ Big centred masthead (scrolls away) + thin sticky nav bar below it</div>
+    </div>
+    <div class="card-body">
+      <h3>C — Editorial Masthead</h3>
+      <p>Large centred logo with a tagline — scrolls away on desktop. Thin sticky category nav stays. Feels like a proper editorial publication.</p>
+    </div>
+  </div>
+
+</div>

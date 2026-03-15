@@ -1,0 +1,78 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;700;900&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<h2>Which typography feels right?</h2>
+<p class="subtitle">Headlines drive the personality of a blog. Pick the style that fits best.</p>
+
+<div class="cards">
+
+  <div class="card" data-choice="inter" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#fff;padding:20px;border:1px solid #eee;">
+      <div style="font-family:'Inter',sans-serif;margin-bottom:8px;">
+        <div style="font-size:8px;font-weight:700;color:#ff5811;text-transform:uppercase;letter-spacing:2px;margin-bottom:6px">GPT · 6 min read</div>
+        <div style="font-size:18px;font-weight:900;color:#111;line-height:1.25;margin-bottom:8px">OpenAI's o3-mini Changes the AI Reasoning Game Forever</div>
+        <div style="font-size:11px;color:#666;line-height:1.6">A deep look at how the new model stacks up against its predecessors — and what it means for developers building on top of GPT APIs.</div>
+      </div>
+      <div style="border-top:1px solid #f0f0f0;padding-top:8px;font-family:'Inter',sans-serif;">
+        <div style="font-size:9px;color:#bbb">Body text: clean, neutral, highly legible at small sizes. Headings feel sharp and modern.</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Inter (All Sans-Serif)</h3>
+      <p>Clean, modern, technical. The go-to for minimal sites. Used by Vercel, Linear, etc. Very readable at all sizes.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="playfair-inter" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#fff;padding:20px;border:1px solid #eee;">
+      <div style="margin-bottom:8px;">
+        <div style="font-family:'Inter',sans-serif;font-size:8px;font-weight:700;color:#ff5811;text-transform:uppercase;letter-spacing:2px;margin-bottom:6px">GPT · 6 min read</div>
+        <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:900;color:#111;line-height:1.25;margin-bottom:8px">OpenAI's o3-mini Changes the AI Reasoning Game Forever</div>
+        <div style="font-family:'Inter',sans-serif;font-size:11px;color:#666;line-height:1.6">A deep look at how the new model stacks up against its predecessors — and what it means for developers building on top of GPT APIs.</div>
+      </div>
+      <div style="border-top:1px solid #f0f0f0;padding-top:8px;font-family:'Inter',sans-serif;">
+        <div style="font-size:9px;color:#bbb">Headings: Playfair Display (serif). Body: Inter. Classic editorial contrast.</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Playfair + Inter</h3>
+      <p>Elegant serif headlines with clean sans-serif body. Strong editorial voice — feels like The Atlantic or Quartz.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="sora" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#fff;padding:20px;border:1px solid #eee;">
+      <div style="font-family:'Sora',sans-serif;margin-bottom:8px;">
+        <div style="font-size:8px;font-weight:700;color:#ff5811;text-transform:uppercase;letter-spacing:2px;margin-bottom:6px">GPT · 6 min read</div>
+        <div style="font-size:18px;font-weight:800;color:#111;line-height:1.25;margin-bottom:8px">OpenAI's o3-mini Changes the AI Reasoning Game Forever</div>
+        <div style="font-size:11px;font-weight:400;color:#666;line-height:1.6">A deep look at how the new model stacks up against its predecessors — and what it means for developers building on top of GPT APIs.</div>
+      </div>
+      <div style="border-top:1px solid #f0f0f0;padding-top:8px;font-family:'Sora',sans-serif;">
+        <div style="font-size:9px;color:#bbb">All Sora: rounded, friendly, distinctly modern. Different from the crowd.</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Sora (All Sans-Serif)</h3>
+      <p>Rounded, approachable, slightly futuristic. Less corporate than Inter — gives the blog a distinct personality without going serif.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="dm-sans" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#fff;padding:20px;border:1px solid #eee;">
+      <div style="font-family:'DM Sans',sans-serif;margin-bottom:8px;">
+        <div style="font-size:8px;font-weight:700;color:#ff5811;text-transform:uppercase;letter-spacing:2px;margin-bottom:6px">GPT · 6 min read</div>
+        <div style="font-size:18px;font-weight:900;color:#111;line-height:1.25;margin-bottom:8px">OpenAI's o3-mini Changes the AI Reasoning Game Forever</div>
+        <div style="font-size:11px;font-weight:400;color:#555;line-height:1.6">A deep look at how the new model stacks up against its predecessors — and what it means for developers building on top of GPT APIs.</div>
+      </div>
+      <div style="border-top:1px solid #f0f0f0;padding-top:8px;font-family:'DM Sans',sans-serif;">
+        <div style="font-size:9px;color:#bbb">DM Sans: geometric, warm, confident. Punchy headlines with great readability.</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>D — DM Sans</h3>
+      <p>Geometric sans with warmth. Strong at large headline weights, very comfortable for long body text. Great middle ground.</p>
+    </div>
+  </div>
+
+</div>
