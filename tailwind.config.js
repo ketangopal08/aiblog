@@ -12,7 +12,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        serif: ['Lora', 'Georgia', 'serif'],
+        sans: ['Sora', 'sans-serif'],
       },
       colors: {
         primary: '#ff5811',
