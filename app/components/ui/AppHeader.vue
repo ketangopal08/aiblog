@@ -26,15 +26,19 @@ const DRAWER_LINKS = [
 // Scroll detection: show logo in sticky nav once masthead scrolls away
 const mastheadSentinel = ref<HTMLElement | null>(null)
 const mastheadVisible = ref(true)
+const mastheadObserver = ref<IntersectionObserver | null>(null)
 
 onMounted(() => {
   if (!mastheadSentinel.value) return
-  const observer = new IntersectionObserver(
+  mastheadObserver.value = new IntersectionObserver(
     ([entry]) => { mastheadVisible.value = entry.isIntersecting },
     { rootMargin: '0px', threshold: 0 }
   )
-  observer.observe(mastheadSentinel.value)
-  onUnmounted(() => observer.disconnect())
+  mastheadObserver.value.observe(mastheadSentinel.value)
+})
+
+onUnmounted(() => {
+  mastheadObserver.value?.disconnect()
 })
 
 const route = useRoute()
@@ -104,7 +108,7 @@ watch(menuOpen, (val) => {
 
         <!-- Drawer footer -->
         <div class="px-4 py-5 border-t border-gray-100 dark:border-[#222] flex flex-col gap-3 flex-shrink-0">
-          <button class="w-full text-xs font-bold py-2.5 border border-gray-900 dark:border-white
+          <button type="button" class="w-full text-xs font-bold py-2.5 border border-gray-900 dark:border-white
                          text-gray-900 dark:text-white
                          hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900
                          transition rounded">
@@ -130,7 +134,7 @@ watch(menuOpen, (val) => {
   </Teleport>
 
   <!-- ── Mobile brand bar (always visible on < lg) ── -->
-  <div class="bg-white dark:bg-[#0D0D0D] border-b border-gray-100 dark:border-[#1a1a1a]">
+  <div class="lg:hidden bg-white dark:bg-[#0D0D0D] border-b border-gray-100 dark:border-[#1a1a1a]">
     <div class="relative flex items-center h-14 px-4 sm:px-6">
       <!-- Left: burger -->
       <button
@@ -175,7 +179,7 @@ watch(menuOpen, (val) => {
             <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
           </svg>
         </button>
-        <button class="hidden sm:flex items-center text-xs font-bold px-4 h-9 border border-gray-900 dark:border-white
+        <button type="button" class="hidden sm:flex items-center text-xs font-bold px-4 h-9 border border-gray-900 dark:border-white
                        text-gray-900 dark:text-white
                        hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900 transition">
           Subscribe
@@ -240,7 +244,9 @@ watch(menuOpen, (val) => {
         </svg>
       </button>
       <button
+        type="button"
         @click="toggleTheme"
+        :aria-label="isDark ? 'Switch to light mode' : 'Switch to dark mode'"
         class="w-9 h-9 flex items-center justify-center text-gray-600 dark:text-gray-300 hover:text-primary transition"
       >
         <svg v-if="!isDark" class="w-[17px] h-[17px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -251,7 +257,7 @@ watch(menuOpen, (val) => {
           <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
         </svg>
       </button>
-      <button class="bg-primary text-white text-[10px] font-bold px-4 py-1.5 rounded-full hover:bg-orange-600 transition">
+      <button type="button" class="bg-primary text-white text-[10px] font-bold px-4 py-1.5 rounded-full hover:bg-orange-600 transition">
         Subscribe
       </button>
     </div>

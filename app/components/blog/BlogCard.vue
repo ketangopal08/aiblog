@@ -18,6 +18,7 @@ defineProps<{ post: PostModel }>()
       <img
         :src="post.featuredImage || `https://picsum.photos/seed/${post.id}/800/450`"
         :alt="post.title"
+        loading="lazy"
         class="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-500"
       />
       <span class="absolute top-2.5 right-2.5 bg-black/50 text-white text-[9px] font-bold px-2 py-0.5 rounded-full">
@@ -41,7 +42,8 @@ defineProps<{ post: PostModel }>()
         {{ post.title }}
       </h3>
 
-      <!-- Excerpt -->
+      <!-- Excerpt: post.excerpt comes from WordPress REST API (server-sanitized HTML) -->
+      <!-- eslint-disable-next-line vue/no-v-html -->
       <div
         class="text-[12px] text-gray-500 dark:text-gray-400 leading-relaxed line-clamp-2 flex-1"
         v-html="post.excerpt"

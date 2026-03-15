@@ -1,4 +1,6 @@
 <script setup lang="ts">
+// Footer link columns. Sub-links within each category point to the same category
+// route as placeholder destinations — update `to` values once per-topic pages exist.
 const COLUMNS = [
   {
     heading: 'AI Models',
