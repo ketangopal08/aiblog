@@ -23,23 +23,6 @@ const DRAWER_LINKS = [
   { label: 'About',  to: '/about',          icon: 'M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z' },
 ]
 
-// Scroll detection: show logo in sticky nav once masthead scrolls away
-const mastheadSentinel = ref<HTMLElement | null>(null)
-const mastheadVisible = ref(true)
-const mastheadObserver = ref<IntersectionObserver | null>(null)
-
-onMounted(() => {
-  if (!mastheadSentinel.value) return
-  mastheadObserver.value = new IntersectionObserver(
-    ([entry]) => { mastheadVisible.value = entry.isIntersecting },
-    { rootMargin: '0px', threshold: 0 }
-  )
-  mastheadObserver.value.observe(mastheadSentinel.value)
-})
-
-onUnmounted(() => {
-  mastheadObserver.value?.disconnect()
-})
 
 const route = useRoute()
 watch(() => route.path, () => { menuOpen.value = false })
@@ -190,21 +173,6 @@ watch(menuOpen, (val) => {
         </button>
       </div>
     </div>
-  </div>
-
-  <!-- ── Desktop editorial masthead (scrolls away, lg+ only) ── -->
-  <div class="hidden lg:block bg-white dark:bg-[#0D0D0D] border-b border-gray-100 dark:border-[#1a1a1a] pt-7 pb-0 text-center">
-    <p class="text-[10px] font-semibold text-gray-400 uppercase tracking-[4px] mb-2.5">
-      Your AI Intelligence, Daily
-    </p>
-    <NuxtLink
-      to="/"
-      class="text-[38px] font-black text-gray-900 dark:text-white tracking-[-1.5px] leading-none inline-block mb-5"
-    >
-      theintelliprompt
-    </NuxtLink>
-    <!-- Sentinel: IntersectionObserver watches this to know when masthead leaves viewport -->
-    <div ref="mastheadSentinel" class="h-px" />
   </div>
 
   <!-- ── Desktop sticky nav bar (lg+ only) ── -->
