@@ -74,6 +74,7 @@ watch(menuOpen, (val) => {
             theintelli<span class="text-primary">prompt</span>
           </NuxtLink>
           <button
+            type="button"
             @click="menuOpen = false"
             class="w-8 h-8 flex items-center justify-center text-gray-500 dark:text-gray-400 hover:text-primary transition"
             aria-label="Close menu"
@@ -115,6 +116,7 @@ watch(menuOpen, (val) => {
             Subscribe
           </button>
           <button
+            type="button"
             @click="toggleTheme"
             class="w-full flex items-center justify-center gap-2 text-xs font-semibold
                    text-gray-500 dark:text-gray-400 hover:text-primary transition py-1"
@@ -138,6 +140,7 @@ watch(menuOpen, (val) => {
     <div class="relative flex items-center h-14 px-4 sm:px-6">
       <!-- Left: burger -->
       <button
+        type="button"
         @click="menuOpen = !menuOpen"
         aria-label="Toggle menu"
         class="w-10 h-10 flex items-center justify-center text-gray-800 dark:text-gray-100 hover:text-primary transition flex-shrink-0"
@@ -151,7 +154,7 @@ watch(menuOpen, (val) => {
 
       <span class="w-px h-5 bg-gray-300 dark:bg-[#333] mx-1" />
 
-      <button aria-label="Search" class="w-10 h-10 flex items-center justify-center text-gray-700 dark:text-gray-300 hover:text-primary transition">
+      <button type="button" aria-label="Search" class="w-10 h-10 flex items-center justify-center text-gray-700 dark:text-gray-300 hover:text-primary transition">
         <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
           <circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/>
         </svg>
@@ -167,6 +170,7 @@ watch(menuOpen, (val) => {
       <!-- Right: theme + subscribe -->
       <div class="ml-auto flex items-center gap-2 flex-shrink-0">
         <button
+          type="button"
           @click="toggleTheme"
           :title="isDark ? 'Light mode' : 'Dark mode'"
           class="w-10 h-10 flex items-center justify-center text-gray-700 dark:text-gray-300 hover:text-primary transition"
@@ -238,7 +242,7 @@ watch(menuOpen, (val) => {
 
     <!-- Right: actions -->
     <div class="flex items-center gap-2 flex-shrink-0">
-      <button class="w-9 h-9 flex items-center justify-center text-gray-600 dark:text-gray-300 hover:text-primary transition">
+      <button type="button" aria-label="Search" class="w-9 h-9 flex items-center justify-center text-gray-600 dark:text-gray-300 hover:text-primary transition">
         <svg class="w-[17px] h-[17px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
           <circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/>
         </svg>
