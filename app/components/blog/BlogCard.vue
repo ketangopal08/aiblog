@@ -1,41 +1,58 @@
 <script setup lang="ts">
 import type { PostModel } from '~/models/PostModel'
-const props = defineProps<{ post: PostModel }>()
-const img = computed(() => props.post.featuredImage || `https://picsum.photos/seed/${props.post.id}/800/500`)
+defineProps<{ post: PostModel }>()
 </script>
 
 <template>
-  <article class="bg-white dark:bg-[#161616] group border-b border-gray-200 dark:border-[#222222] pb-5 mb-5 last:border-b-0">
-    <NuxtLink :to="`/blog/${post.slug}`" class="block overflow-hidden relative rounded-xl">
-      <!-- image -->
+  <NuxtLink
+    :to="`/blog/${post.slug}`"
+    class="group flex flex-col rounded-xl border border-gray-100 dark:border-[#222]
+           bg-white dark:bg-[#161616] overflow-hidden
+           hover:-translate-y-0.5
+           hover:shadow-[0_8px_32px_rgba(0,0,0,0.07)]
+           dark:hover:shadow-[0_8px_32px_rgba(0,0,0,0.3)]
+           transition-all duration-200"
+  >
+    <!-- Image -->
+    <div class="relative w-full aspect-video overflow-hidden bg-gray-100 dark:bg-[#1f1f1f] flex-shrink-0">
       <img
-        :src="img"
+        :src="post.featuredImage || `https://picsum.photos/seed/${post.id}/800/450`"
         :alt="post.title"
-        class="w-full h-52 object-cover group-hover:scale-105 transition-transform duration-500"
+        class="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-500"
       />
-      <!-- dark hover gradient -->
-      <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl" />
-      <!-- category pill on image -->
-      <span
-        v-if="post.categories[0]"
-        class="absolute top-3 left-3 text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-full text-white bg-primary"
-      >
-        {{ post.categories[0].name }}
+      <span class="absolute top-2.5 right-2.5 bg-black/50 text-white text-[9px] font-bold px-2 py-0.5 rounded-full">
+        {{ post.readingTime }} min read
       </span>
-      <!-- reading time badge -->
-      <span class="absolute bottom-3 right-3 text-[10px] font-bold text-white bg-black/50 backdrop-blur-sm px-2 py-0.5 rounded-full">
-        {{ post.readingTime }} min
-      </span>
-    </NuxtLink>
-
-    <div class="mt-3">
-      <h2 class="text-base font-black text-gray-900 dark:text-white leading-snug line-clamp-2 group-hover:text-primary transition">
-        <NuxtLink :to="`/blog/${post.slug}`">{{ post.title }}</NuxtLink>
-      </h2>
-      <p class="text-xs text-gray-400 dark:text-gray-500 mt-1.5 uppercase tracking-widest font-bold">
-        {{ post.formattedDate }} &middot; {{ post.readingTime }} min read
-      </p>
-      <div class="text-gray-600 dark:text-gray-400 text-sm line-clamp-2 mt-2 leading-relaxed" v-html="post.excerpt" />
     </div>
-  </article>
+
+    <!-- Body -->
+    <div class="flex flex-col flex-1 p-[18px] gap-2">
+      <!-- Category -->
+      <div class="flex items-center gap-1.5">
+        <span class="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" />
+        <span class="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest">
+          {{ post.categories[0]?.name ?? 'AI' }}
+        </span>
+      </div>
+
+      <!-- Title -->
+      <h3 class="text-[15px] font-bold text-gray-900 dark:text-white leading-snug line-clamp-2
+                 tracking-[-0.2px] group-hover:text-primary transition-colors">
+        {{ post.title }}
+      </h3>
+
+      <!-- Excerpt -->
+      <div
+        class="text-[12px] text-gray-500 dark:text-gray-400 leading-relaxed line-clamp-2 flex-1"
+        v-html="post.excerpt"
+      />
+
+      <!-- Footer -->
+      <div class="flex items-center justify-between pt-3 border-t border-gray-100 dark:border-[#222]
+                  text-[11px] text-gray-400 dark:text-gray-500 mt-auto">
+        <span>{{ post.author.name }}</span>
+        <span>{{ post.formattedDate }}</span>
+      </div>
+    </div>
+  </NuxtLink>
 </template>
