@@ -177,8 +177,9 @@ watch(menuOpen, (val) => {
 
   <!-- ── Desktop sticky nav bar (lg+ only) ── -->
   <nav class="hidden lg:flex items-center
-              bg-white dark:bg-[#0D0D0D]
-              border-b border-gray-200 dark:border-[#222]
+              bg-white/70 dark:bg-[#0D0D0D]/70
+              backdrop-blur-md
+              border-b border-gray-200/60 dark:border-white/10
               sticky top-0 z-30 px-6 gap-6">
 
     <!-- Left: brand name (always visible) -->
