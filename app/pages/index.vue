@@ -9,11 +9,15 @@ const { fetchCategories } = useCategories()
 
 const FEATURED_SLUG = 'claude-constitutional-ai-explained'
 
-await Promise.all([
-  fetchCategories(),
-  (async () => { allPosts.value = await $wp.getPosts(1, 20) as PostModel[] })(),
-  (async () => { featuredPost.value = await $wp.getPostBySlug(FEATURED_SLUG) as PostModel | null })(),
-])
+try {
+  await Promise.all([
+    fetchCategories(),
+    (async () => { allPosts.value = await $wp.getPosts(1, 20) as PostModel[] })(),
+    (async () => { featuredPost.value = await $wp.getPostBySlug(FEATURED_SLUG) as PostModel | null })(),
+  ])
+} catch {
+  // API unavailable — gracefully degrade to empty/skeleton states
+}
 
 if (!featuredPost.value) featuredPost.value = allPosts.value[0] ?? null
 
