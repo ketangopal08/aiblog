@@ -208,21 +208,18 @@ watch(menuOpen, (val) => {
   </div>
 
   <!-- ── Desktop sticky nav bar (lg+ only) ── -->
-  <nav class="hidden lg:flex items-center justify-between
+  <nav class="hidden lg:flex items-center
               bg-white dark:bg-[#0D0D0D]
               border-b border-gray-200 dark:border-[#222]
-              sticky top-0 z-30 px-6">
+              sticky top-0 z-30 px-6 gap-6">
 
-    <!-- Left: logo fades in once masthead scrolls away -->
-    <Transition name="fade">
-      <NuxtLink
-        v-if="!mastheadVisible"
-        to="/"
-        class="text-[15px] font-black text-gray-900 dark:text-white tracking-tight py-2 mr-4 flex-shrink-0"
-      >
-        theintelliprompt
-      </NuxtLink>
-    </Transition>
+    <!-- Left: brand name (always visible) -->
+    <NuxtLink
+      to="/"
+      class="text-[15px] font-black text-gray-900 dark:text-white tracking-tight flex-shrink-0 py-2"
+    >
+      theintelliprompt
+    </NuxtLink>
 
     <!-- Centre: nav links -->
     <div class="flex items-center flex-1 justify-center">
@@ -240,8 +237,8 @@ watch(menuOpen, (val) => {
       </NuxtLink>
     </div>
 
-    <!-- Right: actions -->
-    <div class="flex items-center gap-2 flex-shrink-0">
+    <!-- Right: search + theme toggle -->
+    <div class="flex items-center gap-1 flex-shrink-0">
       <button type="button" aria-label="Search" class="w-9 h-9 flex items-center justify-center text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition">
         <svg class="w-[17px] h-[17px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
           <circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/>
@@ -260,9 +257,6 @@ watch(menuOpen, (val) => {
         <svg v-else class="w-[17px] h-[17px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
         </svg>
-      </button>
-      <button type="button" class="bg-gray-900 text-white text-[10px] font-bold px-4 py-1.5 rounded-full hover:bg-gray-700 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-200 transition">
-        Subscribe
       </button>
     </div>
   </nav>
