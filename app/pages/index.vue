@@ -177,10 +177,12 @@ function postImg(post: PostModel, w = 800, h = 500) {
             Weekly digest of the most important developments across GPT, Claude, Gemini and beyond.
           </p>
         </div>
+        <!-- TODO: wire up newsletter submission handler -->
         <form class="flex gap-2 flex-shrink-0" @submit.prevent>
           <input
             type="email"
             placeholder="your@email.com"
+            aria-label="Email address"
             class="font-sans text-[13px] bg-[#1e1e1e] border border-[#2d2d2d]
                    text-white placeholder-[#555] px-5 py-3 rounded-lg outline-none
                    w-60 focus:border-gray-500 transition"
