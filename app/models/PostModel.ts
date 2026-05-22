@@ -40,7 +40,13 @@ export class PostModel implements IPost {
     this.seo = {
       title: this.title,
       description: this.excerpt.replace(/<[^>]+>/g, '').trim(),
-      ogImage: this.featuredImage ?? `https://picsum.photos/seed/${this.id}/1200/630`
+      ogImage: this.featuredImage ?? undefined,
+      ogType: 'article',
+      article: {
+        publishedTime: this.date,
+        author: this.author.name,
+        tags: this.tags.map(t => t.name),
+      },
     }
   }
 

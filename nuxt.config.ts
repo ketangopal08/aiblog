@@ -11,19 +11,26 @@ export default defineNuxtConfig({
           rel: 'stylesheet',
           href: 'https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800;900&display=swap',
         },
-      ]
-    }
+        { rel: 'preconnect', href: 'https://neuralbriefly.com' },
+      ],
+    },
   },
-  modules: ['@nuxtjs/tailwindcss'],
+  modules: ['@nuxtjs/tailwindcss', '@nuxtjs/sitemap'],
   css: ['~/assets/css/main.css'],
-  // Allow <AppHeader> instead of <UiAppHeader> for subdirectory components
   components: [
-    { path: '~/components', pathPrefix: false }
+    { path: '~/components', pathPrefix: false },
   ],
   runtimeConfig: {
     public: {
-      wpBaseUrl: process.env.WP_BASE_URL ?? 'https://neuralbriefly.com',
-      wpUrl: process.env.NUXT_PUBLIC_WP_URL ?? ''
-    }
-  }
+      wpBaseUrl: process.env.WP_BASE_URL ?? 'https://lime-hamster-756747.hostingersite.com',
+    },
+  },
+  routeRules: {
+    '/': { isr: 60 },
+    '/blog/**': { isr: 300 },
+    '/category/**': { isr: 120 },
+  },
+  sitemap: {
+    sources: ['/api/sitemap-urls'],
+  },
 })

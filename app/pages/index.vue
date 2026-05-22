@@ -29,6 +29,12 @@ const sideCards   = computed(() => remainingPosts.value.slice(0, 2))
 const listPosts   = computed(() => remainingPosts.value.slice(2, 6))
 const latestPosts = computed(() => remainingPosts.value.slice(6, 12))
 
+const homeSeo = {
+  title: 'NeuralBriefly – AI News & Analysis',
+  description: 'Latest articles on GPT, Gemini, Claude and the AI world.',
+  ogType: 'website' as const,
+}
+
 function postImg(post: PostModel, w = 800, h = 500) {
   return post.featuredImage || `https://picsum.photos/seed/${post.id}/${w}/${h}`
 }
@@ -36,7 +42,7 @@ function postImg(post: PostModel, w = 800, h = 500) {
 
 <template>
   <div class="bg-white dark:bg-[#0D0D0D]">
-    <SeoHead :seo="{ title: 'AI Blog – Home', description: 'Latest articles on GPT, Gemini, Claude and the AI world.' }" />
+    <SeoHead :seo="homeSeo" />
 
     <div class="max-w-[1200px] mx-auto px-8 pt-8 pb-16">
 
