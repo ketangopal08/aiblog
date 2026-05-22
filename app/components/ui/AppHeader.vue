@@ -3,7 +3,6 @@ const { isDark, toggleTheme } = useTheme()
 
 const menuOpen = ref(false)
 
-// Desktop sticky nav — label + route only (no icons)
 const NAV_LINKS = [
   { label: 'All',    to: '/' },
   { label: 'GPT',    to: '/category/gpt' },
@@ -13,9 +12,8 @@ const NAV_LINKS = [
   { label: 'About',  to: '/about' },
 ]
 
-// Mobile drawer — label + route + icon
 const DRAWER_LINKS = [
-  { label: 'Home',   to: '/',               icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6' },
+  { label: 'All',    to: '/',               icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6' },
   { label: 'GPT',    to: '/category/gpt',   icon: 'M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z' },
   { label: 'Gemini', to: '/category/gemini',icon: 'M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z' },
   { label: 'Claude', to: '/category/claude',icon: 'M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z' },
@@ -23,19 +21,16 @@ const DRAWER_LINKS = [
   { label: 'About',  to: '/about',          icon: 'M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z' },
 ]
 
-
 const route = useRoute()
 watch(() => route.path, () => { menuOpen.value = false })
 
 watch(menuOpen, (val) => {
-  if (import.meta.client) {
-    document.body.style.overflow = val ? 'hidden' : ''
-  }
+  if (import.meta.client) document.body.style.overflow = val ? 'hidden' : ''
 })
 </script>
 
 <template>
-  <!-- ── Drawer backdrop & panel (Teleport, mobile) ── -->
+  <!-- ── Drawer backdrop & panel (shared: mobile + desktop hamburger) ── -->
   <Teleport to="body">
     <Transition name="fade">
       <div
@@ -54,7 +49,7 @@ watch(menuOpen, (val) => {
         <!-- Drawer header -->
         <div class="flex items-center justify-between px-5 h-14 border-b border-gray-100 dark:border-[#222] flex-shrink-0">
           <NuxtLink to="/" class="text-base font-black tracking-tight text-gray-900 dark:text-white" @click="menuOpen = false">
-            theintelliprompt
+            NeuralBriefly
           </NuxtLink>
           <button
             type="button"
@@ -68,7 +63,7 @@ watch(menuOpen, (val) => {
           </button>
         </div>
 
-        <!-- Drawer nav links -->
+        <!-- Drawer nav links — same as desktop nav -->
         <nav class="flex-1 overflow-y-auto px-3 py-4">
           <ul class="flex flex-col gap-0.5">
             <li v-for="link in DRAWER_LINKS" :key="link.label">
@@ -118,7 +113,7 @@ watch(menuOpen, (val) => {
     </Transition>
   </Teleport>
 
-  <!-- ── Mobile brand bar (always visible on < lg) ── -->
+  <!-- ── Mobile brand bar (< lg) ── -->
   <div class="lg:hidden bg-white dark:bg-[#0D0D0D] border-b border-gray-100 dark:border-[#1a1a1a]">
     <div class="relative flex items-center h-14 px-4 sm:px-6">
       <!-- Left: burger -->
@@ -129,9 +124,9 @@ watch(menuOpen, (val) => {
         class="w-10 h-10 flex items-center justify-center text-gray-800 dark:text-gray-100 hover:text-gray-600 dark:hover:text-gray-300 transition flex-shrink-0"
       >
         <span class="flex flex-col gap-[5px]">
-          <span class="block w-5 h-[1.5px] bg-current transition-all duration-300" />
-          <span class="block w-5 h-[1.5px] bg-current transition-all duration-300" />
-          <span class="block w-5 h-[1.5px] bg-current transition-all duration-300" />
+          <span class="block w-5 h-[1.5px] bg-current" />
+          <span class="block w-5 h-[1.5px] bg-current" />
+          <span class="block w-5 h-[1.5px] bg-current" />
         </span>
       </button>
 
@@ -146,7 +141,7 @@ watch(menuOpen, (val) => {
       <!-- Centre: logo -->
       <NuxtLink to="/" class="absolute left-1/2 -translate-x-1/2 select-none whitespace-nowrap">
         <span class="text-[1.2rem] font-black tracking-tight leading-none text-gray-900 dark:text-white">
-          theintelliprompt
+          NeuralBriefly
         </span>
       </NuxtLink>
 
@@ -175,60 +170,92 @@ watch(menuOpen, (val) => {
     </div>
   </div>
 
-  <!-- ── Desktop sticky nav bar (lg+ only) ── -->
-  <nav class="hidden lg:flex items-center
-              bg-white/70 dark:bg-[#0D0D0D]/70
-              backdrop-blur-md
-              border-b border-gray-200/60 dark:border-white/10
-              sticky top-0 z-30 px-6 gap-6">
+  <!-- ── Desktop nav — The Verge style (lg+) ── -->
+  <div class="hidden lg:block sticky top-0 z-30 bg-white dark:bg-[#0D0D0D]
+              border-b border-gray-200 dark:border-white/10">
 
-    <!-- Left: brand name (always visible) -->
-    <NuxtLink
-      to="/"
-      class="text-[15px] font-black text-gray-900 dark:text-white tracking-tight flex-shrink-0 py-2"
-    >
-      theintelliprompt
-    </NuxtLink>
-
-    <!-- Centre: nav links -->
-    <div class="flex items-center flex-1 justify-center">
-      <NuxtLink
-        v-for="link in NAV_LINKS"
-        :key="link.label"
-        :to="link.to"
-        class="px-4 h-11 flex items-center text-[11px] font-bold uppercase tracking-wider
-               text-gray-600 dark:text-gray-300
-               border-b-2 border-transparent
-               hover:text-gray-900 dark:hover:text-white transition-colors"
-        active-class="!text-gray-900 dark:!text-white !border-gray-900 dark:!border-white"
-      >
-        {{ link.label }}
-      </NuxtLink>
-    </div>
-
-    <!-- Right: search + theme toggle -->
-    <div class="flex items-center gap-1 flex-shrink-0">
-      <button type="button" aria-label="Search" class="w-9 h-9 flex items-center justify-center text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition">
-        <svg class="w-[17px] h-[17px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/>
-        </svg>
-      </button>
+    <!-- Utility bar: Subscribe right-aligned -->
+    <div class="flex items-center justify-end px-6 py-2 border-b border-gray-100 dark:border-white/[0.05]">
       <button
         type="button"
-        @click="toggleTheme"
-        :aria-label="isDark ? 'Switch to light mode' : 'Switch to dark mode'"
-        class="w-9 h-9 flex items-center justify-center text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition"
+        class="text-[10px] font-black uppercase tracking-[2px]
+               bg-gray-900 dark:bg-white text-white dark:text-gray-900
+               px-5 py-1.5 hover:bg-gray-700 dark:hover:bg-gray-200 transition"
       >
-        <svg v-if="!isDark" class="w-[17px] h-[17px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <circle cx="12" cy="12" r="4"/>
-          <path stroke-linecap="round" d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
-        </svg>
-        <svg v-else class="w-[17px] h-[17px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
-        </svg>
+        Subscribe
       </button>
     </div>
-  </nav>
+
+    <!-- Main nav: Brand left, all links + icons right -->
+    <nav class="flex items-center h-11 px-6">
+
+      <!-- Brand -->
+      <NuxtLink
+        to="/"
+        class="text-[15px] font-black text-gray-900 dark:text-white tracking-tight flex-shrink-0"
+      >
+        NeuralBriefly
+      </NuxtLink>
+
+      <!-- Push everything else to the right -->
+      <div class="ml-auto flex items-center">
+
+      <!-- Slash-separated links -->
+      <template v-for="link in NAV_LINKS" :key="link.label">
+        <span class="mx-3 text-gray-300 dark:text-white/20 select-none text-base font-light leading-none">/</span>
+        <NuxtLink
+          :to="link.to"
+          class="text-[11px] font-bold uppercase tracking-wider whitespace-nowrap
+                 text-gray-500 dark:text-gray-400
+                 hover:text-gray-900 dark:hover:text-white transition-colors"
+          active-class="!text-gray-900 dark:!text-white"
+        >
+          {{ link.label }}
+        </NuxtLink>
+      </template>
+
+      <!-- Icons: search + theme + hamburger -->
+      <div class="flex items-center gap-0.5 ml-3">
+        <button type="button" aria-label="Search"
+          class="w-9 h-9 flex items-center justify-center text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition">
+          <svg class="w-[17px] h-[17px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/>
+          </svg>
+        </button>
+
+        <button
+          type="button"
+          @click="toggleTheme"
+          :aria-label="isDark ? 'Switch to light mode' : 'Switch to dark mode'"
+          class="w-9 h-9 flex items-center justify-center text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition"
+        >
+          <svg v-if="!isDark" class="w-[17px] h-[17px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="4"/>
+            <path stroke-linecap="round" d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+          </svg>
+          <svg v-else class="w-[17px] h-[17px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+          </svg>
+        </button>
+
+        <!-- Hamburger — opens the same drawer -->
+        <button
+          type="button"
+          @click="menuOpen = !menuOpen"
+          aria-label="Open menu"
+          class="w-9 h-9 flex items-center justify-center text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition"
+        >
+          <span class="flex flex-col gap-[5px]">
+            <span class="block w-5 h-[1.5px] bg-current" />
+            <span class="block w-5 h-[1.5px] bg-current" />
+            <span class="block w-5 h-[1.5px] bg-current" />
+          </span>
+        </button>
+      </div>
+
+      </div><!-- end ml-auto group -->
+    </nav>
+  </div>
 </template>
 
 <style scoped>
