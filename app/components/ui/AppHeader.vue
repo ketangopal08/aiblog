@@ -48,8 +48,10 @@ watch(menuOpen, (val) => {
       >
         <!-- Drawer header -->
         <div class="flex items-center justify-between px-5 h-14 border-b border-gray-100 dark:border-[#222] flex-shrink-0">
-          <NuxtLink to="/" class="text-base font-black tracking-tight text-gray-900 dark:text-white" @click="menuOpen = false">
-            NeuralBriefly
+          <NuxtLink to="/" class="flex items-center gap-2" @click="menuOpen = false">
+            <img src="/logo-dark.png" alt="" class="h-8 w-auto dark:hidden" />
+            <img src="/logo-light.png" alt="" class="h-8 w-auto hidden dark:block" />
+            <span class="text-base font-black tracking-tight text-gray-900 dark:text-white">NeuralBriefly</span>
           </NuxtLink>
           <button
             type="button"
@@ -139,10 +141,10 @@ watch(menuOpen, (val) => {
       </button>
 
       <!-- Centre: logo -->
-      <NuxtLink to="/" class="absolute left-1/2 -translate-x-1/2 select-none whitespace-nowrap">
-        <span class="text-[1.2rem] font-black tracking-tight leading-none text-gray-900 dark:text-white">
-          NeuralBriefly
-        </span>
+      <NuxtLink to="/" class="absolute left-1/2 -translate-x-1/2 flex items-center gap-2 whitespace-nowrap">
+        <img src="/logo-dark.png" alt="" class="h-7 w-auto dark:hidden" />
+        <img src="/logo-light.png" alt="" class="h-7 w-auto hidden dark:block" />
+        <span class="text-[1.1rem] font-black tracking-tight text-gray-900 dark:text-white">NeuralBriefly</span>
       </NuxtLink>
 
       <!-- Right: theme + subscribe -->
@@ -190,11 +192,10 @@ watch(menuOpen, (val) => {
     <nav class="flex items-center h-11 px-6">
 
       <!-- Brand -->
-      <NuxtLink
-        to="/"
-        class="text-[15px] font-black text-gray-900 dark:text-white tracking-tight flex-shrink-0"
-      >
-        NeuralBriefly
+      <NuxtLink to="/" class="flex items-center gap-2 flex-shrink-0">
+        <img src="/logo-dark.png" alt="" class="h-8 w-auto dark:hidden" />
+        <img src="/logo-light.png" alt="" class="h-8 w-auto hidden dark:block" />
+        <span class="text-[15px] font-black tracking-tight text-gray-900 dark:text-white">NeuralBriefly</span>
       </NuxtLink>
 
       <!-- Push everything else to the right -->
