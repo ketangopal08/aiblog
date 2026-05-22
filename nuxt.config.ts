@@ -22,7 +22,8 @@ export default defineNuxtConfig({
   ],
   runtimeConfig: {
     public: {
-      wpBaseUrl: process.env.WP_BASE_URL ?? 'https://your-wordpress-site.com'
+      wpBaseUrl: process.env.WP_BASE_URL ?? 'https://neuralbriefly.com',
+      wpUrl: process.env.NUXT_PUBLIC_WP_URL ?? ''
     }
   }
 })
