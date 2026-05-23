@@ -25,7 +25,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       wpBaseUrl: process.env.WP_BASE_URL ?? 'https://lime-hamster-756747.hostingersite.com',
-      wpUseMock: process.env.WP_USE_MOCK === 'true',
+      wpUseMock: process.env.WP_USE_MOCK !== 'false',
     },
   },
   routeRules: {
