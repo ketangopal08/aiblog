@@ -1,9 +1,15 @@
 import type { IWordPressService } from '~/interfaces/IWordPressService'
 import type { IPost } from '~/interfaces/IPost'
 import type { ICategory } from '~/interfaces/ICategory'
-import type { WPPost, WPTerm } from '~/types/wordpress'
+import type { ITag } from '~/interfaces/ITag'
+import type { IAuthor } from '~/interfaces/IAuthor'
+import type { IComment } from '~/interfaces/IComment'
+import type { IPaginatedResult } from '~/interfaces/IPaginatedResult'
+import type { WPPost, WPTerm, WPComment, WPUser } from '~/types/wordpress'
 import { PostModel } from '~/models/PostModel'
 import { CategoryModel } from '~/models/CategoryModel'
+import { TagModel } from '~/models/TagModel'
+import { AuthorModel } from '~/models/AuthorModel'
 
 export class WordPressService implements IWordPressService {
   private baseUrl: string
@@ -16,31 +22,137 @@ export class WordPressService implements IWordPressService {
     return `${this.baseUrl}/wp-json/wp/v2`
   }
 
+  private parsePaginationHeaders(headers: Headers): { total: number; totalPages: number } {
+    return {
+      total: parseInt(headers.get('X-WP-Total') ?? '0'),
+      totalPages: parseInt(headers.get('X-WP-TotalPages') ?? '1'),
+    }
+  }
+
+  // ── Existing methods (unchanged) ──────────────────────────
+
   async getPosts(page = 1, perPage = 10): Promise<IPost[]> {
     const data = await $fetch<WPPost[]>(`${this.apiBase}/posts`, {
-      params: { page, per_page: perPage, _embed: true }
+      params: { page, per_page: perPage, _embed: true },
     })
     return data.map(raw => new PostModel(raw))
   }
 
   async getPostBySlug(slug: string): Promise<IPost | null> {
     const data = await $fetch<WPPost[]>(`${this.apiBase}/posts`, {
-      params: { slug, _embed: true }
+      params: { slug, _embed: true },
     })
     return data.length ? new PostModel(data[0]) : null
   }
 
   async getCategories(): Promise<ICategory[]> {
     const data = await $fetch<WPTerm[]>(`${this.apiBase}/categories`, {
-      params: { per_page: 100, hide_empty: true }
+      params: { per_page: 100, hide_empty: true },
     })
     return data.map(raw => new CategoryModel(raw))
   }
 
   async getPostsByCategory(categoryId: number, page = 1): Promise<IPost[]> {
     const data = await $fetch<WPPost[]>(`${this.apiBase}/posts`, {
-      params: { categories: categoryId, page, per_page: 10, _embed: true }
+      params: { categories: categoryId, page, per_page: 10, _embed: true },
     })
     return data.map(raw => new PostModel(raw))
+  }
+
+  // ── New paginated methods ─────────────────────────────────
+
+  async getPostsPaginated(page = 1, perPage = 12): Promise<IPaginatedResult<IPost>> {
+    const response = await ($fetch as any).raw(`${this.apiBase}/posts`, {
+      params: { page, per_page: perPage, _embed: true },
+    })
+    const { total, totalPages } = this.parsePaginationHeaders(response.headers)
+    return { items: (response._data as WPPost[]).map(raw => new PostModel(raw)), total, totalPages }
+  }
+
+  async getPostsByCategoryPaginated(categoryId: number, page = 1): Promise<IPaginatedResult<IPost>> {
+    const response = await ($fetch as any).raw(`${this.apiBase}/posts`, {
+      params: { categories: categoryId, page, per_page: 10, _embed: true },
+    })
+    const { total, totalPages } = this.parsePaginationHeaders(response.headers)
+    return { items: (response._data as WPPost[]).map(raw => new PostModel(raw)), total, totalPages }
+  }
+
+  async getPostsByTag(tagId: number, page = 1): Promise<IPaginatedResult<IPost>> {
+    const response = await ($fetch as any).raw(`${this.apiBase}/posts`, {
+      params: { tags: tagId, page, per_page: 10, _embed: true },
+    })
+    const { total, totalPages } = this.parsePaginationHeaders(response.headers)
+    return { items: (response._data as WPPost[]).map(raw => new PostModel(raw)), total, totalPages }
+  }
+
+  async searchPosts(query: string, page = 1): Promise<IPaginatedResult<IPost>> {
+    const response = await ($fetch as any).raw(`${this.apiBase}/posts`, {
+      params: { search: query, page, per_page: 10, _embed: true },
+    })
+    const { total, totalPages } = this.parsePaginationHeaders(response.headers)
+    return { items: (response._data as WPPost[]).map(raw => new PostModel(raw)), total, totalPages }
+  }
+
+  async getPostsByAuthor(authorId: number, page = 1): Promise<IPaginatedResult<IPost>> {
+    const response = await ($fetch as any).raw(`${this.apiBase}/posts`, {
+      params: { author: authorId, page, per_page: 10, _embed: true },
+    })
+    const { total, totalPages } = this.parsePaginationHeaders(response.headers)
+    return { items: (response._data as WPPost[]).map(raw => new PostModel(raw)), total, totalPages }
+  }
+
+  // ── Taxonomy helpers ──────────────────────────────────────
+
+  async getTags(): Promise<ITag[]> {
+    const data = await $fetch<WPTerm[]>(`${this.apiBase}/tags`, {
+      params: { per_page: 100, hide_empty: true },
+    })
+    return data.map(raw => new TagModel(raw))
+  }
+
+  async getAuthorBySlug(slug: string): Promise<IAuthor | null> {
+    const data = await $fetch<WPUser[]>(`${this.apiBase}/users`, {
+      params: { slug },
+    })
+    return data.length ? new AuthorModel(data[0]) : null
+  }
+
+  // ── Comments ──────────────────────────────────────────────
+
+  async getComments(postId: number): Promise<IComment[]> {
+    const data = await $fetch<WPComment[]>(`${this.apiBase}/comments`, {
+      params: { post: postId, per_page: 100, status: 'approve', orderby: 'date', order: 'asc' },
+    })
+    return data.map(raw => ({
+      id: raw.id,
+      author: raw.author_name,
+      avatarUrl: raw.author_avatar_urls?.['48'] ?? raw.author_avatar_urls?.['96'] ?? null,
+      content: raw.content.rendered,
+      date: raw.date,
+      parentId: raw.parent || null,
+    }))
+  }
+
+  async postComment(
+    postId: number,
+    data: { author: string; email: string; content: string }
+  ): Promise<IComment> {
+    const raw = await $fetch<WPComment>(`${this.apiBase}/comments`, {
+      method: 'POST',
+      body: {
+        post: postId,
+        author_name: data.author,
+        author_email: data.email,
+        content: data.content,
+      },
+    })
+    return {
+      id: raw.id,
+      author: raw.author_name,
+      avatarUrl: raw.author_avatar_urls?.['48'] ?? null,
+      content: raw.content.rendered,
+      date: raw.date,
+      parentId: raw.parent || null,
+    }
   }
 }
