@@ -43,13 +43,13 @@ const COLUMNS = [
 
 <template>
   <footer class="bg-[#0a0a0a] border-t border-[#1f1f1f]">
-    <div class="max-w-[1200px] mx-auto px-8">
+    <div class="max-w-[1158px] mx-auto px-6 sm:px-8">
 
       <!-- Brand row -->
       <div class="flex justify-between items-start gap-10 pt-12 pb-10">
         <div>
-          <NuxtLink to="/" class="text-[20px] font-black text-white tracking-tight">
-            theintelliprompt
+          <NuxtLink to="/" class="text-[20px] font-black text-white tracking-tight" style="font-family: 'Inter', sans-serif !important">
+            NeuralBriefly
           </NuxtLink>
           <p class="text-[12px] text-[#555] mt-1.5">Your AI intelligence, daily.</p>
 
@@ -97,7 +97,7 @@ const COLUMNS = [
 
       <!-- Bottom bar -->
       <div class="text-center text-[11px] text-[#3a3a3a] py-6">
-        &copy; {{ new Date().getFullYear() }} theintelliprompt. All Rights Reserved.
+        &copy; {{ new Date().getFullYear() }} NeuralBriefly. All Rights Reserved.
         <a href="#" class="hover:text-[#666] transition ml-2">Terms of Service</a>
         <a href="#" class="hover:text-[#666] transition ml-2">Privacy Policy</a>
       </div>

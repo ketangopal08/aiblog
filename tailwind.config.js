@@ -12,7 +12,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Sora', 'sans-serif'],
+        sans: ['var(--font-primary)', 'serif'],
+        display: ['Inter', 'sans-serif'],
       },
     },
   },

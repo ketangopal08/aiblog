@@ -11,7 +11,7 @@ export default defineNuxtConfig({
         { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
         {
           rel: 'stylesheet',
-          href: 'https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800;900&display=swap',
+          href: 'https://fonts.googleapis.com/css2?family=Charis+SIL:ital,wght@0,400;0,700;1,400;1,700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap',
         },
         { rel: 'preconnect', href: 'https://neuralbriefly.com' },
       ],
@@ -25,6 +25,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       wpBaseUrl: process.env.WP_BASE_URL ?? 'https://lime-hamster-756747.hostingersite.com',
+      wpUseMock: process.env.WP_USE_MOCK === 'true',
     },
   },
   routeRules: {

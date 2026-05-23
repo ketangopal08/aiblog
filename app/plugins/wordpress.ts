@@ -4,8 +4,7 @@ import { MockWordPressService } from '~/services/MockWordPressService'
 export default defineNuxtPlugin(() => {
   const config = useRuntimeConfig()
 
-  const useMock = config.public.wpBaseUrl === 'https://your-wordpress-site.com' || !config.public.wpBaseUrl
-  const wpService = useMock
+  const wpService = config.public.wpUseMock
     ? new MockWordPressService()
     : new WordPressService(config.public.wpBaseUrl)
 
