@@ -22,13 +22,24 @@ export const useSeo = (seo: ISeo) => {
     ),
   })
 
+  const scripts: { type: string; innerHTML: string }[] = [
+    { type: 'application/ld+json', innerHTML: JSON.stringify(buildMainJsonLd(seo, canonicalUrl, siteOrigin)) },
+  ]
+
+  if (seo.breadcrumbs && seo.breadcrumbs.length > 1) {
+    scripts.push({
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify(buildBreadcrumbJsonLd(seo.breadcrumbs, siteOrigin)),
+    })
+  }
+
   useHead({
     link: [{ rel: 'canonical', href: canonicalUrl }],
-    script: [{ type: 'application/ld+json', innerHTML: JSON.stringify(buildJsonLd(seo, canonicalUrl, siteOrigin)) }],
+    script: scripts,
   })
 }
 
-function buildJsonLd(seo: ISeo, canonicalUrl: string, siteOrigin: string): Record<string, unknown> {
+function buildMainJsonLd(seo: ISeo, canonicalUrl: string, siteOrigin: string): Record<string, unknown> {
   if (seo.article) {
     return {
       '@context': 'https://schema.org',
@@ -49,22 +60,6 @@ function buildJsonLd(seo: ISeo, canonicalUrl: string, siteOrigin: string): Recor
     }
   }
 
-  if (seo.breadcrumb) {
-    return {
-      '@context': 'https://schema.org',
-      '@type': 'BreadcrumbList',
-      itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: siteOrigin },
-        {
-          '@type': 'ListItem',
-          position: 2,
-          name: seo.breadcrumb.name,
-          item: `${siteOrigin}${seo.breadcrumb.url}`,
-        },
-      ],
-    }
-  }
-
   return {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
@@ -75,9 +70,25 @@ function buildJsonLd(seo: ISeo, canonicalUrl: string, siteOrigin: string): Recor
       '@type': 'SearchAction',
       target: {
         '@type': 'EntryPoint',
-        urlTemplate: `${siteOrigin}/?s={search_term_string}`,
+        urlTemplate: `${siteOrigin}/search?q={search_term_string}`,
       },
       'query-input': 'required name=search_term_string',
     },
+  }
+}
+
+function buildBreadcrumbJsonLd(
+  breadcrumbs: Array<{ name: string; url: string }>,
+  siteOrigin: string
+): Record<string, unknown> {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: breadcrumbs.map((crumb, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: crumb.name,
+      item: `${siteOrigin}${crumb.url}`,
+    })),
   }
 }

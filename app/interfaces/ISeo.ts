@@ -10,8 +10,5 @@ export interface ISeo {
     author: string
     tags?: string[]
   }
-  breadcrumb?: {
-    name: string
-    url: string
-  }
+  breadcrumbs?: Array<{ name: string; url: string }>
 }
