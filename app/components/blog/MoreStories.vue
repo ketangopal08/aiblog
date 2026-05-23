@@ -23,7 +23,7 @@ function timeAgo(dateStr: string): string {
 
 <template>
   <section class="bg-white dark:bg-[#0D0D0D] py-12 border-t border-gray-100 dark:border-white/[0.06]">
-    <div class="max-w-[1158px] mx-auto px-5">
+    <div class="max-w-[1238px] mx-auto px-5">
 
       <!-- Header row -->
       <div class="flex items-end justify-between mb-8 gap-4">

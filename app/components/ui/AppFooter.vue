@@ -43,7 +43,7 @@ const COLUMNS = [
 
 <template>
   <footer class="bg-[#0a0a0a] border-t border-[#1f1f1f]">
-    <div class="max-w-[1158px] mx-auto px-6 sm:px-8">
+    <div class="max-w-[1238px] mx-auto px-6 sm:px-8">
 
       <!-- Brand row -->
       <div class="flex justify-between items-start gap-10 pt-12 pb-10">

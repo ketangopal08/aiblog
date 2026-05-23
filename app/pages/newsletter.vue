@@ -19,7 +19,7 @@ useSeoMeta({
 
     <!-- Hero header -->
     <div class="border-b border-white/[0.08] py-16 px-5">
-      <div class="max-w-[1158px] mx-auto">
+      <div class="max-w-[1238px] mx-auto">
         <p class="text-[11px] uppercase tracking-[3px] text-gray-500 font-display mb-3">
           Catch up on top stories
         </p>
@@ -31,7 +31,7 @@ useSeoMeta({
     </div>
 
     <!-- Grid -->
-    <div class="max-w-[1158px] mx-auto px-5 py-12">
+    <div class="max-w-[1238px] mx-auto px-5 py-12">
 
       <!-- Skeleton -->
       <div v-if="!posts?.length" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">

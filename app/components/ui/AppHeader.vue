@@ -30,14 +30,20 @@ const drawerLinks = computed(() => {
 
 const route = useRoute()
 watch(() => route.path, () => { menuOpen.value = false })
-
 watch(menuOpen, (val) => {
   if (import.meta.client) document.body.style.overflow = val ? 'hidden' : ''
+})
+
+const scrolled = ref(false)
+onMounted(() => {
+  const onScroll = () => { scrolled.value = window.scrollY > 20 }
+  window.addEventListener('scroll', onScroll, { passive: true })
+  onUnmounted(() => window.removeEventListener('scroll', onScroll))
 })
 </script>
 
 <template>
-  <!-- ── Drawer backdrop & panel (shared: mobile + desktop hamburger) ── -->
+  <!-- ── Drawer backdrop & panel ── -->
   <Teleport to="body">
     <Transition name="fade">
       <div
@@ -53,26 +59,21 @@ watch(menuOpen, (val) => {
         class="fixed top-0 left-0 h-full w-72 bg-white dark:bg-[#0f0f0f]
                border-r border-gray-100 dark:border-[#222] z-50 flex flex-col shadow-2xl"
       >
-        <!-- Drawer header -->
         <div class="flex items-center justify-between px-5 h-14 border-b border-gray-100 dark:border-[#222] flex-shrink-0">
           <NuxtLink to="/" class="flex items-center gap-2" @click="menuOpen = false">
             <img src="/logo-dark.png" alt="" class="h-8 w-auto dark:hidden" />
             <img src="/logo-light.png" alt="" class="h-8 w-auto hidden dark:block" />
             <span class="text-base font-black tracking-tight text-gray-900 dark:text-white" style="font-family: 'Inter', sans-serif !important">NeuralBriefly</span>
           </NuxtLink>
-          <button
-            type="button"
-            @click="menuOpen = false"
+          <button type="button" @click="menuOpen = false"
             class="w-8 h-8 flex items-center justify-center text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition"
-            aria-label="Close menu"
-          >
+            aria-label="Close menu">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
             </svg>
           </button>
         </div>
 
-        <!-- Drawer nav links — same as desktop nav -->
         <nav class="flex-1 overflow-y-auto px-3 py-4">
           <ul class="flex flex-col gap-0.5">
             <li v-for="link in drawerLinks" :key="link.label">
@@ -94,7 +95,6 @@ watch(menuOpen, (val) => {
           </ul>
         </nav>
 
-        <!-- Drawer footer -->
         <div class="px-4 py-5 border-t border-gray-100 dark:border-[#222] flex flex-col gap-3 flex-shrink-0">
           <button type="button" class="w-full text-xs font-bold py-2.5 border border-gray-900 dark:border-white
                          text-gray-900 dark:text-white
@@ -102,12 +102,9 @@ watch(menuOpen, (val) => {
                          transition rounded">
             Subscribe
           </button>
-          <button
-            type="button"
-            @click="toggleTheme"
+          <button type="button" @click="toggleTheme"
             class="w-full flex items-center justify-center gap-2 text-xs font-semibold
-                   text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition py-1"
-          >
+                   text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition py-1">
             <svg v-if="!isDark" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <circle cx="12" cy="12" r="4"/>
               <path stroke-linecap="round" d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
@@ -122,121 +119,104 @@ watch(menuOpen, (val) => {
     </Transition>
   </Teleport>
 
-  <!-- ── Mobile brand bar (< lg) ── -->
-  <div class="lg:hidden bg-white dark:bg-[#0D0D0D] border-b border-gray-100 dark:border-[#1a1a1a]">
-    <div class="max-w-[1158px] mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="relative flex items-center h-14">
-      <!-- Left: burger -->
-      <button
-        type="button"
-        @click="menuOpen = !menuOpen"
-        aria-label="Toggle menu"
-        class="w-10 h-10 flex items-center justify-center text-gray-800 dark:text-gray-100 hover:text-gray-600 dark:hover:text-gray-300 transition flex-shrink-0"
-      >
-        <span class="flex flex-col gap-[5px]">
-          <span class="block w-5 h-[1.5px] bg-current" />
-          <span class="block w-5 h-[1.5px] bg-current" />
-          <span class="block w-5 h-[1.5px] bg-current" />
-        </span>
-      </button>
+  <!-- ── Mobile bar (< lg) ── -->
+  <div class="lg:hidden sticky top-0 z-30 bg-white dark:bg-[#0D0D0D] border-b border-gray-100 dark:border-[#1a1a1a]">
+    <div class="max-w-[1238px] mx-auto px-4">
+      <div class="relative flex items-center h-14">
+        <!-- Burger -->
+        <button type="button" @click="menuOpen = !menuOpen" aria-label="Toggle menu"
+          class="w-10 h-10 flex items-center justify-center text-gray-800 dark:text-gray-100 hover:text-gray-600 dark:hover:text-gray-300 transition flex-shrink-0">
+          <span class="flex flex-col gap-[5px]">
+            <span class="block w-5 h-[1.5px] bg-current" />
+            <span class="block w-5 h-[1.5px] bg-current" />
+            <span class="block w-5 h-[1.5px] bg-current" />
+          </span>
+        </button>
 
-      <span class="w-px h-5 bg-gray-300 dark:bg-[#333] mx-1" />
+        <span class="w-px h-5 bg-gray-300 dark:bg-[#333] mx-1" />
 
-      <button type="button" aria-label="Search" class="w-10 h-10 flex items-center justify-center text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition">
-        <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/>
-        </svg>
-      </button>
-
-      <!-- Centre: logo -->
-      <NuxtLink to="/" class="absolute left-1/2 -translate-x-1/2 flex items-center gap-2 whitespace-nowrap">
-        <img src="/logo-dark.png" alt="" class="h-7 w-auto dark:hidden" />
-        <img src="/logo-light.png" alt="" class="h-7 w-auto hidden dark:block" />
-        <span class="text-[1.1rem] font-black tracking-tight text-gray-900 dark:text-white" style="font-family: 'Inter', sans-serif !important">NeuralBriefly</span>
-      </NuxtLink>
-
-      <!-- Right: theme + subscribe -->
-      <div class="ml-auto flex items-center gap-2 flex-shrink-0">
-        <button
-          type="button"
-          @click="toggleTheme"
-          :title="isDark ? 'Light mode' : 'Dark mode'"
-          class="w-10 h-10 flex items-center justify-center text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition"
-        >
-          <svg v-if="!isDark" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="4"/>
-            <path stroke-linecap="round" d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
-          </svg>
-          <svg v-else class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+        <button type="button" aria-label="Search"
+          class="w-10 h-10 flex items-center justify-center text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition">
+          <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/>
           </svg>
         </button>
-        <button type="button" class="hidden sm:flex items-center text-xs font-bold px-4 h-9 border border-gray-900 dark:border-white
-                       text-gray-900 dark:text-white
-                       hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900 transition">
-          Subscribe
-        </button>
+
+        <!-- Centre brand -->
+        <NuxtLink to="/" class="absolute left-1/2 -translate-x-1/2 flex items-center gap-2 whitespace-nowrap">
+          <img src="/logo-dark.png" alt="" class="h-7 w-auto dark:hidden" />
+          <img src="/logo-light.png" alt="" class="h-7 w-auto hidden dark:block" />
+          <span class="text-[1.1rem] font-black tracking-tight text-gray-900 dark:text-white" style="font-family: 'Inter', sans-serif !important">NeuralBriefly</span>
+        </NuxtLink>
+
+        <!-- Right: theme + subscribe -->
+        <div class="ml-auto flex items-center gap-2 flex-shrink-0">
+          <button type="button" @click="toggleTheme" :title="isDark ? 'Light mode' : 'Dark mode'"
+            class="w-10 h-10 flex items-center justify-center text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition">
+            <svg v-if="!isDark" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="4"/>
+              <path stroke-linecap="round" d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+            </svg>
+            <svg v-else class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+            </svg>
+          </button>
+          <button type="button" class="hidden sm:flex items-center text-xs font-bold px-4 h-9 border border-gray-900 dark:border-white
+                         text-gray-900 dark:text-white
+                         hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900 transition">
+            Subscribe
+          </button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-  <!-- ── Desktop: utility bar (scrolls away) ── -->
-  <div class="hidden lg:block bg-white dark:bg-[#0D0D0D] border-b border-gray-100 dark:border-white/[0.05]">
-    <div class="max-w-[1158px] mx-auto flex items-center justify-end gap-1 py-2">
-      <button type="button" aria-label="Search"
-        class="w-8 h-8 flex items-center justify-center text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition">
-        <svg class="w-[15px] h-[15px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/>
-        </svg>
-      </button>
-      <button
-        type="button"
-        @click="toggleTheme"
-        :aria-label="isDark ? 'Switch to light mode' : 'Switch to dark mode'"
-        class="w-8 h-8 flex items-center justify-center text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition"
+  <!-- ── Desktop: unified sticky header ── -->
+  <div class="hidden lg:block sticky top-0 z-30 bg-white dark:bg-[#0D0D0D] border-b border-gray-200 dark:border-white/[0.08]">
+
+    <!-- Main bar -->
+    <div
+      class="max-w-[1238px] mx-auto flex items-stretch transition-all duration-300"
+      :class="scrolled ? 'h-[65px] pt-0' : 'h-[80px] pt-[10px]'"
+    >
+
+      <!-- Brand: vertically centered on the left -->
+      <NuxtLink to="/" class="flex items-center gap-3 flex-shrink-0 self-center">
+        <img src="/logo-dark.png" alt="" class="h-9 w-auto dark:hidden" />
+        <img src="/logo-light.png" alt="" class="h-9 w-auto hidden dark:block" />
+        <span
+          class="font-black tracking-tight text-gray-900 dark:text-white leading-none transition-all duration-300"
+          :style="scrolled
+            ? 'font-size: 22px; font-family: Inter, sans-serif'
+            : 'font-size: clamp(24px, 2.6vw, 36px); font-family: Inter, sans-serif'"
+        >NeuralBriefly</span>
+      </NuxtLink>
+
+      <!-- Right column: two-row expanded → single-row compact on scroll -->
+      <div
+        class="ml-auto flex transition-all duration-300 overflow-hidden"
+        :class="scrolled ? 'flex-row items-center gap-5' : 'flex-col items-end'"
       >
-        <svg v-if="!isDark" class="w-[15px] h-[15px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <circle cx="12" cy="12" r="4"/>
-          <path stroke-linecap="round" d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
-        </svg>
-        <svg v-else class="w-[15px] h-[15px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
-        </svg>
-      </button>
-      <button
-        type="button"
-        class="text-[10px] font-black uppercase tracking-[2px]
-               bg-gray-900 dark:bg-white text-white dark:text-gray-900
-               px-5 py-1.5 hover:bg-gray-700 dark:hover:bg-gray-200 transition ml-2"
-      >
-        Subscribe
-      </button>
-    </div>
-  </div>
 
-  <!-- ── Desktop: main nav (sticky) ── -->
-  <div class="hidden lg:block sticky top-0 z-30 bg-white dark:bg-[#0D0D0D] border-b border-gray-200 dark:border-white/10">
-    <div class="max-w-[1158px] mx-auto">
-      <nav class="flex items-center h-11">
+        <!-- Subscribe -->
+        <button
+          type="button"
+          class="bg-gray-900 dark:bg-white text-white dark:text-gray-900
+                 px-4 h-[28px] text-[9px] font-black uppercase tracking-[2px]
+                 hover:bg-gray-700 dark:hover:bg-gray-200 transition flex-shrink-0"
+          :class="scrolled ? 'self-center' : ''"
+        >
+          Subscribe
+        </button>
 
-        <!-- Brand -->
-        <NuxtLink to="/" class="flex items-center gap-2 flex-shrink-0">
-          <img src="/logo-dark.png" alt="" class="h-8 w-auto dark:hidden" />
-          <img src="/logo-light.png" alt="" class="h-8 w-auto hidden dark:block" />
-          <span class="text-[15px] font-black tracking-tight text-gray-900 dark:text-white" style="font-family: 'Inter', sans-serif !important">NeuralBriefly</span>
-        </NuxtLink>
+        <!-- Nav row -->
+        <div class="flex items-center gap-5" :class="scrolled ? '' : 'flex-1'">
 
-        <!-- Push everything else to the right -->
-        <div class="ml-auto flex items-center">
-
-          <!-- Slash-separated links -->
           <template v-for="link in navLinks" :key="link.label">
-            <span class="mx-3 text-gray-300 dark:text-white/20 select-none text-base font-light leading-none">/</span>
             <NuxtLink
               :to="link.to"
-              class="text-[11px] font-bold uppercase tracking-wider whitespace-nowrap
-                     text-gray-500 dark:text-gray-400
+              class="text-[12px] font-semibold whitespace-nowrap
+                     text-gray-600 dark:text-gray-300
                      hover:text-gray-900 dark:hover:text-white transition-colors"
               active-class="!text-gray-900 dark:!text-white"
             >
@@ -244,22 +224,42 @@ watch(menuOpen, (val) => {
             </NuxtLink>
           </template>
 
+          <!-- Separator -->
+          <span class="w-px h-4 bg-gray-200 dark:bg-white/20 flex-shrink-0" />
+
+          <!-- Search -->
+          <button type="button" aria-label="Search"
+            class="w-7 h-7 flex items-center justify-center text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition">
+            <svg class="w-[14px] h-[14px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/>
+            </svg>
+          </button>
+
+          <!-- Theme toggle -->
+          <button type="button" @click="toggleTheme"
+            :aria-label="isDark ? 'Switch to light mode' : 'Switch to dark mode'"
+            class="w-7 h-7 flex items-center justify-center text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition">
+            <svg v-if="!isDark" class="w-[14px] h-[14px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="4"/>
+              <path stroke-linecap="round" d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+            </svg>
+            <svg v-else class="w-[14px] h-[14px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+            </svg>
+          </button>
+
           <!-- Hamburger -->
-          <button
-            type="button"
-            @click="menuOpen = !menuOpen"
-            aria-label="Open menu"
-            class="ml-3 w-9 h-9 flex items-center justify-center text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition"
-          >
+          <button type="button" @click="menuOpen = !menuOpen" aria-label="Open menu"
+            class="w-7 h-7 flex items-center justify-center text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition">
             <span class="flex flex-col gap-[5px]">
               <span class="block w-5 h-[1.5px] bg-current" />
               <span class="block w-5 h-[1.5px] bg-current" />
               <span class="block w-5 h-[1.5px] bg-current" />
             </span>
           </button>
-
         </div>
-      </nav>
+      </div>
+
     </div>
   </div>
 </template>

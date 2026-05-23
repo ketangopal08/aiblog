@@ -71,7 +71,7 @@ function postImg(post: PostModel, w = 600, h = 400) {
 
 <template>
   <section class="bg-black w-full py-16">
-    <div class="max-w-[1158px] mx-auto px-5">
+    <div class="max-w-[1238px] mx-auto px-5">
 
       <!-- Header row -->
       <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
