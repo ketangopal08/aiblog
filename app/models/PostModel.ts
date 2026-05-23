@@ -15,6 +15,8 @@ export class PostModel implements IPost {
   excerpt: string
   content: string
   date: string
+  modifiedDate: string
+  authorSlug: string
   featuredImage: string | null
   author: IAuthor
   categories: ICategory[]
@@ -28,22 +30,34 @@ export class PostModel implements IPost {
     this.excerpt = raw.excerpt.rendered
     this.content = raw.content.rendered
     this.date = raw.date
+    this.modifiedDate = raw.modified ?? raw.date
     this.featuredImage = raw._embedded?.['wp:featuredmedia']?.[0]?.source_url ?? null
 
     const rawAuthor = raw._embedded?.author?.[0]
-    this.author = rawAuthor ? new AuthorModel(rawAuthor) : { id: 0, name: 'Unknown', avatarUrl: null, description: '' }
+    this.author = rawAuthor
+      ? new AuthorModel(rawAuthor)
+      : { id: 0, name: 'Unknown', avatarUrl: null, description: '' }
+    this.authorSlug = rawAuthor?.slug ?? ''
 
     const terms = raw._embedded?.['wp:term'] ?? []
     this.categories = (terms[0] ?? []).map(t => new CategoryModel(t))
     this.tags = (terms[1] ?? []).map(t => new TagModel(t))
+
+    const breadcrumbs: Array<{ name: string; url: string }> = [{ name: 'Home', url: '/' }]
+    if (this.categories[0]) {
+      breadcrumbs.push({ name: this.categories[0].name, url: `/category/${this.categories[0].slug}` })
+    }
+    breadcrumbs.push({ name: this.title, url: `/blog/${this.slug}` })
 
     this.seo = {
       title: this.title,
       description: this.excerpt.replace(/<[^>]+>/g, '').trim(),
       ogImage: this.featuredImage ?? undefined,
       ogType: 'article',
+      breadcrumbs,
       article: {
         publishedTime: this.date,
+        modifiedTime: this.modifiedDate,
         author: this.author.name,
         tags: this.tags.map(t => t.name),
       },
@@ -54,7 +68,7 @@ export class PostModel implements IPost {
     return new Date(this.date).toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'long',
-      day: 'numeric'
+      day: 'numeric',
     })
   }
 

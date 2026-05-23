@@ -10,6 +10,8 @@ export interface IPost {
   excerpt: string
   content: string
   date: string
+  modifiedDate: string
+  authorSlug: string
   featuredImage: string | null
   author: IAuthor
   categories: ICategory[]
