@@ -41,7 +41,7 @@ export interface WPComment {
   post: number
   parent: number
   author_name: string
-  author_avatar_urls: Record<string, string>
+  author_avatar_urls: Record<string, string> | undefined
   content: { rendered: string }
   date: string
 }
