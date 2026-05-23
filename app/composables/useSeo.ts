@@ -26,7 +26,7 @@ export const useSeo = (seo: ISeo) => {
     { type: 'application/ld+json', innerHTML: JSON.stringify(buildMainJsonLd(seo, canonicalUrl, siteOrigin)) },
   ]
 
-  if (seo.breadcrumbs && seo.breadcrumbs.length > 1) {
+  if (seo.breadcrumbs && seo.breadcrumbs.length > 0) {
     scripts.push({
       type: 'application/ld+json',
       innerHTML: JSON.stringify(buildBreadcrumbJsonLd(seo.breadcrumbs, siteOrigin)),
@@ -57,6 +57,16 @@ function buildMainJsonLd(seo: ISeo, canonicalUrl: string, siteOrigin: string): R
       },
       url: canonicalUrl,
       ...(seo.article.tags?.length && { keywords: seo.article.tags.join(', ') }),
+    }
+  }
+
+  if (seo.breadcrumbs && seo.breadcrumbs.length > 0) {
+    return {
+      '@context': 'https://schema.org',
+      '@type': 'CollectionPage',
+      name: seo.title,
+      description: seo.description,
+      url: canonicalUrl,
     }
   }
 
