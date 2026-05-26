@@ -12,9 +12,9 @@ const ADVERTISE_ICON = 'M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 
 const { data: rawCategories } = await useAsyncData('nav-categories', () => $wp.getCategories())
 
 const navLinks = [
-  { label: 'News',     to: '/news' },
-  { label: 'How-to',   to: '/how-to' },
-  { label: 'Features', to: '/features' },
+  { label: 'News',     to: '/category/news' },
+  { label: 'How-to',   to: '/category/how-to' },
+  { label: 'Features', to: '/category/features' },
   { label: 'About Us', to: '/about' },
 ]
 
