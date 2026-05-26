@@ -5,29 +5,29 @@ const { open: openSearch } = useSearchModal()
 
 const menuOpen = ref(false)
 
-const CATEGORY_ICON = 'M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A2 2 0 013 12V7a4 4 0 014-4z'
-const HOME_ICON    = 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6'
-const ABOUT_ICON   = 'M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z'
+const CATEGORY_ICON  = 'M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A2 2 0 013 12V7a4 4 0 014-4z'
+const CONTACT_ICON   = 'M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z'
+const ADVERTISE_ICON = 'M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z'
 
 const { data: rawCategories } = await useAsyncData('nav-categories', () => $wp.getCategories())
 
-const navLinks = computed(() => {
-  const cats = (rawCategories.value ?? [])
-    .filter((c: any) => c.slug !== 'uncategorized')
-    .map((c: any) => ({ label: c.name, to: `/category/${c.slug}` }))
-  return [{ label: 'All', to: '/' }, ...cats, { label: 'About', to: '/about' }]
-})
+const navLinks = [
+  { label: 'News',     to: '/news' },
+  { label: 'How-to',   to: '/how-to' },
+  { label: 'Features', to: '/features' },
+  { label: 'About Us', to: '/about' },
+]
 
-const drawerLinks = computed(() => {
-  const cats = (rawCategories.value ?? [])
+const staticDrawerLinks = [
+  { label: 'Contact Us', to: '/contact',   icon: CONTACT_ICON },
+  { label: 'Advertise',  to: '/advertise', icon: ADVERTISE_ICON },
+]
+
+const categoryDrawerLinks = computed(() =>
+  (rawCategories.value ?? [])
     .filter((c: any) => c.slug !== 'uncategorized')
     .map((c: any) => ({ label: c.name, to: `/category/${c.slug}`, icon: CATEGORY_ICON }))
-  return [
-    { label: 'All',   to: '/',       icon: HOME_ICON },
-    ...cats,
-    { label: 'About', to: '/about',  icon: ABOUT_ICON },
-  ]
-})
+)
 
 const route = useRoute()
 watch(() => route.path, () => { menuOpen.value = false })
@@ -76,14 +76,16 @@ onMounted(() => {
         </div>
 
         <nav class="flex-1 overflow-y-auto px-3 py-4">
+          <!-- Static menu items -->
           <ul class="flex flex-col gap-0.5">
-            <li v-for="link in drawerLinks" :key="link.label">
+            <li v-for="link in staticDrawerLinks" :key="link.label">
               <NuxtLink
                 :to="link.to"
-                class="flex items-center gap-3 px-3 py-3 text-sm font-semibold
+                class="flex items-center gap-3 px-3 py-3 text-base font-semibold
                        text-gray-700 dark:text-gray-300
                        hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-[#1a1a1a]
                        rounded-lg transition group"
+                style="font-family: 'Playfair Display', serif"
                 active-class="!text-gray-900 dark:!text-white !bg-gray-100 dark:!bg-[#1a1a1a]"
               >
                 <svg class="w-4 h-4 flex-shrink-0 text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-200 transition"
@@ -94,6 +96,32 @@ onMounted(() => {
               </NuxtLink>
             </li>
           </ul>
+
+          <!-- Dynamic categories -->
+          <template v-if="categoryDrawerLinks.length">
+            <div class="mt-5 mb-2 px-3">
+              <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">Categories</span>
+            </div>
+            <ul class="flex flex-col gap-0.5">
+              <li v-for="link in categoryDrawerLinks" :key="link.label">
+                <NuxtLink
+                  :to="link.to"
+                  class="flex items-center gap-3 px-3 py-3 text-base font-semibold
+                         text-gray-700 dark:text-gray-300
+                         hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-[#1a1a1a]
+                         rounded-lg transition group"
+                  active-class="!text-gray-900 dark:!text-white !bg-gray-100 dark:!bg-[#1a1a1a]"
+                  style="font-family: 'Playfair Display', serif"
+                >
+                  <svg class="w-4 h-4 flex-shrink-0 text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-200 transition"
+                       fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" :d="link.icon" />
+                  </svg>
+                  {{ link.label }}
+                </NuxtLink>
+              </li>
+            </ul>
+          </template>
         </nav>
 
         <div class="px-4 py-5 border-t border-gray-100 dark:border-[#222] flex flex-col gap-3 flex-shrink-0">
@@ -216,14 +244,14 @@ onMounted(() => {
           <template v-for="(link, index) in navLinks" :key="link.label">
             <NuxtLink
               :to="link.to"
-              class="text-[12px] font-semibold whitespace-nowrap
+              class="text-[16px] font-semibold whitespace-nowrap
                      text-gray-600 dark:text-gray-300
                      hover:text-gray-900 dark:hover:text-white transition-colors"
               active-class="!text-gray-900 dark:!text-white"
             >
               {{ link.label }}
             </NuxtLink>
-            <span class="text-gray-300 dark:text-white/20 mx-3 select-none text-[12px]">/</span>
+            <span class="text-gray-300 dark:text-white/20 mx-3 select-none text-[16px]">/</span>
           </template>
 
           <!-- Search -->
@@ -271,7 +299,7 @@ onMounted(() => {
 .slide-enter-from, .slide-leave-to { transform: translateX(-100%); }
 
 .nav-links :deep(a) {
-  font-family: Inter, sans-serif !important;
-  font-size: 14px !important;
+  font-family: 'Playfair Display', serif !important;
+  font-size: 16px !important;
 }
 </style>
