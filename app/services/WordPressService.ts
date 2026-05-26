@@ -29,6 +29,20 @@ export class WordPressService implements IWordPressService {
     }
   }
 
+  private async fetchPostsPaginated(
+    params: Record<string, unknown>
+  ): Promise<IPaginatedResult<IPost>> {
+    const response = await $fetch.raw<WPPost[]>(`${this.apiBase}/posts`, {
+      params: { _embed: true, per_page: 10, ...params },
+    })
+    const { total, totalPages } = this.parsePaginationHeaders(response.headers)
+    return {
+      items: (response._data ?? []).map((raw: WPPost) => new PostModel(raw)),
+      total,
+      totalPages,
+    }
+  }
+
   // ── Existing methods (unchanged) ──────────────────────────
 
   async getPosts(page = 1, perPage = 10): Promise<IPost[]> {
@@ -62,43 +76,23 @@ export class WordPressService implements IWordPressService {
   // ── New paginated methods ─────────────────────────────────
 
   async getPostsPaginated(page = 1, perPage = 12): Promise<IPaginatedResult<IPost>> {
-    const response = await ($fetch as any).raw(`${this.apiBase}/posts`, {
-      params: { page, per_page: perPage, _embed: true },
-    })
-    const { total, totalPages } = this.parsePaginationHeaders(response.headers)
-    return { items: (response._data as WPPost[]).map(raw => new PostModel(raw)), total, totalPages }
+    return this.fetchPostsPaginated({ page, per_page: perPage })
   }
 
   async getPostsByCategoryPaginated(categoryId: number, page = 1): Promise<IPaginatedResult<IPost>> {
-    const response = await ($fetch as any).raw(`${this.apiBase}/posts`, {
-      params: { categories: categoryId, page, per_page: 10, _embed: true },
-    })
-    const { total, totalPages } = this.parsePaginationHeaders(response.headers)
-    return { items: (response._data as WPPost[]).map(raw => new PostModel(raw)), total, totalPages }
+    return this.fetchPostsPaginated({ categories: categoryId, page })
   }
 
   async getPostsByTag(tagId: number, page = 1): Promise<IPaginatedResult<IPost>> {
-    const response = await ($fetch as any).raw(`${this.apiBase}/posts`, {
-      params: { tags: tagId, page, per_page: 10, _embed: true },
-    })
-    const { total, totalPages } = this.parsePaginationHeaders(response.headers)
-    return { items: (response._data as WPPost[]).map(raw => new PostModel(raw)), total, totalPages }
+    return this.fetchPostsPaginated({ tags: tagId, page })
   }
 
   async searchPosts(query: string, page = 1): Promise<IPaginatedResult<IPost>> {
-    const response = await ($fetch as any).raw(`${this.apiBase}/posts`, {
-      params: { search: query, page, per_page: 10, _embed: true },
-    })
-    const { total, totalPages } = this.parsePaginationHeaders(response.headers)
-    return { items: (response._data as WPPost[]).map(raw => new PostModel(raw)), total, totalPages }
+    return this.fetchPostsPaginated({ search: query, page })
   }
 
   async getPostsByAuthor(authorId: number, page = 1): Promise<IPaginatedResult<IPost>> {
-    const response = await ($fetch as any).raw(`${this.apiBase}/posts`, {
-      params: { author: authorId, page, per_page: 10, _embed: true },
-    })
-    const { total, totalPages } = this.parsePaginationHeaders(response.headers)
-    return { items: (response._data as WPPost[]).map(raw => new PostModel(raw)), total, totalPages }
+    return this.fetchPostsPaginated({ author: authorId, page })
   }
 
   // ── Taxonomy helpers ──────────────────────────────────────

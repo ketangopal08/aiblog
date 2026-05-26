@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const { isDark, toggleTheme } = useTheme()
 const { $wp } = useNuxtApp()
+const { open: openSearch } = useSearchModal()
 
 const menuOpen = ref(false)
 
@@ -135,7 +136,7 @@ onMounted(() => {
 
         <span class="w-px h-5 bg-gray-300 dark:bg-[#333] mx-1" />
 
-        <button type="button" aria-label="Search"
+        <button type="button" aria-label="Search" @click="openSearch"
           class="w-10 h-10 flex items-center justify-center text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition">
           <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/>
@@ -210,7 +211,7 @@ onMounted(() => {
         </button>
 
         <!-- Nav row -->
-        <div class="flex items-center gap-5" :class="scrolled ? '' : 'flex-1'">
+        <div class="nav-links flex items-center gap-5" :class="scrolled ? '' : 'flex-1'">
 
           <template v-for="link in navLinks" :key="link.label">
             <NuxtLink
@@ -228,7 +229,7 @@ onMounted(() => {
           <span class="w-px h-4 bg-gray-200 dark:bg-white/20 flex-shrink-0" />
 
           <!-- Search -->
-          <button type="button" aria-label="Search"
+          <button type="button" aria-label="Search" @click="openSearch"
             class="w-7 h-7 flex items-center justify-center text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition">
             <svg class="w-[14px] h-[14px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/>
@@ -270,4 +271,9 @@ onMounted(() => {
 
 .slide-enter-active, .slide-leave-active { transition: transform 0.3s ease; }
 .slide-enter-from, .slide-leave-to { transform: translateX(-100%); }
+
+.nav-links :deep(a) {
+  font-family: Inter, sans-serif !important;
+  font-size: 14px !important;
+}
 </style>

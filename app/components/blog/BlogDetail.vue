@@ -58,13 +58,14 @@ const img = computed(() => props.post.featuredImage || `https://picsum.photos/se
 
     <!-- Tags -->
     <div v-if="post.tags.length" class="mt-10 pt-6 border-t border-gray-200 dark:border-[#222222] flex gap-2 flex-wrap">
-      <span
+      <NuxtLink
         v-for="tag in post.tags"
         :key="tag.id"
-        class="text-xs text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-[#1f1f1f] border border-gray-200 dark:border-[#2d2d2d] px-3 py-1 rounded-full"
+        :to="`/tag/${tag.slug}`"
+        class="text-xs text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-[#1f1f1f] border border-gray-200 dark:border-[#2d2d2d] px-3 py-1 rounded-full hover:border-gray-900 dark:hover:border-white hover:text-gray-900 dark:hover:text-white transition-colors"
       >
         #{{ tag.name }}
-      </span>
+      </NuxtLink>
     </div>
 
     <!-- Back link -->

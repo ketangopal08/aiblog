@@ -12,5 +12,8 @@ onMounted(() => initTheme())
       <NuxtPage />
     </main>
     <AppFooter />
+    <ClientOnly>
+      <SearchModal />
+    </ClientOnly>
   </div>
 </template>

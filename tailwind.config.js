@@ -12,7 +12,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['var(--font-primary)', 'serif'],
+        sans: ['"Playfair Display"', 'serif'],
         display: ['Inter', 'sans-serif'],
       },
     },
