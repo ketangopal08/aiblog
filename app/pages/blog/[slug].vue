@@ -16,7 +16,11 @@ const breadcrumbItems = computed(() => {
 </script>
 
 <template>
-  <div class="max-w-4xl mx-auto px-4 py-10">
+  <div>
+    <ClientOnly>
+      <ReadingProgress />
+    </ClientOnly>
+    <div class="max-w-4xl mx-auto px-4 py-10">
     <LoadingSpinner v-if="loading" />
     <p v-else-if="error" class="text-red-500">{{ error }}</p>
     <template v-else-if="post">
@@ -25,5 +29,6 @@ const breadcrumbItems = computed(() => {
       <BlogDetail :post="post" />
     </template>
     <p v-else class="text-gray-500 dark:text-gray-400">Post not found.</p>
+    </div>
   </div>
 </template>

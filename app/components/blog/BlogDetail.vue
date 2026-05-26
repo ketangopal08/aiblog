@@ -58,6 +58,13 @@ function copyLink() {
           <p class="text-[11px] text-gray-400 dark:text-gray-500 leading-none mb-1">Updated on</p>
           <p class="text-[14px] font-semibold text-gray-900 dark:text-white leading-none">{{ post.formattedDate }}</p>
         </div>
+        <NuxtLink
+          v-if="post.authorSlug"
+          :to="`/author/${post.authorSlug}`"
+          class="text-[14px] font-semibold text-gray-900 dark:text-white hover:text-primary transition-colors"
+        >
+          {{ post.author.name }}
+        </NuxtLink>
       </div>
 
       <!-- Right: share buttons -->
@@ -141,12 +148,18 @@ function copyLink() {
       </NuxtLink>
     </div>
 
+    <!-- Comments -->
+    <PostComments :post="post" />
+
     <!-- Back link -->
     <div class="mt-10">
       <NuxtLink to="/" class="text-sm font-bold text-gray-900 dark:text-white hover:underline uppercase tracking-wide">
         ← Back to all posts
       </NuxtLink>
     </div>
+
+    <!-- Related posts -->
+    <RelatedPosts :post="post" />
 
   </article>
 </template>
