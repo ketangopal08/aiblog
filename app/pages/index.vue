@@ -189,7 +189,7 @@ function postImg(post: PostModel, w = 800, h = 500) {
                      group hover:bg-gray-50 dark:hover:bg-white/[0.02] -mx-2 px-2 transition-colors"
             >
               <div class="flex-1 min-w-0">
-                <p class="text-[13px] font-bold text-gray-900 dark:text-white leading-snug line-clamp-2
+                <p class="text-[15px] font-medium text-gray-900 dark:text-white leading-snug line-clamp-2
                           group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors">
                   {{ post.title }}
                 </p>
