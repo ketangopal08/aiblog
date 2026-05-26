@@ -1,63 +1,136 @@
 <script setup lang="ts">
 import type { PostModel } from '~/models/PostModel'
+
 const props = defineProps<{ post: PostModel }>()
 const img = computed(() => props.post.featuredImage || `https://picsum.photos/seed/${props.post.id}/1200/600`)
+
+const copied = ref(false)
+function copyLink() {
+  navigator.clipboard.writeText(window.location.href)
+  copied.value = true
+  setTimeout(() => { copied.value = false }, 2000)
+}
 </script>
 
 <template>
-  <article class="max-w-3xl mx-auto">
+  <article class="max-w-4xl mx-auto">
 
-    <!-- ── Cinematic hero image ── -->
-    <div class="relative rounded-2xl overflow-hidden mb-10 -mx-4 sm:mx-0" style="height: clamp(260px, 45vw, 500px)">
+    <!-- Categories -->
+    <div class="flex gap-3 flex-wrap mb-4">
+      <NuxtLink
+        v-for="cat in post.categories"
+        :key="cat.id"
+        :to="`/category/${cat.slug}`"
+        class="text-[13px] text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+      >
+        {{ cat.name }}
+      </NuxtLink>
+    </div>
+
+    <!-- Title -->
+    <h1 class="text-[2rem] sm:text-[2.6rem] font-bold text-gray-900 dark:text-white leading-tight mb-4">
+      {{ post.title }}
+    </h1>
+
+    <!-- Excerpt -->
+    <p
+      v-if="post.excerpt"
+      class="text-[15px] text-gray-500 dark:text-gray-400 leading-relaxed mb-8 max-w-2xl"
+      v-html="post.excerpt"
+    />
+
+    <!-- Featured image -->
+    <div class="rounded-2xl overflow-hidden mb-8" style="height: clamp(300px, 50vw, 560px)">
       <img
         :src="img"
         :alt="post.title"
-        class="absolute inset-0 w-full h-full object-cover"
+        class="w-full h-full object-cover"
       />
-      <!-- layered gradients -->
-      <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
-      <div class="absolute inset-0 bg-gradient-to-r from-black/30 to-transparent" />
+    </div>
 
-      <!-- bottom overlay content -->
-      <div class="absolute bottom-0 left-0 right-0 p-6 flex flex-col gap-3">
-        <!-- categories -->
-        <div class="flex gap-2 flex-wrap">
-          <span
-            v-for="cat in post.categories"
-            :key="cat.id"
-            class="text-[10px] font-black uppercase tracking-widest text-white px-2.5 py-1 rounded-full bg-gray-900/80"
-          >
-            {{ cat.name }}
-          </span>
+    <!-- Author / meta / share row -->
+    <div class="flex items-center justify-between gap-6 pb-8 border-b border-gray-100 dark:border-white/[0.08] flex-wrap">
+
+      <!-- Left: author + date -->
+      <div class="flex items-center gap-6">
+        <!-- Date -->
+        <div class="hidden sm:block">
+          <p class="text-[11px] text-gray-400 dark:text-gray-500 leading-none mb-1">Updated on</p>
+          <p class="text-[14px] font-semibold text-gray-900 dark:text-white leading-none">{{ post.formattedDate }}</p>
         </div>
-        <!-- title on image -->
-        <h1 class="text-2xl sm:text-3xl font-extrabold text-white leading-tight line-clamp-3 drop-shadow-lg">
-          {{ post.title }}
-        </h1>
-        <!-- meta -->
-        <div class="flex items-center gap-3 text-white/70 text-xs">
-          <span class="font-medium text-white/90">{{ post.author.name }}</span>
-          <span class="text-white/40">·</span>
-          <span>{{ post.formattedDate }}</span>
-          <span class="text-white/40">·</span>
-          <span class="flex items-center gap-1">
-            <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <circle cx="12" cy="12" r="10"/><path stroke-linecap="round" d="M12 6v6l4 2"/>
-            </svg>
-            {{ post.readingTime }} min read
-          </span>
-        </div>
+      </div>
+
+      <!-- Right: share buttons -->
+      <div class="flex items-center gap-2">
+        <!-- Copy link -->
+        <button
+          @click="copyLink"
+          class="flex items-center gap-2 text-[12px] font-medium text-gray-700 dark:text-gray-300
+                 border border-gray-200 dark:border-white/10 px-3 py-2 rounded-lg
+                 hover:border-gray-900 dark:hover:border-white hover:text-gray-900 dark:hover:text-white
+                 transition-colors"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+          </svg>
+          {{ copied ? 'Copied!' : 'Copy link' }}
+        </button>
+
+        <!-- Facebook -->
+        <a
+          :href="`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent($route.fullPath)}`"
+          target="_blank" rel="noopener"
+          class="w-9 h-9 flex items-center justify-center border border-gray-200 dark:border-white/10 rounded-lg
+                 text-gray-500 dark:text-gray-400 hover:border-gray-900 dark:hover:border-white
+                 hover:text-gray-900 dark:hover:text-white transition-colors"
+          aria-label="Share on Facebook"
+        >
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
+          </svg>
+        </a>
+
+        <!-- Instagram -->
+        <a
+          href="https://instagram.com"
+          target="_blank" rel="noopener"
+          class="w-9 h-9 flex items-center justify-center border border-gray-200 dark:border-white/10 rounded-lg
+                 text-gray-500 dark:text-gray-400 hover:border-gray-900 dark:hover:border-white
+                 hover:text-gray-900 dark:hover:text-white transition-colors"
+          aria-label="Share on Instagram"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/>
+          </svg>
+        </a>
+
+        <!-- LinkedIn -->
+        <a
+          :href="`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent($route.fullPath)}`"
+          target="_blank" rel="noopener"
+          class="w-9 h-9 flex items-center justify-center border border-gray-200 dark:border-white/10 rounded-lg
+                 text-gray-500 dark:text-gray-400 hover:border-gray-900 dark:hover:border-white
+                 hover:text-gray-900 dark:hover:text-white transition-colors"
+          aria-label="Share on LinkedIn"
+        >
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/>
+            <circle cx="4" cy="4" r="2"/>
+          </svg>
+        </a>
       </div>
     </div>
 
-    <!-- Content -->
+    <!-- Article content -->
     <div
-      class="text-gray-800 dark:text-gray-200 leading-relaxed space-y-4 text-base"
+      class="prose prose-gray dark:prose-invert max-w-none mt-8 text-gray-800 dark:text-gray-200 leading-relaxed"
       v-html="post.content"
     />
 
     <!-- Tags -->
-    <div v-if="post.tags.length" class="mt-10 pt-6 border-t border-gray-200 dark:border-[#222222] flex gap-2 flex-wrap">
+    <div v-if="post.tags.length" class="mt-10 pt-6 border-t border-gray-200 dark:border-[#222] flex gap-2 flex-wrap">
       <NuxtLink
         v-for="tag in post.tags"
         :key="tag.id"
@@ -70,12 +143,10 @@ const img = computed(() => props.post.featuredImage || `https://picsum.photos/se
 
     <!-- Back link -->
     <div class="mt-10">
-      <NuxtLink
-        to="/"
-        class="text-sm font-bold text-gray-900 dark:text-white hover:underline uppercase tracking-wide"
-      >
+      <NuxtLink to="/" class="text-sm font-bold text-gray-900 dark:text-white hover:underline uppercase tracking-wide">
         ← Back to all posts
       </NuxtLink>
     </div>
+
   </article>
 </template>

@@ -48,7 +48,7 @@ const COLUMNS = [
       <!-- Brand row -->
       <div class="flex justify-between items-start gap-10 pt-12 pb-10">
         <div>
-          <NuxtLink to="/" class="text-[20px] font-black text-white tracking-tight" style="font-family: 'Inter', sans-serif !important">
+          <NuxtLink to="/" class="text-[20px] text-white tracking-tight" style="font-family: 'Playfair Display', serif !important; font-weight: 200 !important">
             NeuralBriefly
           </NuxtLink>
           <p class="text-[12px] text-[#555] mt-1.5">Your AI intelligence, daily.</p>

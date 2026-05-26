@@ -64,7 +64,7 @@ onMounted(() => {
           <NuxtLink to="/" class="flex items-center gap-2" @click="menuOpen = false">
             <img src="/logo-dark.png" alt="" class="h-8 w-auto dark:hidden" />
             <img src="/logo-light.png" alt="" class="h-8 w-auto hidden dark:block" />
-            <span class="text-base font-black tracking-tight text-gray-900 dark:text-white" style="font-family: 'Inter', sans-serif !important">NeuralBriefly</span>
+            <span class="text-base tracking-tight text-gray-900 dark:text-white" style="font-family: 'Playfair Display', serif !important; font-weight: 200 !important">NeuralBriefly</span>
           </NuxtLink>
           <button type="button" @click="menuOpen = false"
             class="w-8 h-8 flex items-center justify-center text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition"
@@ -147,7 +147,7 @@ onMounted(() => {
         <NuxtLink to="/" class="absolute left-1/2 -translate-x-1/2 flex items-center gap-2 whitespace-nowrap">
           <img src="/logo-dark.png" alt="" class="h-7 w-auto dark:hidden" />
           <img src="/logo-light.png" alt="" class="h-7 w-auto hidden dark:block" />
-          <span class="text-[1.1rem] font-black tracking-tight text-gray-900 dark:text-white" style="font-family: 'Inter', sans-serif !important">NeuralBriefly</span>
+          <span class="text-[1.1rem] tracking-tight text-gray-900 dark:text-white" style="font-family: 'Playfair Display', serif !important; font-weight: 200 !important">NeuralBriefly</span>
         </NuxtLink>
 
         <!-- Right: theme + subscribe -->
@@ -186,10 +186,10 @@ onMounted(() => {
         <img src="/logo-dark.png" alt="" class="h-9 w-auto dark:hidden" />
         <img src="/logo-light.png" alt="" class="h-9 w-auto hidden dark:block" />
         <span
-          class="font-black tracking-tight text-gray-900 dark:text-white leading-none transition-all duration-300"
+          class="tracking-tight text-gray-900 dark:text-white leading-none transition-all duration-300"
           :style="scrolled
-            ? 'font-size: 22px; font-family: Inter, sans-serif'
-            : 'font-size: clamp(24px, 2.6vw, 36px); font-family: Inter, sans-serif'"
+            ? 'font-size: 22px; font-family: Playfair Display, serif; font-weight: 200'
+            : 'font-size: clamp(24px, 2.6vw, 36px); font-family: Playfair Display, serif; font-weight: 200'"
         >NeuralBriefly</span>
       </NuxtLink>
 
