@@ -27,8 +27,7 @@ function goTo(page: number) {
              disabled:opacity-30 disabled:cursor-not-allowed
              border-gray-200 dark:border-white/10
              text-gray-700 dark:text-gray-300
-             hover:border-gray-900 dark:hover:border-white
-             hover:text-gray-900 dark:hover:text-white"
+             hover:border-primary hover:text-primary"
       aria-label="Previous page"
     >
       ←
@@ -45,8 +44,8 @@ function goTo(page: number) {
         @click="goTo(page as number)"
         :aria-current="page === currentPage ? 'page' : undefined"
         :class="page === currentPage
-          ? 'bg-gray-900 dark:bg-white text-white dark:text-gray-900 border-gray-900 dark:border-white'
-          : 'border-gray-200 dark:border-white/10 text-gray-700 dark:text-gray-300 hover:border-gray-900 dark:hover:border-white hover:text-gray-900 dark:hover:text-white'"
+          ? 'bg-primary text-white border-primary'
+          : 'border-gray-200 dark:border-white/10 text-gray-700 dark:text-gray-300 hover:border-primary hover:text-primary'"
         class="w-9 h-9 flex items-center justify-center border text-sm font-semibold transition-colors"
       >
         {{ page }}
@@ -62,8 +61,7 @@ function goTo(page: number) {
              disabled:opacity-30 disabled:cursor-not-allowed
              border-gray-200 dark:border-white/10
              text-gray-700 dark:text-gray-300
-             hover:border-gray-900 dark:hover:border-white
-             hover:text-gray-900 dark:hover:text-white"
+             hover:border-primary hover:text-primary"
       aria-label="Next page"
     >
       →

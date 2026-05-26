@@ -34,7 +34,7 @@ function timeAgo(dateStr: string): string {
               class="text-[52px] sm:text-[64px] font-black tracking-tighter text-gray-900 dark:text-white"
               style="font-family: 'Inter', sans-serif !important; line-height: 1"
             >AI</span>
-            <span class="absolute bottom-0 left-0 h-[10px] w-[36px] bg-gray-900 dark:bg-white" />
+            <span class="absolute bottom-0 left-0 h-[10px] w-[36px] bg-primary" />
           </div>
           <p class="text-[9px] sm:text-[10px] font-bold uppercase tracking-[2.5px] text-gray-500 dark:text-gray-400 mb-1 max-w-[220px] leading-relaxed">
             Catch up on trending news on artificial intelligence
@@ -42,10 +42,10 @@ function timeAgo(dateStr: string): string {
         </div>
         <NuxtLink
           to="/blog"
-          class="hidden sm:flex flex-shrink-0 items-center gap-2 border border-gray-900 dark:border-white
+          class="hidden sm:flex flex-shrink-0 items-center gap-2 border border-primary
                  text-[11px] font-bold uppercase tracking-[1.5px] px-5 py-2.5
-                 text-gray-900 dark:text-white
-                 hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900
+                 text-primary
+                 hover:bg-primary hover:text-white hover:border-primary
                  transition-colors duration-200"
         >
           See More AI Stories
@@ -67,7 +67,7 @@ function timeAgo(dateStr: string): string {
               <button
                 @click="view = 'list'"
                 :class="view === 'list'
-                  ? 'bg-gray-900 dark:bg-white text-white dark:text-gray-900'
+                  ? 'bg-primary text-white'
                   : 'bg-gray-100 dark:bg-[#1a1a1a] text-gray-400 hover:text-gray-900 dark:hover:text-white'"
                 class="w-9 h-9 flex items-center justify-center transition-colors"
                 aria-label="List view"
@@ -79,7 +79,7 @@ function timeAgo(dateStr: string): string {
               <button
                 @click="view = 'grid'"
                 :class="view === 'grid'
-                  ? 'bg-gray-900 dark:bg-white text-white dark:text-gray-900'
+                  ? 'bg-primary text-white'
                   : 'bg-gray-100 dark:bg-[#1a1a1a] text-gray-400 hover:text-gray-900 dark:hover:text-white'"
                 class="w-9 h-9 flex items-center justify-center transition-colors"
                 aria-label="Grid view"
@@ -193,9 +193,9 @@ function timeAgo(dateStr: string): string {
           <div class="sm:hidden mt-6">
             <NuxtLink
               to="/blog"
-              class="flex items-center justify-center gap-2 border border-gray-900 dark:border-white
+              class="flex items-center justify-center gap-2 border border-primary
                      text-[11px] font-bold uppercase tracking-[1.5px] px-5 py-3 w-full
-                     text-gray-900 dark:text-white
+                     text-primary
                      hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900
                      transition-colors duration-200"
             >

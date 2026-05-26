@@ -15,6 +15,9 @@ export default {
         sans: ['"Playfair Display"', 'serif'],
         display: ['Inter', 'sans-serif'],
       },
+      colors: {
+        primary: '#4bc471',
+      },
     },
   },
   plugins: [],

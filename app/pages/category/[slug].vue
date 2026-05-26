@@ -43,7 +43,7 @@ const totalPages = computed(() => data.value?.totalPages ?? 1)
         ],
       }" />
       <AppBreadcrumb :items="[{ label: 'Home', to: '/' }, { label: category.name }]" />
-      <h1 class="text-3xl font-black text-gray-900 dark:text-white mb-8 uppercase tracking-widest border-b-2 border-gray-900 dark:border-white pb-3 inline-block">
+      <h1 class="text-3xl font-black text-gray-900 dark:text-white mb-8 uppercase tracking-widest border-b-2 border-primary pb-3 inline-block">
         {{ category.name }}
       </h1>
       <BlogList :posts="posts" />

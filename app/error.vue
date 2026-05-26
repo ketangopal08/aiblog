@@ -23,9 +23,9 @@ const handleBack = () => clearError({ redirect: '/' })
         </p>
         <button
           type="button"
-          class="text-sm font-bold text-gray-900 dark:text-white
-                 border border-gray-900 dark:border-white px-6 py-3
-                 hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900 transition"
+          class="text-sm font-bold text-primary
+                 border border-primary px-6 py-3
+                 hover:bg-primary hover:text-white transition"
           @click="handleBack"
         >
           ← Back to homepage

@@ -125,9 +125,9 @@ onMounted(() => {
         </nav>
 
         <div class="px-4 py-5 border-t border-gray-100 dark:border-[#222] flex flex-col gap-3 flex-shrink-0">
-          <button type="button" class="w-full text-xs font-bold py-2.5 border border-gray-900 dark:border-white
-                         text-gray-900 dark:text-white
-                         hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900
+          <button type="button" class="w-full text-xs font-bold py-2.5 border border-primary
+                         text-primary
+                         hover:bg-primary hover:text-white
                          transition rounded">
             Subscribe
           </button>
@@ -190,9 +190,9 @@ onMounted(() => {
               <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
             </svg>
           </button>
-          <button type="button" class="hidden sm:flex items-center text-xs font-bold px-4 h-9 border border-gray-900 dark:border-white
-                         text-gray-900 dark:text-white
-                         hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900 transition">
+          <button type="button" class="hidden sm:flex items-center text-xs font-bold px-4 h-9 border border-primary
+                         text-primary
+                         hover:bg-primary hover:text-white transition">
             Subscribe
           </button>
         </div>
@@ -230,9 +230,9 @@ onMounted(() => {
         <!-- Subscribe -->
         <button
           type="button"
-          class="bg-gray-900 dark:bg-white text-white dark:text-gray-900
+          class="bg-primary text-white
                  px-4 h-[28px] text-[9px] font-black uppercase tracking-[2px]
-                 hover:bg-gray-700 dark:hover:bg-gray-200 transition flex-shrink-0"
+                 hover:bg-primary/80 transition flex-shrink-0"
           :class="scrolled ? 'self-center' : ''"
         >
           Subscribe

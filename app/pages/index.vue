@@ -164,7 +164,7 @@ function postImg(post: PostModel, w = 800, h = 500) {
                       border-t border-gray-200 dark:border-white/[0.08] lg:border-t-0
                       px-5 lg:px-0 pt-4 lg:pt-0 pb-5">
             <h3 class="text-[11px] font-black uppercase tracking-[3px] text-gray-900 dark:text-white
-                       pb-3 mb-1 border-b-2 border-gray-900 dark:border-white inline-block"
+                       pb-3 mb-1 border-b-2 border-primary inline-block"
                 style="font-family: Inter, sans-serif !important; font-size: 14px !important">
               Trending Stories
             </h3>

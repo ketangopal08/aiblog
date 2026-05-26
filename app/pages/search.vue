@@ -50,7 +50,7 @@ function timeAgo(dateStr: string): string {
         <h1 class="text-2xl sm:text-3xl font-black text-gray-900 dark:text-white tracking-tight">
           <template v-if="q">
             {{ total }} result{{ total !== 1 ? 's' : '' }} for
-            <span class="border-b-2 border-gray-900 dark:border-white">"{{ q }}"</span>
+            <span class="border-b-2 border-primary">"{{ q }}"</span>
           </template>
           <template v-else>Search</template>
         </h1>

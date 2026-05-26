@@ -55,10 +55,10 @@ function timeAgo(dateStr: string): string {
         </div>
         <!-- View toggle -->
         <div class="flex gap-1 flex-shrink-0">
-          <button @click="view = 'list'" :class="view === 'list' ? 'bg-gray-900 dark:bg-white text-white dark:text-gray-900' : 'bg-gray-100 dark:bg-[#1a1a1a] text-gray-400 hover:text-gray-900 dark:hover:text-white'" class="w-9 h-9 flex items-center justify-center transition-colors" aria-label="List view">
+          <button @click="view = 'list'" :class="view === 'list' ? 'bg-primary text-white' : 'bg-gray-100 dark:bg-[#1a1a1a] text-gray-400 hover:text-gray-900 dark:hover:text-white'" class="w-9 h-9 flex items-center justify-center transition-colors" aria-label="List view">
             <svg class="w-[15px] h-[15px]" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
           </button>
-          <button @click="view = 'grid'" :class="view === 'grid' ? 'bg-gray-900 dark:bg-white text-white dark:text-gray-900' : 'bg-gray-100 dark:bg-[#1a1a1a] text-gray-400 hover:text-gray-900 dark:hover:text-white'" class="w-9 h-9 flex items-center justify-center transition-colors" aria-label="Grid view">
+          <button @click="view = 'grid'" :class="view === 'grid' ? 'bg-primary text-white' : 'bg-gray-100 dark:bg-[#1a1a1a] text-gray-400 hover:text-gray-900 dark:hover:text-white'" class="w-9 h-9 flex items-center justify-center transition-colors" aria-label="Grid view">
             <svg class="w-[14px] h-[14px]" fill="currentColor" viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/></svg>
           </button>
         </div>

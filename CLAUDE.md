@@ -3,7 +3,7 @@
 ## Design Rules
 
 ### Color Palette
-Monochrome — black and white only. No accent color.
+Primary accent: `#4bc471` (green) — used for all buttons, borders, and interactive highlights.
 
 **Light mode:** white backgrounds, `text-gray-900` body text, `text-gray-500/400` secondary.
 **Dark mode:** `#0D0D0D`/`#111` backgrounds, `text-white` body text, `text-gray-400/500` secondary.
@@ -11,12 +11,14 @@ Monochrome — black and white only. No accent color.
 **Interactive elements:**
 - Hover on text links: `hover:text-gray-900 dark:hover:text-white`
 - Active nav: `!text-gray-900 dark:!text-white !border-gray-900 dark:!border-white`
-- CTA buttons (light bg): `bg-gray-900 text-white hover:bg-gray-700 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-200`
-- CTA buttons (dark bg, e.g. newsletter): `bg-white text-gray-900 hover:bg-gray-100`
+- CTA buttons (filled): `bg-primary text-white hover:bg-primary/80`
+- CTA buttons (outlined): `border border-primary text-primary hover:bg-primary hover:text-white`
+- Active states (pagination, toggles): `bg-primary text-white border-primary`
+- Accent underlines / decorative bars: `border-primary` / `bg-primary`
 - Category labels on image overlays: `text-white`
 - Category labels on light/card backgrounds: `text-gray-500 dark:text-gray-400`
 
-**Never use:** `text-primary`, `bg-primary`, any orange hex values, or `hover:bg-orange-*`.
+**Never use:** any orange hex values or `hover:bg-orange-*`.
 
 ---
 

@@ -67,7 +67,7 @@ function copyLink() {
           @click="copyLink"
           class="flex items-center gap-2 text-[12px] font-medium text-gray-700 dark:text-gray-300
                  border border-gray-200 dark:border-white/10 px-3 py-2 rounded-lg
-                 hover:border-gray-900 dark:hover:border-white hover:text-gray-900 dark:hover:text-white
+                 hover:border-primary hover:text-primary
                  transition-colors"
         >
           <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -135,7 +135,7 @@ function copyLink() {
         v-for="tag in post.tags"
         :key="tag.id"
         :to="`/tag/${tag.slug}`"
-        class="text-xs text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-[#1f1f1f] border border-gray-200 dark:border-[#2d2d2d] px-3 py-1 rounded-full hover:border-gray-900 dark:hover:border-white hover:text-gray-900 dark:hover:text-white transition-colors"
+        class="text-xs text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-[#1f1f1f] border border-gray-200 dark:border-[#2d2d2d] px-3 py-1 rounded-full hover:border-primary hover:text-primary transition-colors"
       >
         #{{ tag.name }}
       </NuxtLink>
