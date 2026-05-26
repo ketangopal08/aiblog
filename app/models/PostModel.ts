@@ -29,6 +29,9 @@ export class PostModel implements IPost {
     this.title = raw.title.rendered
     this.excerpt = raw.excerpt.rendered
     this.content = raw.content.rendered
+      .replace(/^(\s*<figure\b[^>]*class="[^"]*wp-block-image[^"]*"[^>]*>[\s\S]*?<\/figure>\s*)+/i, '')
+      .replace(/^(\s*<img\b[^>]*\/?\s*>\s*)+/i, '')
+      .trim()
     this.date = raw.date
     this.modifiedDate = raw.modified ?? raw.date
     this.featuredImage = raw._embedded?.['wp:featuredmedia']?.[0]?.source_url ?? null

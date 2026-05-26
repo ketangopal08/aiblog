@@ -33,7 +33,7 @@ function copyLink() {
     </h1>
 
     <!-- Excerpt -->
-    <p
+    <div
       v-if="post.excerpt"
       class="text-[15px] text-gray-500 dark:text-gray-400 leading-relaxed mb-8 max-w-2xl"
       v-html="post.excerpt"
