@@ -135,7 +135,7 @@ function copyLink() {
         v-for="tag in post.tags"
         :key="tag.id"
         :to="`/tag/${tag.slug}`"
-        class="text-xs text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-[#1f1f1f] border border-gray-200 dark:border-[#2d2d2d] px-3 py-1 rounded-full hover:border-primary hover:text-primary transition-colors"
+        class="text-xs text-primary bg-primary/10 border border-primary/30 px-3 py-1 rounded-full hover:bg-primary hover:text-white transition-colors"
       >
         #{{ tag.name }}
       </NuxtLink>
