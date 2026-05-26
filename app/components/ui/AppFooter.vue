@@ -33,9 +33,9 @@ const COLUMNS = [
     heading: 'Company',
     links: [
       { label: 'About Us',   to: '/about' },
-      { label: 'Contact',    to: '/about' },
-      { label: 'Newsletter', to: '/' },
-      { label: 'Advertise',  to: '/about' },
+      { label: 'Contact',    to: '/contact' },
+      { label: 'Newsletter', to: '/newsletter' },
+      { label: 'Advertise',  to: '/advertise' },
     ],
   },
 ]
