@@ -1,8 +1,14 @@
 import type { IWordPressService } from '~/interfaces/IWordPressService'
 import type { IPost } from '~/interfaces/IPost'
 import type { ICategory } from '~/interfaces/ICategory'
+import type { ITag } from '~/interfaces/ITag'
+import type { IAuthor } from '~/interfaces/IAuthor'
+import type { IComment } from '~/interfaces/IComment'
+import type { IPaginatedResult } from '~/interfaces/IPaginatedResult'
 import { PostModel } from '~/models/PostModel'
 import { CategoryModel } from '~/models/CategoryModel'
+import { TagModel } from '~/models/TagModel'
+import { AuthorModel } from '~/models/AuthorModel'
 
 const MOCK_CATEGORIES = [
   { id: 1, name: 'GPT', slug: 'gpt', count: 4, taxonomy: 'category' as const },
@@ -190,7 +196,80 @@ export class MockWordPressService implements IWordPressService {
 
   async getPostsByCategory(categoryId: number, _page = 1): Promise<IPost[]> {
     return MOCK_POSTS
-      .filter(p => p._embedded['wp:term'][0].some((t: any) => t.id === categoryId))
+      .filter(p => (p._embedded['wp:term'][0] ?? []).some((t: any) => t.id === categoryId))
       .map(raw => new PostModel(raw as any))
+  }
+
+  private paginatePosts(filtered: typeof MOCK_POSTS, page: number, perPage = 10): IPaginatedResult<IPost> {
+    const start = (page - 1) * perPage
+    const items = filtered.slice(start, start + perPage).map(raw => new PostModel(raw as any))
+    return { items, total: filtered.length, totalPages: Math.max(1, Math.ceil(filtered.length / perPage)) }
+  }
+
+  async getPostsPaginated(page = 1, perPage = 12): Promise<IPaginatedResult<IPost>> {
+    return this.paginatePosts(MOCK_POSTS, page, perPage)
+  }
+
+  async getPostsByCategoryPaginated(categoryId: number, page = 1): Promise<IPaginatedResult<IPost>> {
+    const filtered = MOCK_POSTS.filter(p =>
+      (p._embedded['wp:term'][0] ?? []).some((t: any) => t.id === categoryId)
+    )
+    return this.paginatePosts(filtered, page)
+  }
+
+  async getPostsByTag(tagId: number, page = 1): Promise<IPaginatedResult<IPost>> {
+    const filtered = MOCK_POSTS.filter(p =>
+      (p._embedded['wp:term'][1] ?? []).some((t: any) => t.id === tagId)
+    )
+    return this.paginatePosts(filtered, page)
+  }
+
+  async searchPosts(query: string, page = 1): Promise<IPaginatedResult<IPost>> {
+    const q = query.toLowerCase()
+    const filtered = MOCK_POSTS.filter(p =>
+      p.title.rendered.toLowerCase().includes(q) ||
+      p.excerpt.rendered.toLowerCase().includes(q)
+    )
+    return this.paginatePosts(filtered, page)
+  }
+
+  async getPostsByAuthor(authorId: number, page = 1): Promise<IPaginatedResult<IPost>> {
+    const filtered = MOCK_POSTS.filter(p => p._embedded.author[0]?.id === authorId)
+    return this.paginatePosts(filtered, page)
+  }
+
+  async getTags(): Promise<ITag[]> {
+    const tagMap = new Map<number, any>()
+    for (const post of MOCK_POSTS) {
+      for (const tag of (post._embedded['wp:term'][1] ?? [])) {
+        if (!tagMap.has(tag.id)) tagMap.set(tag.id, { ...tag, taxonomy: 'post_tag' as const })
+      }
+    }
+    return Array.from(tagMap.values()).map(raw => new TagModel(raw as any))
+  }
+
+  async getAuthorBySlug(slug: string): Promise<IAuthor | null> {
+    const authors = [
+      { id: 1, name: 'Alex Kim', slug: 'alex-kim', description: 'AI researcher and writer.', avatar_urls: { '96': 'https://i.pravatar.cc/96?img=11' } },
+      { id: 2, name: 'Sara Patel', slug: 'sara-patel', description: 'ML engineer and benchmarking enthusiast.', avatar_urls: { '96': 'https://i.pravatar.cc/96?img=5' } },
+      { id: 3, name: 'James Liu', slug: 'james-liu', description: 'Full-stack developer and AI tooling reviewer.', avatar_urls: { '96': 'https://i.pravatar.cc/96?img=33' } },
+    ]
+    const raw = authors.find(a => a.slug === slug)
+    return raw ? new AuthorModel(raw as any) : null
+  }
+
+  async getComments(_postId: number): Promise<IComment[]> {
+    return []
+  }
+
+  async postComment(_postId: number, data: { author: string; email: string; content: string }): Promise<IComment> {
+    return {
+      id: Date.now(),
+      author: data.author,
+      content: data.content,
+      date: new Date().toISOString(),
+      avatarUrl: 'https://i.pravatar.cc/96?img=1',
+      parentId: null,
+    }
   }
 }

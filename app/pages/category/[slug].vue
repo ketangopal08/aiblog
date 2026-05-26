@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { PostModel } from '~/models/PostModel'
 const route = useRoute()
 const { $wp } = useNuxtApp()
 const { categories, fetchCategories } = useCategories()
@@ -25,7 +26,7 @@ const { data, refresh } = await useAsyncData(
 
 watch(page, () => refresh())
 
-const posts = computed(() => data.value?.items ?? [])
+const posts = computed(() => (data.value?.items ?? []) as PostModel[])
 const totalPages = computed(() => data.value?.totalPages ?? 1)
 </script>
 
