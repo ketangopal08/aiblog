@@ -40,7 +40,7 @@ function copyLink() {
     />
 
     <!-- Featured image -->
-    <div class="rounded-2xl overflow-hidden mb-8" style="height: clamp(300px, 50vw, 560px)">
+    <div class="overflow-hidden mb-8" style="height: clamp(300px, 50vw, 560px)">
       <img
         :src="img"
         :alt="post.title"

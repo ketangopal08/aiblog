@@ -211,9 +211,9 @@ onMounted(() => {
         </button>
 
         <!-- Nav row -->
-        <div class="nav-links flex items-center gap-5" :class="scrolled ? '' : 'flex-1'">
+        <div class="nav-links flex items-center" :class="scrolled ? '' : 'flex-1'">
 
-          <template v-for="link in navLinks" :key="link.label">
+          <template v-for="(link, index) in navLinks" :key="link.label">
             <NuxtLink
               :to="link.to"
               class="text-[12px] font-semibold whitespace-nowrap
@@ -223,10 +223,8 @@ onMounted(() => {
             >
               {{ link.label }}
             </NuxtLink>
+            <span class="text-gray-300 dark:text-white/20 mx-3 select-none text-[12px]">/</span>
           </template>
-
-          <!-- Separator -->
-          <span class="w-px h-4 bg-gray-200 dark:bg-white/20 flex-shrink-0" />
 
           <!-- Search -->
           <button type="button" aria-label="Search" @click="openSearch"
