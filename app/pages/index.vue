@@ -72,7 +72,7 @@ function postImg(post: PostModel, w = 800, h = 500) {
                   :alt="featuredPost.title"
                   class="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
                 />
-                <div class="absolute inset-0 bg-gradient-to-t from-black/92 via-black/35 to-black/10 pointer-events-none" />
+                <div class="absolute inset-0 pointer-events-none" style="background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.55) 25%, rgba(0,0,0,0.15) 50%, transparent 70%)" />
                 <!-- Category -->
                 <div class="absolute top-4 left-4 z-10">
                   <span class="text-[9px] font-black uppercase tracking-[2.5px] text-white border-b border-white pb-[2px]">
@@ -104,7 +104,7 @@ function postImg(post: PostModel, w = 800, h = 500) {
                       :alt="post.title"
                       class="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
                     />
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-transparent pointer-events-none" />
+                    <div class="absolute inset-0 pointer-events-none" style="background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.50) 30%, rgba(0,0,0,0.12) 55%, transparent 75%)" />
                     <div class="absolute top-3 left-3 z-10">
                       <span class="text-[8px] font-black uppercase tracking-[2px] text-white border-b border-white pb-[2px]">
                         {{ post.categories[0]?.name ?? 'AI' }}

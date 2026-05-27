@@ -2,6 +2,8 @@ export interface ISeo {
   title: string
   description: string
   ogImage?: string
+  ogImageWidth?: number
+  ogImageHeight?: number
   ogType?: 'article' | 'website'
   canonicalUrl?: string
   article?: {

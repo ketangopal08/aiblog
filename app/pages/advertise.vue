@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const form = reactive({ name: '', company: '', email: '', budget: '', message: '' })
+const form = reactive({ name: '', company: '', email: '', message: '' })
 const submitted = ref(false)
 const submitting = ref(false)
 
@@ -10,26 +10,6 @@ async function submit() {
   submitting.value = false
 }
 
-const packages = [
-  {
-    name: 'Sponsored Article',
-    price: 'From $299',
-    desc: 'A full editorial-style post written about your product, published in our feed and promoted in our newsletter.',
-    features: ['1,000+ word article', 'SEO optimised', 'Newsletter mention', '30-day live guarantee'],
-  },
-  {
-    name: 'Newsletter Spot',
-    price: 'From $149',
-    desc: 'A dedicated placement inside our weekly AI digest sent to engaged subscribers.',
-    features: ['Top or mid-placement', 'Custom copy', 'Click tracking', 'Exclusive per issue'],
-  },
-  {
-    name: 'Banner / Display',
-    price: 'From $99',
-    desc: 'Prominent display placements across category pages and individual post pages.',
-    features: ['Sidebar or in-article', 'Mobile-responsive', 'Custom image/CTA', 'Weekly impressions report'],
-  },
-]
 </script>
 
 <template>
@@ -51,29 +31,6 @@ const packages = [
         NeuralBriefly readers are developers, founders, and AI enthusiasts actively following the space. Advertise your product, tool, or service directly in front of them.
       </p>
     </div>
-
-    <!-- Packages -->
-    <section class="mb-14">
-      <h2 class="text-[11px] font-black uppercase tracking-[3px] text-gray-400 dark:text-gray-500 mb-6">Advertising Packages</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
-        <div v-for="pkg in packages" :key="pkg.name"
-             class="border border-gray-100 dark:border-white/[0.08] p-6 flex flex-col">
-          <p class="text-[11px] font-black uppercase tracking-[2px] text-primary mb-2">{{ pkg.name }}</p>
-          <p class="text-[22px] font-bold text-gray-900 dark:text-white mb-3">{{ pkg.price }}</p>
-          <p class="text-[13px] text-gray-500 dark:text-gray-400 leading-relaxed mb-4 flex-1">{{ pkg.desc }}</p>
-          <ul class="flex flex-col gap-1.5">
-            <li v-for="f in pkg.features" :key="f" class="flex items-center gap-2 text-[12px] text-gray-600 dark:text-gray-400">
-              <svg class="w-3.5 h-3.5 text-primary flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
-              </svg>
-              {{ f }}
-            </li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <hr class="border-gray-100 dark:border-white/[0.08] mb-12" />
 
     <!-- Enquiry form -->
     <section>
@@ -108,19 +65,6 @@ const packages = [
           <input v-model="form.email" type="email" required placeholder="your@email.com"
             class="w-full bg-transparent border border-gray-200 dark:border-white/[0.1] px-3 py-2.5 text-[14px]
                    text-gray-900 dark:text-white placeholder-gray-400 outline-none focus:border-primary transition-colors" />
-        </div>
-
-        <div>
-          <label class="block text-[11px] font-bold uppercase tracking-[1.5px] text-gray-500 dark:text-gray-400 mb-1.5">Monthly Budget</label>
-          <select v-model="form.budget"
-            class="w-full bg-transparent border border-gray-200 dark:border-white/[0.1] px-3 py-2.5 text-[14px]
-                   text-gray-900 dark:text-white outline-none focus:border-primary transition-colors">
-            <option value="">Select a range</option>
-            <option>Under $500</option>
-            <option>$500 – $1,000</option>
-            <option>$1,000 – $3,000</option>
-            <option>$3,000+</option>
-          </select>
         </div>
 
         <div>

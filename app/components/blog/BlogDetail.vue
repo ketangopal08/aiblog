@@ -5,8 +5,21 @@ const props = defineProps<{ post: PostModel }>()
 const img = computed(() => props.post.featuredImage || `https://picsum.photos/seed/${props.post.id}/1200/600`)
 
 const copied = ref(false)
-function copyLink() {
-  navigator.clipboard.writeText(window.location.href)
+async function copyLink() {
+  const url = window.location.href
+  try {
+    await navigator.clipboard.writeText(url)
+  } catch {
+    const el = document.createElement('textarea')
+    el.value = url
+    el.style.position = 'fixed'
+    el.style.opacity = '0'
+    document.body.appendChild(el)
+    el.focus()
+    el.select()
+    document.execCommand('copy')
+    document.body.removeChild(el)
+  }
   copied.value = true
   setTimeout(() => { copied.value = false }, 2000)
 }
@@ -16,26 +29,26 @@ function copyLink() {
   <article class="max-w-4xl mx-auto">
 
     <!-- Categories -->
-    <div class="flex gap-3 flex-wrap mb-4">
+    <div class="flex gap-2 flex-wrap mb-4">
       <NuxtLink
         v-for="cat in post.categories"
         :key="cat.id"
         :to="`/category/${cat.slug}`"
-        class="text-[13px] text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+        class="text-[13px] font-semibold text-primary hover:text-primary/70 transition-colors"
       >
         {{ cat.name }}
       </NuxtLink>
     </div>
 
     <!-- Title -->
-    <h1 class="text-[2rem] sm:text-[2.6rem] font-bold text-gray-900 dark:text-white leading-tight mb-4">
+    <h1 class="font-bold text-gray-900 dark:text-white leading-tight mb-4" style="font-size: 2.4rem !important">
       {{ post.title }}
     </h1>
 
     <!-- Excerpt -->
     <div
       v-if="post.excerpt"
-      class="text-[15px] text-gray-500 dark:text-gray-400 leading-relaxed mb-8 max-w-2xl"
+      class="text-[1.1rem] text-gray-500 dark:text-gray-400 leading-relaxed mb-8 max-w-2xl"
       v-html="post.excerpt"
     />
 
@@ -132,7 +145,7 @@ function copyLink() {
 
     <!-- Article content -->
     <div
-      class="prose prose-gray dark:prose-invert max-w-none mt-8 text-gray-800 dark:text-gray-200 leading-relaxed"
+      class="post-content prose prose-gray dark:prose-invert max-w-none mt-8 text-gray-800 dark:text-gray-200 leading-relaxed"
       v-html="post.content"
     />
 
@@ -163,3 +176,9 @@ function copyLink() {
 
   </article>
 </template>
+
+<style scoped>
+.post-content :deep(p) {
+  font-size: 1.1rem;
+}
+</style>

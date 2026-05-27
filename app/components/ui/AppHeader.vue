@@ -9,7 +9,10 @@ const CATEGORY_ICON  = 'M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 
 const CONTACT_ICON   = 'M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z'
 const ADVERTISE_ICON = 'M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z'
 
-const { data: rawCategories } = await useAsyncData('nav-categories', () => $wp.getCategories())
+const { data: rawCategories } = await useAsyncData('nav-categories', async () => {
+  const cats = await $wp.getCategories()
+  return cats.map(c => ({ id: c.id, name: c.name, slug: c.slug, count: (c as any).count }))
+})
 
 const navLinks = [
   { label: 'News',     to: '/category/news' },
@@ -125,12 +128,6 @@ onMounted(() => {
         </nav>
 
         <div class="px-4 py-5 border-t border-gray-100 dark:border-[#222] flex flex-col gap-3 flex-shrink-0">
-          <button type="button" class="w-full text-xs font-bold py-2.5 border border-primary
-                         text-primary
-                         hover:bg-primary hover:text-white
-                         transition rounded">
-            Subscribe
-          </button>
           <button type="button" @click="toggleTheme"
             class="w-full flex items-center justify-center gap-2 text-xs font-semibold
                    text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition py-1">
@@ -190,11 +187,6 @@ onMounted(() => {
               <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
             </svg>
           </button>
-          <button type="button" class="hidden sm:flex items-center text-xs font-bold px-4 h-9 border border-primary
-                         text-primary
-                         hover:bg-primary hover:text-white transition">
-            Subscribe
-          </button>
         </div>
       </div>
     </div>
@@ -227,27 +219,17 @@ onMounted(() => {
         :class="scrolled ? 'flex-row items-center gap-5' : 'flex-col items-end'"
       >
 
-        <!-- Subscribe -->
-        <button
-          type="button"
-          class="bg-primary text-white
-                 px-4 h-[28px] text-[9px] font-black uppercase tracking-[2px]
-                 hover:bg-primary/80 transition flex-shrink-0"
-          :class="scrolled ? 'self-center' : ''"
-        >
-          Subscribe
-        </button>
-
         <!-- Nav row -->
         <div class="nav-links flex items-center" :class="scrolled ? '' : 'flex-1'">
 
           <template v-for="(link, index) in navLinks" :key="link.label">
             <NuxtLink
               :to="link.to"
-              class="text-[16px] font-semibold whitespace-nowrap
-                     text-gray-600 dark:text-gray-300
-                     hover:text-gray-900 dark:hover:text-white transition-colors"
-              active-class="!text-gray-900 dark:!text-white"
+              class="text-[16px] whitespace-nowrap
+                     text-gray-900 dark:text-white
+                     hover:text-black dark:hover:text-white transition-colors"
+              style="font-weight: 100"
+              active-class="!text-black dark:!text-white"
             >
               {{ link.label }}
             </NuxtLink>

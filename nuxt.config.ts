@@ -35,7 +35,11 @@ export default defineNuxtConfig({
     '/category/**': { isr: 120 },
     '/tag/**': { isr: 120 },
     '/author/**': { isr: 120 },
-    '/search': { ssr: true },
+    '/about': { isr: 3600 },
+    '/contact': { isr: 3600 },
+    '/advertise': { isr: 3600 },
+    '/newsletter': { isr: 60 },
+    '/search': { isr: 0 },
   },
   sitemap: {
     sources: ['/api/sitemap-urls'],

@@ -17,7 +17,15 @@ export const useSeo = (seo: ISeo) => {
     ogType,
     ogUrl: canonicalUrl,
     ...(ogImage
-      ? { ogImage, twitterImage: ogImage, twitterCard: 'summary_large_image' as const }
+      ? {
+          ogImage,
+          ogImageSecureUrl: ogImage,
+          ogImageType: ogImage.match(/\.png(\?|$)/i) ? 'image/png' : 'image/jpeg',
+          ...(seo.ogImageWidth && { ogImageWidth: seo.ogImageWidth }),
+          ...(seo.ogImageHeight && { ogImageHeight: seo.ogImageHeight }),
+          twitterImage: ogImage,
+          twitterCard: 'summary_large_image' as const,
+        }
       : { twitterCard: 'summary' as const }
     ),
   })

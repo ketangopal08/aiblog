@@ -30,43 +30,23 @@ useSeoMeta({
       </div>
     </div>
 
-    <!-- Grid -->
-    <div class="max-w-[1238px] mx-auto px-5 py-12">
-
-      <!-- Skeleton -->
-      <div v-if="!posts?.length" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        <div v-for="n in 8" :key="n" class="animate-pulse bg-[#1a1a1a]" style="height: 300px" />
+    <!-- Coming Soon -->
+    <div class="max-w-[1238px] mx-auto px-5 py-24 flex flex-col items-center justify-center text-center">
+      <div class="inline-flex items-center gap-2 border border-primary/40 text-primary text-[10px] font-black uppercase tracking-[3px] px-4 py-2 mb-8">
+        <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+        Coming Soon
       </div>
-
-      <div v-else class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        <NuxtLink
-          v-for="post in posts"
-          :key="post.id"
-          :to="`/blog/${post.slug}`"
-          class="relative overflow-hidden group"
-          style="height: 300px"
-        >
-          <img
-            :src="postImg(post)"
-            :alt="post.title"
-            loading="lazy"
-            class="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-500"
-          />
-          <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/10 pointer-events-none" />
-          <div class="absolute inset-0 p-5 flex flex-col justify-between z-10">
-            <span class="text-[9px] font-black uppercase tracking-[2.5px] text-white/70 font-display">
-              Newsletter
-            </span>
-            <div>
-              <h2 class="text-[16px] font-black text-white leading-snug line-clamp-3 font-display mb-2">
-                {{ post.title }}
-              </h2>
-              <span class="text-[11px] text-white/50">{{ post.formattedDate }}</span>
-            </div>
-          </div>
-        </NuxtLink>
-      </div>
-
+      <h2 class="text-white font-black leading-none tracking-tight mb-4"
+          style="font-size: clamp(32px, 5vw, 64px)">
+        Something big is brewing.
+      </h2>
+      <p class="text-gray-500 text-[15px] leading-relaxed max-w-md mb-10">
+        Our newsletter is on the way — curated AI news, model updates, and practical guides delivered straight to your inbox.
+      </p>
+      <NuxtLink to="/" class="bg-primary text-white text-[11px] font-black uppercase tracking-[2px] px-6 py-3 hover:bg-primary/80 transition-colors">
+        Back to Home
+      </NuxtLink>
     </div>
+
   </div>
 </template>

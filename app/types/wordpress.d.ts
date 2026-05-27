@@ -26,6 +26,11 @@ export interface WPAuthor {
 export interface WPMedia {
   source_url: string
   alt_text: string
+  media_details?: {
+    width?: number
+    height?: number
+    sizes?: Record<string, { source_url: string; width: number; height: number }>
+  }
 }
 
 export interface WPTerm {

@@ -18,6 +18,8 @@ export class PostModel implements IPost {
   modifiedDate: string
   authorSlug: string
   featuredImage: string | null
+  private _ogImageWidth?: number
+  private _ogImageHeight?: number
   author: IAuthor
   categories: ICategory[]
   tags: ITag[]
@@ -34,7 +36,10 @@ export class PostModel implements IPost {
       .trim()
     this.date = raw.date
     this.modifiedDate = raw.modified ?? raw.date
-    this.featuredImage = raw._embedded?.['wp:featuredmedia']?.[0]?.source_url ?? null
+    const featuredMedia = raw._embedded?.['wp:featuredmedia']?.[0]
+    this.featuredImage = featuredMedia?.source_url ?? null
+    this._ogImageWidth = featuredMedia?.media_details?.width
+    this._ogImageHeight = featuredMedia?.media_details?.height
 
     const rawAuthor = raw._embedded?.author?.[0]
     this.author = rawAuthor
@@ -52,10 +57,13 @@ export class PostModel implements IPost {
     }
     breadcrumbs.push({ name: this.title, url: `/blog/${this.slug}` })
 
+    const plainDesc = this.excerpt.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim()
     this.seo = {
       title: this.title,
-      description: this.excerpt.replace(/<[^>]+>/g, '').trim(),
+      description: plainDesc.length > 160 ? plainDesc.slice(0, 157) + '…' : plainDesc,
       ogImage: this.featuredImage ?? undefined,
+      ogImageWidth: this._ogImageWidth,
+      ogImageHeight: this._ogImageHeight,
       ogType: 'article',
       breadcrumbs,
       article: {

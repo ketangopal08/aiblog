@@ -97,91 +97,15 @@ function postImg(post: PostModel, w = 600, h = 400) {
         </NuxtLink>
       </div>
 
-      <!-- Slider -->
-      <div class="relative">
-        <div
-          ref="wrapperRef"
-          class="overflow-hidden"
-          @touchstart.passive="onTouchStart"
-          @touchend.passive="onTouchEnd"
-        >
-          <div class="flex" :style="[trackStyle, { gap: GAP + 'px' }]">
-
-            <!-- Skeleton -->
-            <template v-if="!posts?.length">
-              <div
-                v-for="n in visible" :key="n"
-                class="flex-shrink-0 animate-pulse bg-[#1a1a1a]"
-                :style="cardStyle"
-              />
-            </template>
-
-            <!-- Cards -->
-            <NuxtLink
-              v-for="post in posts"
-              :key="post.id"
-              :to="`/blog/${post.slug}`"
-              class="flex-shrink-0 relative overflow-hidden group"
-              :style="cardStyle"
-            >
-              <img
-                :src="postImg(post)"
-                :alt="post.title"
-                class="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-500"
-              />
-              <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/10 pointer-events-none" />
-              <div class="absolute inset-0 p-5 flex flex-col justify-between z-10">
-                <span class="text-[9px] font-black uppercase tracking-[2.5px] text-white/70 font-display">
-                  Newsletter
-                </span>
-                <div>
-                  <h3 class="text-[16px] font-black text-white leading-snug line-clamp-3 font-display mb-2">
-                    {{ post.title }}
-                  </h3>
-                  <span class="text-[11px] text-white/50">{{ post.formattedDate }}</span>
-                </div>
-              </div>
-            </NuxtLink>
-
-          </div>
-        </div>
-
-        <!-- Prev / Next — desktop only -->
-        <button
-          v-if="!isMobile && currentIndex > 0"
-          @click="prev"
-          class="absolute -left-5 top-1/2 -translate-y-1/2 w-10 h-10 bg-white text-black
-                 flex items-center justify-center hover:bg-gray-200 transition-colors z-10 shadow-lg"
-          aria-label="Previous"
-        >
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
-          </svg>
-        </button>
-        <button
-          v-if="!isMobile && currentIndex < maxIndex"
-          @click="next"
-          class="absolute -right-5 top-1/2 -translate-y-1/2 w-10 h-10 bg-white text-black
-                 flex items-center justify-center hover:bg-gray-200 transition-colors z-10 shadow-lg"
-          aria-label="Next"
-        >
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
-          </svg>
-        </button>
-      </div>
-
-      <!-- Dot indicators — desktop only -->
-      <div v-if="!isMobile && total > visible" class="flex items-center justify-center gap-2 mt-6">
-        <button
-          v-for="i in maxIndex + 1" :key="i"
-          @click="currentIndex = i - 1"
-          class="transition-all duration-200"
-          :class="currentIndex === i - 1
-            ? 'w-6 h-1.5 bg-white'
-            : 'w-1.5 h-1.5 bg-white/30 hover:bg-white/60'"
-          :aria-label="`Go to slide ${i}`"
-        />
+      <!-- Coming Soon -->
+      <div class="flex flex-col items-center justify-center text-center py-16 border border-white/[0.06]">
+        <span class="inline-flex items-center gap-2 border border-primary/40 text-primary text-[10px] font-black uppercase tracking-[3px] px-4 py-2 mb-6">
+          <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+          Coming Soon
+        </span>
+        <p class="text-white/50 text-[13px] max-w-xs leading-relaxed">
+          Our newsletter is on its way — curated AI news delivered straight to your inbox.
+        </p>
       </div>
 
     </div>
