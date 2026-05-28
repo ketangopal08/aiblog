@@ -42,8 +42,7 @@ async function copyLink() {
 
     <!-- Title -->
     <h1
-      class="font-bold text-gray-900 dark:text-white leading-tight mb-6"
-      style="font-size: 2.6rem !important"
+      class="post-title font-bold text-gray-900 dark:text-white leading-tight mb-6"
       v-html="post.title"
     />
 
@@ -125,4 +124,9 @@ async function copyLink() {
   </article>
 </template>
 
-
+<style scoped>
+.post-title { font-size: 2rem !important; }
+@media (min-width: 1024px) {
+  .post-title { font-size: 2.6rem !important; }
+}
+</style>

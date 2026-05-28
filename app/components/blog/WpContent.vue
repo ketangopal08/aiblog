@@ -10,6 +10,13 @@ const cleanHtml = computed(() =>
 
 <template>
   <ClientOnly>
-    <article class="prose prose-lg dark:prose-invert max-w-none" v-html="cleanHtml" />
+    <article class="wp-article prose dark:prose-invert max-w-none" v-html="cleanHtml" />
   </ClientOnly>
 </template>
+
+<style scoped>
+.wp-article { font-size: 1.1rem; }
+@media (min-width: 1024px) {
+  .wp-article { font-size: 1.125rem; }
+}
+</style>

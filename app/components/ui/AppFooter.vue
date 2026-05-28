@@ -17,18 +17,18 @@ const secondaryLinks = [
 </script>
 
 <template>
-  <footer class="bg-[#0a0a0a]">
-    <div class="max-w-[1238px] mx-auto px-6 sm:px-8 py-10">
+  <footer class="bg-[#0a0a0a] overflow-hidden">
+    <div class="max-w-[1238px] mx-auto px-5 sm:px-8 py-10">
 
       <!-- Row 1: Logo + Socials -->
-      <div class="flex items-center justify-between mb-7">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-7">
         <NuxtLink to="/"
           class="text-white leading-none"
-          style="font-size: 44px; font-family: 'Playfair Display', serif !important; font-weight: 200 !important; letter-spacing: 1px">
+          style="font-size: clamp(28px, 6vw, 44px); font-family: 'Playfair Display', serif !important; font-weight: 200 !important; letter-spacing: 1px">
           NeuralBriefly
         </NuxtLink>
 
-        <div class="flex items-center gap-3">
+        <div class="flex items-center gap-2 flex-wrap">
           <a href="#" aria-label="Facebook"
              class="w-9 h-9 rounded-full border border-primary flex items-center justify-center text-primary hover:bg-primary hover:text-white transition">
             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -68,7 +68,7 @@ const secondaryLinks = [
       <nav class="mb-3 leading-relaxed">
         <template v-for="(link, i) in primaryLinks" :key="link.label">
           <NuxtLink :to="link.to"
-            class="inline text-[13px] text-[#aaa] hover:text-white transition-colors whitespace-nowrap">
+            class="inline text-[13px] text-[#aaa] hover:text-white transition-colors">
             {{ link.label }}
           </NuxtLink>
           <span v-if="i < primaryLinks.length - 1" class="inline mx-3 text-[#444] select-none">|</span>
@@ -79,7 +79,7 @@ const secondaryLinks = [
       <nav class="mb-6 leading-relaxed">
         <template v-for="(link, i) in secondaryLinks" :key="link.label">
           <NuxtLink :to="link.to"
-            class="inline text-[12px] text-[#555] hover:text-[#aaa] transition-colors whitespace-nowrap">
+            class="inline text-[12px] text-[#555] hover:text-[#aaa] transition-colors">
             {{ link.label }}
           </NuxtLink>
           <span v-if="i < secondaryLinks.length - 1" class="inline mx-3 text-[#333] select-none">|</span>

@@ -47,7 +47,7 @@ function postImg(post: PostModel, w = 800, h = 500) {
          HERO GRID
     ══════════════════════════════════════════════ -->
     <section>
-      <div class="max-w-[1238px] mx-auto">
+      <div class="max-w-[1238px] mx-auto px-5 lg:px-0">
         <div class="flex flex-col lg:flex-row lg:gap-[20px]">
 
           <!-- ── LEFT: main content ── -->
@@ -81,9 +81,8 @@ function postImg(post: PostModel, w = 800, h = 500) {
                 </div>
                 <!-- Title + meta -->
                 <div class="absolute bottom-0 left-0 right-0 p-5 z-10">
-                  <h1 class="text-[20px] sm:text-[26px] font-black text-white leading-[1.15] tracking-tight line-clamp-3">
-                    {{ featuredPost.title }}
-                  </h1>
+                  <h1 class="hero-title font-black text-white leading-[1.15] tracking-tight line-clamp-3"
+                      v-html="featuredPost.title" />
                   <span class="text-[11px] text-white/55 mt-2 block">{{ featuredPost.formattedDate }}</span>
                 </div>
               </NuxtLink>
@@ -111,9 +110,8 @@ function postImg(post: PostModel, w = 800, h = 500) {
                       </span>
                     </div>
                     <div class="absolute bottom-0 left-0 right-0 p-3 sm:p-4 z-10">
-                      <h3 class="text-[12px] sm:text-[14px] font-black text-white leading-snug line-clamp-2 sm:line-clamp-3">
-                        {{ post.title }}
-                      </h3>
+                      <h3 class="text-[12px] sm:text-[14px] font-black text-white leading-snug line-clamp-2 sm:line-clamp-3"
+                          v-html="post.title" />
                       <span class="text-[10px] text-white/55 mt-1 block">{{ post.formattedDate }}</span>
                     </div>
                   </NuxtLink>
@@ -190,9 +188,8 @@ function postImg(post: PostModel, w = 800, h = 500) {
             >
               <div class="flex-1 min-w-0">
                 <p class="text-[15px] font-medium text-gray-900 dark:text-white leading-snug line-clamp-2
-                          group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors">
-                  {{ post.title }}
-                </p>
+                          group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors"
+                   v-html="post.title" />
                 <span class="text-[11px] text-gray-400 dark:text-gray-500 mt-1 block">{{ post.formattedDate }}</span>
               </div>
               <div class="w-[68px] h-[54px] flex-shrink-0 img-card bg-gray-100 dark:bg-[#1f1f1f]">
@@ -222,3 +219,10 @@ function postImg(post: PostModel, w = 800, h = 500) {
 
   </div>
 </template>
+
+<style scoped>
+.hero-title { font-size: 1.4rem !important; }
+@media (min-width: 1024px) {
+  .hero-title { font-size: 1.625rem !important; }
+}
+</style>
