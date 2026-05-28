@@ -2,21 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* TipTap viewer */
-.tiptap-viewer .ProseMirror { outline: none; font-size: 1.05rem; line-height: 1.75; color: #1f2937; }
-.dark .tiptap-viewer .ProseMirror { color: #e5e7eb; }
-.tiptap-viewer .ProseMirror p { margin-bottom: 0.75rem; }
-.tiptap-viewer .ProseMirror ul { list-style: disc; padding-left: 1.5rem; margin-bottom: 0.75rem; }
-.tiptap-viewer .ProseMirror ol { list-style: decimal; padding-left: 1.5rem; margin-bottom: 0.75rem; }
-.tiptap-viewer .ProseMirror li { margin-bottom: 0.25rem; }
-.tiptap-viewer .ProseMirror h1 { font-size: 1.875rem; font-weight: 700; margin: 1.25rem 0 0.5rem; }
-.tiptap-viewer .ProseMirror h2 { font-size: 1.5rem; font-weight: 700; margin: 1.25rem 0 0.5rem; }
-.tiptap-viewer .ProseMirror h3 { font-size: 1.25rem; font-weight: 700; margin: 1rem 0 0.4rem; }
-.tiptap-viewer .ProseMirror a { color: #4bc471; text-decoration: underline; }
-.tiptap-viewer .ProseMirror blockquote { border-left: 4px solid #4bc471; padding-left: 1rem; color: #6b7280; font-style: italic; margin: 1rem 0; }
-.tiptap-viewer .ProseMirror strong { font-weight: 700; }
-.tiptap-viewer .ProseMirror em { font-style: italic; }
-.tiptap-viewer .ProseMirror img { max-width: 100%; height: auto; border-radius: 6px; margin: 1rem 0; }
 
 @layer base {
   :root {

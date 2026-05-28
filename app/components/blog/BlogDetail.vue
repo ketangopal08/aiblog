@@ -1,18 +1,8 @@
 <script setup lang="ts">
 import type { PostModel } from '~/models/PostModel'
-import { useEditor, EditorContent } from '@tiptap/vue-3'
-import StarterKit from '@tiptap/starter-kit'
 
 const props = defineProps<{ post: PostModel }>()
 const img = computed(() => props.post.featuredImage || `https://picsum.photos/seed/${props.post.id}/1200/600`)
-
-const editor = useEditor({
-  content: props.post.content,
-  editable: false,
-  extensions: [StarterKit],
-})
-
-onBeforeUnmount(() => editor.value?.destroy())
 
 const copied = ref(false)
 async function copyLink() {
@@ -105,7 +95,7 @@ async function copyLink() {
     </div>
 
     <!-- Article content -->
-    <EditorContent :editor="editor" class="tiptap-viewer mt-8" />
+    <WpContent :content="post.content" class="mt-8" />
 
     <!-- Tags -->
     <div v-if="post.tags.length" class="mt-10 pt-6 border-t border-gray-200 dark:border-[#222] flex gap-2 flex-wrap">
