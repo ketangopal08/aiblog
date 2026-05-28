@@ -81,10 +81,10 @@ function timeAgo(dateStr: string): string {
           </div>
           <div class="flex-1 min-w-0 py-1">
             <div class="flex items-start justify-between gap-3 mb-2">
-              <span class="text-[9px] font-black uppercase tracking-[2px] text-gray-500 dark:text-gray-400 border-b border-gray-400 dark:border-gray-600 pb-px">{{ post.categories[0]?.name ?? 'AI' }}</span>
+              <span class="cat-label text-[9px] font-black uppercase tracking-[2px] text-gray-500 dark:text-gray-400 border-b border-gray-400 dark:border-gray-600 pb-px">{{ post.categories[0]?.name ?? 'AI' }}</span>
               <span class="text-[11px] text-gray-400 dark:text-gray-500 flex-shrink-0">{{ timeAgo(post.date) }}</span>
             </div>
-            <h2 class="text-[15px] sm:text-[18px] font-bold text-gray-900 dark:text-white leading-snug line-clamp-2 group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors">{{ post.title }}</h2>
+            <h2 class="text-[15px] sm:text-[18px] font-bold text-gray-900 dark:text-white leading-snug line-clamp-2 group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors" v-html="post.title" />
             <p class="text-[13px] text-gray-500 dark:text-gray-400 mt-1.5 line-clamp-2" v-html="post.excerpt" />
           </div>
         </NuxtLink>

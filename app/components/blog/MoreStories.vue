@@ -134,8 +134,7 @@ function timeAgo(dateStr: string): string {
               <!-- Content -->
               <div class="flex-1 min-w-0 py-1">
                 <div class="flex items-start justify-between gap-3 mb-2">
-                  <span class="text-[9px] font-black uppercase tracking-[2px] text-gray-500 dark:text-gray-400
-                               border-b border-gray-400 dark:border-gray-600 pb-px leading-none">
+                  <span class="cat-label text-[9px] font-black uppercase tracking-[2px] text-gray-500 dark:text-gray-400 leading-none">
                     {{ post.categories[0]?.name ?? 'AI' }}
                   </span>
                   <span class="text-[11px] text-gray-400 dark:text-gray-500 flex-shrink-0 whitespace-nowrap">
@@ -182,14 +181,13 @@ function timeAgo(dateStr: string): string {
                     class="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
                   />
                 </div>
-                <span class="text-[9px] font-black uppercase tracking-[2px] text-gray-500 dark:text-gray-400
-                             border-b border-gray-400 dark:border-gray-600 pb-px inline-block mb-2">
+                <span class="cat-label text-[9px] font-black uppercase tracking-[2px] text-gray-500 dark:text-gray-400
+                             inline-block mb-2">
                   {{ post.categories[0]?.name ?? 'AI' }}
                 </span>
                 <h3 class="text-[14px] font-bold text-gray-900 dark:text-white leading-snug line-clamp-2
-                           group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors">
-                  {{ post.title }}
-                </h3>
+                           group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors"
+                    v-html="post.title" />
                 <span class="text-[11px] text-gray-400 dark:text-gray-500 mt-1.5 block">
                   {{ timeAgo(post.date) }}
                 </span>

@@ -34,7 +34,8 @@ async function copyLink() {
         v-for="cat in post.categories"
         :key="cat.id"
         :to="`/category/${cat.slug}`"
-        class="text-[13px] font-semibold text-primary hover:text-primary/70 transition-colors"
+        class="text-[13px] text-primary hover:text-primary/70 transition-colors"
+        style="font-family: 'Inter', sans-serif; font-weight: 400"
       >
         {{ cat.name }}
       </NuxtLink>
@@ -48,7 +49,7 @@ async function copyLink() {
 
 
     <!-- Meta + share bar -->
-    <div class="flex items-center justify-between gap-4 mb-4 flex-wrap">
+    <div class="flex items-center justify-between gap-4 mb-4 flex-wrap" style="font-family: 'Inter', sans-serif">
       <div class="flex items-center gap-3">
         <NuxtLink
           v-if="post.authorSlug"

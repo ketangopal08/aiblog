@@ -8,6 +8,17 @@ import { AuthorModel } from './AuthorModel'
 import { CategoryModel } from './CategoryModel'
 import { TagModel } from './TagModel'
 
+function decodeHtmlEntities(str: string): string {
+  return str
+    .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(Number(n)))
+    .replace(/&amp;/g, '&')
+    .replace(/&quot;/g, '"')
+    .replace(/&apos;/g, "'")
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&nbsp;/g, ' ')
+}
+
 export class PostModel implements IPost {
   id: number
   slug: string
@@ -28,7 +39,7 @@ export class PostModel implements IPost {
   constructor(raw: WPPost) {
     this.id = raw.id
     this.slug = raw.slug
-    this.title = raw.title.rendered
+    this.title = decodeHtmlEntities(raw.title.rendered)
     this.excerpt = raw.excerpt.rendered
     this.content = raw.content.rendered
       .replace(/^(\s*<figure\b[^>]*class="[^"]*wp-block-image[^"]*"[^>]*>[\s\S]*?<\/figure>\s*)+/i, '')

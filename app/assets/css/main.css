@@ -5,6 +5,9 @@
 /* Single source of truth for all post/card image border radius */
 .img-card { border-radius: 8px; overflow: hidden; }
 
+/* Category label font — Inter across all badges/tags */
+.cat-label { font-family: 'Inter', sans-serif !important; font-weight: 600 !important; letter-spacing: 1px; }
+
 
 @layer base {
   :root {

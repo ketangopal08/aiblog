@@ -39,9 +39,8 @@ function postImg(post: PostModel) {
           />
         </div>
         <p class="text-[13px] font-bold text-gray-900 dark:text-white leading-snug line-clamp-2
-                   group-hover:text-primary transition-colors mb-1.5">
-          {{ item.title }}
-        </p>
+                   group-hover:text-primary transition-colors mb-1.5"
+           v-html="item.title" />
         <span class="text-[11px] text-gray-400 dark:text-gray-500">{{ item.formattedDate }}</span>
       </NuxtLink>
     </div>

@@ -19,16 +19,15 @@ const img = computed(() => props.post.featuredImage || `https://picsum.photos/se
       <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
       <!-- category on image -->
       <span
-        class="absolute bottom-2 left-2 text-[9px] font-black uppercase tracking-wider text-white px-2 py-0.5 rounded-full bg-gray-900/70"
+        class="cat-label absolute bottom-2 left-2 text-[9px] font-black uppercase tracking-wider text-white px-2 py-0.5 rounded-full bg-gray-900/70"
       >
         {{ post.categories[0]?.name ?? 'AI' }}
       </span>
     </div>
 
     <div class="p-3">
-      <h4 class="text-sm font-semibold text-gray-900 dark:text-white line-clamp-2 leading-snug group-hover:text-gray-600 dark:group-hover:text-gray-300 transition">
-        {{ post.title }}
-      </h4>
+      <h4 class="text-sm font-semibold text-gray-900 dark:text-white line-clamp-2 leading-snug group-hover:text-gray-600 dark:group-hover:text-gray-300 transition"
+          v-html="post.title" />
       <p class="text-[10px] text-gray-400 dark:text-gray-500 mt-1.5 uppercase tracking-wide">
         {{ post.formattedDate }}
       </p>

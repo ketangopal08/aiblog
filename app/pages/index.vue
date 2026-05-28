@@ -75,14 +75,14 @@ function postImg(post: PostModel, w = 800, h = 500) {
                 <div class="absolute inset-0 pointer-events-none" style="background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.55) 25%, rgba(0,0,0,0.15) 50%, transparent 70%)" />
                 <!-- Category -->
                 <div class="absolute top-4 left-4 z-10">
-                  <span class="text-[9px] font-black uppercase tracking-[2.5px] text-white border-b border-white pb-[2px]">
+                  <span class="cat-label text-[9px] font-black uppercase tracking-[2.5px] text-white bg-black/30 backdrop-blur-md px-2 py-1 rounded-sm" style="font-weight: 300">
                     {{ featuredPost.categories[0]?.name ?? 'AI' }}
                   </span>
                 </div>
                 <!-- Title + meta -->
                 <div class="absolute bottom-0 left-0 right-0 p-5 z-10">
-                  <h1 class="hero-title font-black text-white leading-[1.15] tracking-tight line-clamp-3"
-                      v-html="featuredPost.title" />
+                  <p class="hero-title text-white line-clamp-3"
+                     v-html="featuredPost.title" />
                   <span class="text-[11px] text-white/55 mt-2 block">{{ featuredPost.formattedDate }}</span>
                 </div>
               </NuxtLink>
@@ -105,13 +105,13 @@ function postImg(post: PostModel, w = 800, h = 500) {
                     />
                     <div class="absolute inset-0 pointer-events-none" style="background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.50) 30%, rgba(0,0,0,0.12) 55%, transparent 75%)" />
                     <div class="absolute top-3 left-3 z-10">
-                      <span class="text-[8px] font-black uppercase tracking-[2px] text-white border-b border-white pb-[2px]">
+                      <span class="cat-label text-[8px] font-black uppercase tracking-[2px] text-white bg-black/30 backdrop-blur-md px-2 py-1 rounded-sm" style="font-weight: 300">
                         {{ post.categories[0]?.name ?? 'AI' }}
                       </span>
                     </div>
                     <div class="absolute bottom-0 left-0 right-0 p-3 sm:p-4 z-10">
-                      <h3 class="hero-title font-black text-white leading-snug line-clamp-2 sm:line-clamp-3"
-                          v-html="post.title" />
+                      <p class="hero-title text-white line-clamp-2 sm:line-clamp-3"
+                         v-html="post.title" />
                       <span class="text-[10px] text-white/55 mt-1 block">{{ post.formattedDate }}</span>
                     </div>
                   </NuxtLink>
@@ -161,9 +161,8 @@ function postImg(post: PostModel, w = 800, h = 500) {
           <div class="w-full lg:w-[300px] xl:w-[330px] flex-shrink-0
                       border-t border-gray-200 dark:border-white/[0.08] lg:border-t-0
                       pt-4 lg:pt-0 pb-5">
-            <h3 class="text-[11px] font-black uppercase tracking-[3px] text-gray-900 dark:text-white
-                       pb-3 mb-1 border-b-2 border-primary inline-block"
-                style="font-family: Inter, sans-serif !important; font-size: 14px !important">
+            <h3 class="text-gray-900 dark:text-white pb-3 mb-1 border-b-2 border-primary inline-block"
+                style="text-transform: capitalize; font-family: Inter, sans-serif !important; font-size: 14px !important; letter-spacing: 1px; padding-bottom: 6px">
               Trending Stories
             </h3>
 
@@ -221,7 +220,12 @@ function postImg(post: PostModel, w = 800, h = 500) {
 </template>
 
 <style scoped>
-.hero-title { font-size: 1.4rem !important; }
+.hero-title {
+  font-size: 1.4rem !important;
+  font-weight: 100 !important;
+  line-height: 1.2 !important;
+  tracking: -0.01em;
+}
 @media (min-width: 1024px) {
   .hero-title { font-size: 1.625rem !important; }
 }

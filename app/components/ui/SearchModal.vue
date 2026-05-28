@@ -81,7 +81,7 @@ function postImg(post: PostModel) {
                   <img :src="postImg(post as PostModel)" :alt="post.title" class="w-full h-full object-cover" />
                 </div>
                 <div class="flex-1 min-w-0">
-                  <p class="text-[13px] font-semibold text-gray-900 dark:text-white line-clamp-1 group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors">{{ post.title }}</p>
+                  <p class="text-[13px] font-semibold text-gray-900 dark:text-white line-clamp-1 group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors" v-html="post.title" />
                   <p class="text-[11px] text-gray-400 dark:text-gray-500 mt-0.5">{{ post.categories[0]?.name ?? 'AI' }}</p>
                 </div>
               </NuxtLink>
