@@ -38,12 +38,6 @@ watch(menuOpen, (val) => {
   if (import.meta.client) document.body.style.overflow = val ? 'hidden' : ''
 })
 
-const scrolled = ref(false)
-onMounted(() => {
-  const onScroll = () => { scrolled.value = window.scrollY > 20 }
-  window.addEventListener('scroll', onScroll, { passive: true })
-  onUnmounted(() => window.removeEventListener('scroll', onScroll))
-})
 </script>
 
 <template>
@@ -146,7 +140,7 @@ onMounted(() => {
   </Teleport>
 
   <!-- ── Mobile bar (< lg) ── -->
-  <div class="lg:hidden sticky top-0 z-30 bg-white dark:bg-[#0D0D0D] border-b border-gray-100 dark:border-[#1a1a1a]">
+  <div class="lg:hidden sticky top-0 z-30 bg-white/70 dark:bg-[#0D0D0D]/80 backdrop-blur-md border-b border-gray-200/60 dark:border-white/[0.06]">
     <div class="max-w-[1238px] mx-auto px-4">
       <div class="relative flex items-center h-14">
         <!-- Burger -->
@@ -193,34 +187,24 @@ onMounted(() => {
   </div>
 
   <!-- ── Desktop: unified sticky header ── -->
-  <div class="hidden lg:block sticky top-0 z-30 bg-white dark:bg-[#0D0D0D] border-b border-gray-200 dark:border-white/[0.08]">
+  <div class="hidden lg:block sticky top-0 z-30 bg-white/70 dark:bg-[#0D0D0D]/80 backdrop-blur-md border-b border-gray-200/60 dark:border-white/[0.06]">
 
     <!-- Main bar -->
-    <div
-      class="max-w-[1238px] mx-auto flex items-stretch transition-all duration-300"
-      :class="scrolled ? 'h-[65px] pt-0' : 'h-[80px] pt-[10px]'"
-    >
+    <div class="max-w-[1238px] mx-auto flex items-center h-[60px]">
 
-      <!-- Brand: vertically centered on the left -->
-      <NuxtLink to="/" class="flex items-center gap-3 flex-shrink-0 self-center">
-        <img src="/logo-dark.png" alt="" class="h-9 w-auto dark:hidden" />
-        <img src="/logo-light.png" alt="" class="h-9 w-auto hidden dark:block" />
+      <!-- Brand -->
+      <NuxtLink to="/" class="flex items-center gap-3 flex-shrink-0">
+        <img src="/logo-dark.png" alt="" class="h-7 w-auto dark:hidden" />
+        <img src="/logo-light.png" alt="" class="h-7 w-auto hidden dark:block" />
         <span
-          class="text-gray-900 dark:text-white leading-none transition-all duration-300"
-          :style="scrolled
-            ? 'font-size: 22px; font-family: Playfair Display, serif; font-weight: 200; letter-spacing: 1px'
-            : 'font-size: clamp(24px, 2.6vw, 36px); font-family: Playfair Display, serif; font-weight: 200; letter-spacing: 1px'"
+          class="text-gray-900 dark:text-white leading-none"
+          style="font-size: 22px; font-family: Playfair Display, serif; font-weight: 200; letter-spacing: 1px"
         >NeuralBriefly</span>
       </NuxtLink>
 
-      <!-- Right column: two-row expanded → single-row compact on scroll -->
-      <div
-        class="ml-auto flex transition-all duration-300 overflow-hidden"
-        :class="scrolled ? 'flex-row items-center gap-5' : 'flex-col items-end'"
-      >
-
-        <!-- Nav row -->
-        <div class="nav-links flex items-center" :class="scrolled ? '' : 'flex-1'">
+      <!-- Nav -->
+      <div class="ml-auto flex items-center">
+        <div class="nav-links flex items-center">
 
           <template v-for="(link, index) in navLinks" :key="link.label">
             <NuxtLink
@@ -268,7 +252,6 @@ onMounted(() => {
           </button>
         </div>
       </div>
-
     </div>
   </div>
 </template>
