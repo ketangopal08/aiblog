@@ -1,5 +1,29 @@
 # AI Blog – Claude Instructions
 
+## ⚠️ Core Rules (Read First)
+
+1. **Only change what is explicitly asked.** Do not refactor, rename, restructure, or "clean up" surrounding code.
+2. **Never touch unrelated files.** If asked to change a font size in one component, only edit that component.
+3. **Never add features, abstractions, or improvements** that weren't requested.
+4. **Match exactly** — font sizes, weights, colors, spacing values must match what the user specifies precisely.
+5. **Ask before making large structural changes.** If a request could be interpreted multiple ways, confirm before acting.
+6. **No auto-commits.** Never run `git add/commit/push` unless the user explicitly says "commit" or "push".
+
+---
+
+## Typography
+
+See [`TYPOGRAPHY.md`](./TYPOGRAPHY.md) for all font rules.
+
+**Quick reference:**
+- Body / headings: `Playfair Display`, serif, `font-weight: 200`
+- UI / labels / meta: `Inter`, sans-serif
+- Category labels: `.cat-label` class → Inter, `font-weight: 600`, `letter-spacing: 1px`
+- Hero titles: `.hero-title` class → `1.4rem` mobile / `1.625rem` desktop, `font-weight: 100`
+- Blog detail title: `.post-title` class → `2rem` mobile / `2.6rem` desktop
+
+---
+
 ## Design Rules
 
 ### Color Palette
@@ -22,17 +46,13 @@ Primary accent: `#4bc471` (green) — used for all buttons, borders, and interac
 
 ---
 
-### Post Standard Format
-Every blog post page (`BlogDetail.vue`) must follow this structure in order:
+## Global CSS Utility Classes (`main.css`)
 
-1. **Hero image** — full-width, rounded, cinematic height (`clamp(260px, 45vw, 500px)`), with layered dark gradients
-2. **Overlay content** (bottom of hero image):
-   - Category badges — `bg-gray-900/80 text-white` rounded-full pills
-   - Post title — large, bold, white, `line-clamp-3`
-   - Meta row — author name · formatted date · reading time (clock icon)
-3. **Article body** — `v-html="post.content"`, `text-gray-800 dark:text-gray-200`, `leading-relaxed space-y-4`
-4. **Tags section** — separated by a top border, `#tag` pills using neutral gray
-5. **Back link** — `← Back to all posts` in `text-gray-900 dark:text-white font-bold uppercase`
+| Class | Purpose |
+|-------|---------|
+| `.img-card` | `border-radius: 8px; overflow: hidden` on all post/card images |
+| `.cat-label` | Inter font, `font-weight: 600`, `letter-spacing: 1px` on all category badges |
+| `.wp-article` | Prose styles for WordPress content in BlogDetail |
 
 ---
 
@@ -48,7 +68,9 @@ Every blog post page (`BlogDetail.vue`) must follow this structure in order:
 | `app/pages/index.vue` | Home / landing page |
 | `app/pages/blog/[slug].vue` | Single post page |
 | `app/components/blog/BlogDetail.vue` | Post detail layout |
+| `app/components/blog/WpContent.vue` | WordPress HTML content viewer |
 | `app/components/blog/BlogCard.vue` | Card used in grids |
 | `app/components/ui/AppHeader.vue` | Site header |
+| `app/assets/css/main.css` | Global CSS utilities |
 | `app/services/WordPressService.ts` | All WP API calls |
 | `tailwind.config.js` | Design tokens (font family) |
