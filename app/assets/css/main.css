@@ -12,6 +12,9 @@
     --font-secondary: "Inter", sans-serif;
   }
 
+  html { background-color: #ffffff; }
+  html.dark { background-color: #0D0D0D; }
+
   body {
     font-family: var(--font-primary) !important;
   }

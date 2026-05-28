@@ -142,10 +142,10 @@ watch(menuOpen, (val) => {
   <!-- ── Mobile bar (< lg) ── -->
   <div class="lg:hidden sticky top-0 z-30 bg-white/70 dark:bg-[#0D0D0D]/80 backdrop-blur-md border-b border-gray-200/60 dark:border-white/[0.06]">
     <div class="max-w-[1238px] mx-auto px-4">
-      <div class="relative flex items-center h-14">
+      <div class="flex items-center h-14 gap-1">
         <!-- Burger -->
         <button type="button" @click="menuOpen = !menuOpen" aria-label="Toggle menu"
-          class="w-10 h-10 flex items-center justify-center text-gray-800 dark:text-gray-100 hover:text-gray-600 dark:hover:text-gray-300 transition flex-shrink-0">
+          class="relative z-10 w-10 h-10 flex items-center justify-center text-gray-800 dark:text-gray-100 flex-shrink-0">
           <span class="flex flex-col gap-[5px]">
             <span class="block w-5 h-[1.5px] bg-current" />
             <span class="block w-5 h-[1.5px] bg-current" />
@@ -153,35 +153,31 @@ watch(menuOpen, (val) => {
           </span>
         </button>
 
-        <span class="w-px h-5 bg-gray-300 dark:bg-[#333] mx-1" />
-
         <button type="button" aria-label="Search" @click="openSearch"
-          class="w-10 h-10 flex items-center justify-center text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition">
+          class="relative z-10 w-10 h-10 flex items-center justify-center text-gray-700 dark:text-gray-300 flex-shrink-0">
           <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/>
           </svg>
         </button>
 
-        <!-- Centre brand -->
-        <NuxtLink to="/" class="absolute left-1/2 -translate-x-1/2 flex items-center gap-2 whitespace-nowrap">
+        <!-- Centre brand — flex grow to push buttons to edges -->
+        <NuxtLink to="/" class="flex-1 flex items-center justify-center gap-2">
           <img src="/logo-dark.png" alt="" class="h-7 w-auto dark:hidden" />
           <img src="/logo-light.png" alt="" class="h-7 w-auto hidden dark:block" />
-          <span class="text-[1.1rem] text-gray-900 dark:text-white" style="font-family: 'Playfair Display', serif !important; font-weight: 200 !important; letter-spacing: 1px">NeuralBriefly</span>
+          <span class="text-[1.1rem] text-gray-900 dark:text-white whitespace-nowrap" style="font-family: 'Playfair Display', serif !important; font-weight: 200 !important; letter-spacing: 1px">NeuralBriefly</span>
         </NuxtLink>
 
-        <!-- Right: theme + subscribe -->
-        <div class="ml-auto flex items-center gap-2 flex-shrink-0">
-          <button type="button" @click="toggleTheme" :title="isDark ? 'Light mode' : 'Dark mode'"
-            class="w-10 h-10 flex items-center justify-center text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition">
-            <svg v-if="!isDark" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <circle cx="12" cy="12" r="4"/>
-              <path stroke-linecap="round" d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
-            </svg>
-            <svg v-else class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
-            </svg>
-          </button>
-        </div>
+        <!-- Right: theme toggle -->
+        <button type="button" @click="toggleTheme" :title="isDark ? 'Light mode' : 'Dark mode'"
+          class="relative z-10 w-10 h-10 flex items-center justify-center text-gray-700 dark:text-gray-300 flex-shrink-0">
+          <svg v-if="!isDark" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="4"/>
+            <path stroke-linecap="round" d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+          </svg>
+          <svg v-else class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+          </svg>
+        </button>
       </div>
     </div>
   </div>
