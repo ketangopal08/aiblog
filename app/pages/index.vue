@@ -46,7 +46,7 @@ function postImg(post: PostModel, w = 800, h = 500) {
     <!-- ══════════════════════════════════════════════
          HERO GRID
     ══════════════════════════════════════════════ -->
-    <section class="border-b border-gray-200 dark:border-white/[0.08]">
+    <section>
       <div class="max-w-[1238px] mx-auto">
         <div class="flex flex-col lg:flex-row lg:gap-[20px]">
 

@@ -18,7 +18,7 @@
       </p>
     </div>
 
-    <hr class="border-gray-100 dark:border-white/[0.08] mb-12" />
+    <hr class="border-gray-100 dark:border-white/[0.08] my-12" />
 
     <!-- Mission -->
     <section class="mb-12">
@@ -48,7 +48,7 @@
       </div>
     </section>
 
-    <hr class="border-gray-100 dark:border-white/[0.08] mb-12" />
+    <hr class="border-gray-100 dark:border-white/[0.08] my-12" />
 
     <!-- CTA -->
     <section class="flex flex-col sm:flex-row items-start sm:items-center gap-4">

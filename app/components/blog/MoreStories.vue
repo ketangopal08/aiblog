@@ -11,6 +11,10 @@ function postImg(post: PostModel, w = 480, h = 320) {
   return post.featuredImage || `https://picsum.photos/seed/${post.id}/${w}/${h}`
 }
 
+function stripHtml(html: string): string {
+  return html.replace(/<[^>]*>/g, '').trim()
+}
+
 function timeAgo(dateStr: string): string {
   const diff = Date.now() - new Date(dateStr).getTime()
   const hours = Math.floor(diff / 3_600_000)
@@ -22,7 +26,7 @@ function timeAgo(dateStr: string): string {
 </script>
 
 <template>
-  <section class="bg-white dark:bg-[#0D0D0D] py-12 border-t border-gray-100 dark:border-white/[0.06]">
+  <section class="bg-white dark:bg-[#0D0D0D] py-12">
     <div class="max-w-[1238px] mx-auto px-5">
 
       <!-- Header row -->
@@ -119,12 +123,12 @@ function timeAgo(dateStr: string): string {
                      group hover:bg-gray-50 dark:hover:bg-white/[0.02] -mx-3 px-3 transition-colors"
             >
               <!-- Thumbnail -->
-              <div class="w-[110px] sm:w-[200px] lg:w-[240px] flex-shrink-0 overflow-hidden" style="height: 130px">
+              <div class="w-[130px] sm:w-[250px] lg:w-[290px] h-[90px] sm:h-[170px] lg:h-[190px] flex-shrink-0 overflow-hidden bg-gray-100 dark:bg-[#1a1a1a]">
                 <img
                   :src="postImg(post)"
                   :alt="post.title"
                   loading="lazy"
-                  class="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
+                  class="w-full h-full object-cover"
                 />
               </div>
               <!-- Content -->
@@ -139,10 +143,15 @@ function timeAgo(dateStr: string): string {
                   </span>
                 </div>
                 <h3 class="text-[15px] sm:text-[18px] lg:text-[20px] font-bold text-gray-900 dark:text-white
-                           leading-snug line-clamp-3
-                           group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors">
+                           leading-snug group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors"
+                    style="overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2">
                   {{ post.title }}
                 </h3>
+                <p
+                  v-if="post.excerpt"
+                  class="hidden sm:block text-[13px] text-gray-500 dark:text-gray-400 mt-2"
+                  style="overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2"
+                >{{ stripHtml(post.excerpt) }}</p>
               </div>
             </NuxtLink>
           </template>
