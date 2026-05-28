@@ -1,7 +1,19 @@
 <script setup lang="ts">
-const { initTheme } = useTheme()
-// Sync isDark reactive state with what the plugin set on <html>
-onMounted(() => initTheme())
+const { initTheme, isDark } = useTheme()
+
+onMounted(() => {
+  initTheme()
+  updateThemeColor()
+})
+
+watch(isDark, updateThemeColor)
+
+function updateThemeColor() {
+  const color = isDark.value ? '#0D0D0D' : '#ffffff'
+  document.querySelectorAll('meta[name="theme-color"]').forEach(el => {
+    (el as HTMLMetaElement).content = color
+  })
+}
 </script>
 
 <template>

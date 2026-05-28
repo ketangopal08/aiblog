@@ -4,6 +4,10 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   app: {
     head: {
+      meta: [
+        { name: 'theme-color', content: '#ffffff', media: '(prefers-color-scheme: light)' },
+        { name: 'theme-color', content: '#0D0D0D', media: '(prefers-color-scheme: dark)' },
+      ],
       link: [
         { rel: 'icon', type: 'image/png', href: '/logo-green-transparent.png' },
         { rel: 'apple-touch-icon', href: '/logo-green-transparent.png' },
