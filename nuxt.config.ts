@@ -18,7 +18,10 @@ export default defineNuxtConfig({
       ],
     },
   },
-  modules: ['@nuxtjs/tailwindcss', '@nuxtjs/sitemap'],
+  modules: ['@nuxtjs/tailwindcss', '@nuxtjs/sitemap', 'nuxt-og-image'],
+  ogImage: {
+    fonts: ['Playfair+Display:700', 'Inter:400'],
+  },
   css: ['~/assets/css/main.css'],
   components: [
     { path: '~/components', pathPrefix: false },
