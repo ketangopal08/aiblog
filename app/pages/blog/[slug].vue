@@ -6,7 +6,9 @@ await fetchPost(route.params.slug as string)
 
 if (post.value) {
   const p = post.value
-  const ogImage = p.featuredImage ?? 'https://www.neuralbriefly.com/logo-green-transparent.png'
+  const ogImage = p.featuredImage
+    ? `https://www.neuralbriefly.com/api/og-image?url=${encodeURIComponent(p.featuredImage)}`
+    : 'https://www.neuralbriefly.com/logo-green-transparent.png'
 
   useSeoMeta({
     title: p.title,
