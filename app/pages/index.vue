@@ -64,7 +64,7 @@ function postImg(post: PostModel, w = 800, h = 500) {
               <NuxtLink
                 v-if="featuredPost"
                 :to="`/blog/${featuredPost.slug}`"
-                class="relative overflow-hidden group block flex-shrink-0
+                class="relative img-card group block flex-shrink-0
                        h-[240px] sm:h-full w-full sm:w-[58%]"
               >
                 <img
@@ -97,7 +97,7 @@ function postImg(post: PostModel, w = 800, h = 500) {
                     v-for="post in stackedPosts"
                     :key="post.id"
                     :to="`/blog/${post.slug}`"
-                    class="relative flex-1 overflow-hidden group block min-h-0 min-w-0"
+                    class="relative flex-1 img-card group block min-h-0 min-w-0"
                   >
                     <img
                       :src="postImg(post, 480, 280)"
@@ -195,7 +195,7 @@ function postImg(post: PostModel, w = 800, h = 500) {
                 </p>
                 <span class="text-[11px] text-gray-400 dark:text-gray-500 mt-1 block">{{ post.formattedDate }}</span>
               </div>
-              <div class="w-[68px] h-[54px] flex-shrink-0 overflow-hidden bg-gray-100 dark:bg-[#1f1f1f]">
+              <div class="w-[68px] h-[54px] flex-shrink-0 img-card bg-gray-100 dark:bg-[#1f1f1f]">
                 <img
                   :src="postImg(post, 136, 108)"
                   :alt="post.title"

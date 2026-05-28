@@ -123,7 +123,7 @@ function timeAgo(dateStr: string): string {
                      group hover:bg-gray-50 dark:hover:bg-white/[0.02] -mx-3 px-3 transition-colors"
             >
               <!-- Thumbnail -->
-              <div class="w-[130px] sm:w-[250px] lg:w-[290px] h-[90px] sm:h-[170px] lg:h-[190px] flex-shrink-0 overflow-hidden bg-gray-100 dark:bg-[#1a1a1a]">
+              <div class="w-[130px] sm:w-[250px] lg:w-[290px] h-[90px] sm:h-[170px] lg:h-[190px] flex-shrink-0 img-card bg-gray-100 dark:bg-[#1a1a1a]">
                 <img
                   :src="postImg(post)"
                   :alt="post.title"

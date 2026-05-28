@@ -90,7 +90,7 @@ async function copyLink() {
     </div>
 
     <!-- Featured image -->
-    <div class="overflow-hidden mb-8" style="height: clamp(300px, 50vw, 560px)">
+    <div class="img-card mb-8" style="height: clamp(300px, 50vw, 560px)">
       <img :src="img" :alt="post.title" class="w-full h-full object-cover" />
     </div>
 
@@ -103,7 +103,7 @@ async function copyLink() {
         v-for="tag in post.tags"
         :key="tag.id"
         :to="`/tag/${tag.slug}`"
-        class="text-xs text-primary bg-primary/10 border border-primary/30 px-3 py-1 rounded-full hover:bg-primary hover:text-white transition-colors"
+        class="text-xs text-white bg-primary px-3 py-1 rounded-full hover:bg-primary/80 transition-colors"
       >
         #{{ tag.name }}
       </NuxtLink>

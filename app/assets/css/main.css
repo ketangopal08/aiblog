@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Single source of truth for all post/card image border radius */
+.img-card { border-radius: 8px; overflow: hidden; }
+
 
 @layer base {
   :root {
