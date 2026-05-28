@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+/* WP content links use primary color */
+.wp-article a { color: #4bc471 !important; }
+.wp-article a:hover { color: #4bc471; opacity: 0.8; }
+
 /* Single source of truth for all post/card image border radius */
 .img-card { border-radius: 8px; overflow: hidden; }
 
