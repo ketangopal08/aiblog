@@ -110,7 +110,7 @@ function postImg(post: PostModel, w = 800, h = 500) {
                       </span>
                     </div>
                     <div class="absolute bottom-0 left-0 right-0 p-3 sm:p-4 z-10">
-                      <h3 class="text-[12px] sm:text-[14px] font-black text-white leading-snug line-clamp-2 sm:line-clamp-3"
+                      <h3 class="hero-title font-black text-white leading-snug line-clamp-2 sm:line-clamp-3"
                           v-html="post.title" />
                       <span class="text-[10px] text-white/55 mt-1 block">{{ post.formattedDate }}</span>
                     </div>
@@ -160,7 +160,7 @@ function postImg(post: PostModel, w = 800, h = 500) {
           <!-- ── RIGHT: trending stories sidebar ── -->
           <div class="w-full lg:w-[300px] xl:w-[330px] flex-shrink-0
                       border-t border-gray-200 dark:border-white/[0.08] lg:border-t-0
-                      px-5 lg:px-0 pt-4 lg:pt-0 pb-5">
+                      pt-4 lg:pt-0 pb-5">
             <h3 class="text-[11px] font-black uppercase tracking-[3px] text-gray-900 dark:text-white
                        pb-3 mb-1 border-b-2 border-primary inline-block"
                 style="font-family: Inter, sans-serif !important; font-size: 14px !important">
