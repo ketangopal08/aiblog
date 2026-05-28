@@ -7,6 +7,10 @@ await fetchPost(route.params.slug as string)
 if (post.value) {
   const p = post.value
 
+  const ogImage = p.featuredImage
+    ? `https://www.neuralbriefly.com/api/og-image?url=${encodeURIComponent(p.featuredImage)}`
+    : 'https://www.neuralbriefly.com/logo-green-transparent.png'
+
   useSeoMeta({
     title: p.title,
     ogTitle: p.title,
@@ -15,18 +19,14 @@ if (post.value) {
     ogDescription: p.seo.description,
     twitterDescription: p.seo.description,
     ogType: 'article',
+    ogImage,
+    ogImageSecureUrl: ogImage,
+    twitterImage: ogImage,
     twitterCard: 'summary_large_image',
   })
 
   useHead({
     link: [{ rel: 'canonical', href: `https://www.neuralbriefly.com/blog/${p.slug}` }],
-  })
-
-  defineOgImage({
-    component: 'BlogPost',
-    title: p.title,
-    category: p.categories[0]?.name,
-    image: p.featuredImage ?? undefined,
   })
 }
 
