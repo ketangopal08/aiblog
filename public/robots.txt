@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://neuralbriefly.com/sitemap.xml
+Sitemap: https://www.neuralbriefly.com/sitemap.xml

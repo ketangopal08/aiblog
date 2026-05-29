@@ -16,6 +16,8 @@ export const useSeo = (seo: ISeo) => {
     twitterDescription: seo.description,
     ogType,
     ogUrl: canonicalUrl,
+    ogSiteName: 'NeuralBriefly',
+    ogLocale: 'en_US',
     ...(ogImage
       ? {
           ogImage,
@@ -28,6 +30,12 @@ export const useSeo = (seo: ISeo) => {
         }
       : { twitterCard: 'summary' as const }
     ),
+    ...(seo.article && {
+      articlePublishedTime: seo.article.publishedTime,
+      ...(seo.article.modifiedTime && { articleModifiedTime: seo.article.modifiedTime }),
+      articleAuthor: [seo.article.author],
+      ...(seo.article.tags?.length && { articleTag: seo.article.tags }),
+    }),
   })
 
   const scripts: { type: string; innerHTML: string }[] = [

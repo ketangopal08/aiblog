@@ -11,22 +11,10 @@ if (post.value) {
     ? `https://www.neuralbriefly.com/api/og-image?url=${encodeURIComponent(p.featuredImage)}`
     : 'https://www.neuralbriefly.com/logo-green-transparent.png'
 
-  useSeoMeta({
-    title: p.title,
-    ogTitle: p.title,
-    twitterTitle: p.title,
-    description: p.seo.description,
-    ogDescription: p.seo.description,
-    twitterDescription: p.seo.description,
-    ogType: 'article',
+  useSeo({
+    ...p.seo,
     ogImage,
-    ogImageSecureUrl: ogImage,
-    twitterImage: ogImage,
-    twitterCard: 'summary_large_image',
-  })
-
-  useHead({
-    link: [{ rel: 'canonical', href: `https://www.neuralbriefly.com/blog/${p.slug}` }],
+    canonicalUrl: `https://www.neuralbriefly.com/blog/${p.slug}`,
   })
 }
 
