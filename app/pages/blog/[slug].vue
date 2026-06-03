@@ -1,8 +1,13 @@
 <script setup lang="ts">
 const route = useRoute()
-const { post, loading, error, fetchPost } = usePost()
+const { $wp } = useNuxtApp()
 
-await fetchPost(route.params.slug as string)
+const { data: post, pending: loading, error: fetchError } = await useAsyncData(
+  `post-${route.params.slug}`,
+  () => $wp.getPostBySlug(route.params.slug as string)
+)
+
+const error = computed(() => fetchError.value ? 'Failed to load post.' : null)
 
 if (post.value) {
   const p = post.value

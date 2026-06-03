@@ -9,9 +9,7 @@ const cleanHtml = computed(() =>
 </script>
 
 <template>
-  <ClientOnly>
-    <article class="wp-article prose dark:prose-invert max-w-none" v-html="cleanHtml" />
-  </ClientOnly>
+  <article class="wp-article prose dark:prose-invert max-w-none" v-html="cleanHtml" />
 </template>
 
 <style scoped>

@@ -4,28 +4,19 @@ import type { PostModel } from '~/models/PostModel'
 const { $wp } = useNuxtApp()
 
 const allPosts = ref<PostModel[]>([])
-const featuredPost = ref<PostModel | null>(null)
 const { fetchCategories } = useCategories()
-
-const FEATURED_SLUG = 'claude-constitutional-ai-explained'
 
 try {
   await Promise.all([
     fetchCategories(),
     (async () => { allPosts.value = await $wp.getPosts(1, 20) as PostModel[] })(),
-    (async () => { featuredPost.value = await $wp.getPostBySlug(FEATURED_SLUG) as PostModel | null })(),
   ])
 } catch {
   // API unavailable — gracefully degrade
 }
 
-if (!featuredPost.value) featuredPost.value = allPosts.value[0] ?? null
-
-const remainingPosts = computed(() =>
-  allPosts.value.filter(p => p.slug !== FEATURED_SLUG)
-)
-
-const stackedPosts  = computed(() => remainingPosts.value.slice(0, 2))
+const featuredPost = computed(() => allPosts.value[0] ?? null)
+const stackedPosts  = computed(() => allPosts.value.slice(1, 3))
 const trendingPosts = computed(() => allPosts.value.slice(0, 8))
 
 const homeSeo = {

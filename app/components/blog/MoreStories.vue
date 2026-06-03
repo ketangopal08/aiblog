@@ -149,7 +149,8 @@ function timeAgo(dateStr: string): string {
                   v-if="post.excerpt"
                   class="hidden sm:block text-[13px] text-gray-500 dark:text-gray-400 mt-2"
                   style="overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2"
-                >{{ stripHtml(post.excerpt) }}</p>
+                  v-html="post.excerpt"
+                />
               </div>
             </NuxtLink>
           </template>

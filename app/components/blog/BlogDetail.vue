@@ -50,14 +50,15 @@ async function copyLink() {
 
     <!-- Meta + share bar -->
     <div class="flex items-center justify-between gap-4 mb-4 flex-wrap" style="font-family: 'Inter', sans-serif">
-      <div class="flex items-center gap-3">
-        <NuxtLink
-          v-if="post.authorSlug"
-          :to="`/author/${post.authorSlug}`"
-          class="text-[12px] font-semibold text-gray-900 dark:text-white hover:text-primary transition-colors"
-        >{{ post.author.name }}</NuxtLink>
-        <span class="text-gray-300 dark:text-white/20 text-xs">·</span>
-        <span class="text-[11px] text-gray-500 dark:text-gray-400">{{ post.formattedDate }}</span>
+      <div class="flex items-center gap-2 text-[12px] text-gray-500 dark:text-gray-400">
+        <span>Published on {{ post.formattedDate }} | by
+          <NuxtLink
+            v-if="post.authorSlug"
+            :to="`/author/${post.authorSlug}`"
+            class="font-semibold text-gray-900 dark:text-white hover:text-primary transition-colors"
+          >{{ post.author.name }}</NuxtLink>
+          <span v-else class="font-semibold text-gray-900 dark:text-white">{{ post.author.name }}</span>
+        </span>
       </div>
       <div class="flex items-center gap-1.5">
         <button @click="copyLink"
@@ -86,6 +87,14 @@ async function copyLink() {
             <circle cx="4" cy="4" r="2"/>
           </svg>
         </a>
+        <a :href="`https://twitter.com/intent/tweet?url=${encodeURIComponent($route.fullPath)}&text=${encodeURIComponent(post.title)}`"
+          target="_blank" rel="noopener" aria-label="Share on Twitter"
+          class="w-7 h-7 flex items-center justify-center border border-gray-200 dark:border-white/10 rounded
+                 text-gray-500 dark:text-gray-400 hover:border-primary hover:text-primary transition-colors">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L2.25 2.25h6.865l4.254 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+        </a>
       </div>
     </div>
 
@@ -109,6 +118,9 @@ async function copyLink() {
       </NuxtLink>
     </div>
 
+    <!-- Related posts -->
+    <RelatedPosts :post="post" />
+
     <!-- Comments -->
     <PostComments :post="post" />
 
@@ -118,9 +130,6 @@ async function copyLink() {
         ← Back to all posts
       </NuxtLink>
     </div>
-
-    <!-- Related posts -->
-    <RelatedPosts :post="post" />
 
   </article>
 </template>
