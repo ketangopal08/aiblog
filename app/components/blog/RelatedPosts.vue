@@ -30,7 +30,7 @@ function postImg(post: PostModel) {
         :to="`/blog/${item.slug}`"
         class="group flex flex-col overflow-hidden"
       >
-        <div class="overflow-hidden bg-gray-100 dark:bg-[#1a1a1a] mb-3" style="height: 160px">
+        <div class="img-card bg-gray-100 dark:bg-[#1a1a1a] mb-3" style="height: 160px">
           <img
             :src="postImg(item)"
             :alt="item.title"
