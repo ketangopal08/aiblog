@@ -8,6 +8,13 @@ export default defineNuxtConfig({
         {
           innerHTML: `(function(){try{if(localStorage.getItem('theme')==='dark'){document.documentElement.classList.add('dark')}}catch(e){}})()`,
         },
+        {
+          src: 'https://www.googletagmanager.com/gtag/js?id=G-RM78WJ9DKQ',
+          async: true,
+        },
+        {
+          innerHTML: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-RM78WJ9DKQ');`,
+        },
       ],
       meta: [
         { name: 'theme-color', content: '#ffffff', media: '(prefers-color-scheme: light)' },
