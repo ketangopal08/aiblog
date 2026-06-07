@@ -6,9 +6,6 @@ import type { IAuthor } from '~/interfaces/IAuthor'
 import type { IComment } from '~/interfaces/IComment'
 import type { IPaginatedResult } from '~/interfaces/IPaginatedResult'
 import { PostModel } from '~/models/PostModel'
-import { CategoryModel } from '~/models/CategoryModel'
-import { TagModel } from '~/models/TagModel'
-import { AuthorModel } from '~/models/AuthorModel'
 
 const MOCK_CATEGORIES = [
   { id: 1, name: 'GPT', slug: 'gpt', count: 4, taxonomy: 'category' as const },
@@ -182,27 +179,27 @@ const MOCK_POSTS = [
 export class MockWordPressService implements IWordPressService {
   async getPosts(page = 1, perPage = 10): Promise<IPost[]> {
     const start = (page - 1) * perPage
-    return MOCK_POSTS.slice(start, start + perPage).map(raw => new PostModel(raw as any))
+    return MOCK_POSTS.slice(start, start + perPage).map(raw => PostModel.toPlain(raw as any))
   }
 
   async getPostBySlug(slug: string): Promise<IPost | null> {
     const raw = MOCK_POSTS.find(p => p.slug === slug)
-    return raw ? new PostModel(raw as any) : null
+    return raw ? PostModel.toPlain(raw as any) : null
   }
 
   async getCategories(): Promise<ICategory[]> {
-    return MOCK_CATEGORIES.map(raw => new CategoryModel(raw as any))
+    return MOCK_CATEGORIES.map(raw => ({ id: raw.id, name: raw.name, slug: raw.slug, count: raw.count }))
   }
 
   async getPostsByCategory(categoryId: number, _page = 1): Promise<IPost[]> {
     return MOCK_POSTS
       .filter(p => (p._embedded['wp:term'][0] ?? []).some((t: any) => t.id === categoryId))
-      .map(raw => new PostModel(raw as any))
+      .map(raw => PostModel.toPlain(raw as any))
   }
 
   private paginatePosts(filtered: typeof MOCK_POSTS, page: number, perPage = 10): IPaginatedResult<IPost> {
     const start = (page - 1) * perPage
-    const items = filtered.slice(start, start + perPage).map(raw => new PostModel(raw as any))
+    const items = filtered.slice(start, start + perPage).map(raw => PostModel.toPlain(raw as any))
     return { items, total: filtered.length, totalPages: Math.max(1, Math.ceil(filtered.length / perPage)) }
   }
 
@@ -242,20 +239,20 @@ export class MockWordPressService implements IWordPressService {
     const tagMap = new Map<number, any>()
     for (const post of MOCK_POSTS) {
       for (const tag of (post._embedded['wp:term'][1] ?? [])) {
-        if (!tagMap.has(tag.id)) tagMap.set(tag.id, { ...tag, taxonomy: 'post_tag' as const })
+        if (!tagMap.has(tag.id)) tagMap.set(tag.id, tag)
       }
     }
-    return Array.from(tagMap.values()).map(raw => new TagModel(raw as any))
+    return Array.from(tagMap.values()).map(raw => ({ id: raw.id, name: raw.name, slug: raw.slug }))
   }
 
   async getAuthorBySlug(slug: string): Promise<IAuthor | null> {
     const authors = [
-      { id: 1, name: 'Alex Kim', slug: 'alex-kim', description: 'AI researcher and writer.', avatar_urls: { '96': 'https://i.pravatar.cc/96?img=11' } },
-      { id: 2, name: 'Sara Patel', slug: 'sara-patel', description: 'ML engineer and benchmarking enthusiast.', avatar_urls: { '96': 'https://i.pravatar.cc/96?img=5' } },
-      { id: 3, name: 'James Liu', slug: 'james-liu', description: 'Full-stack developer and AI tooling reviewer.', avatar_urls: { '96': 'https://i.pravatar.cc/96?img=33' } },
+      { id: 1, name: 'Alex Kim', slug: 'alex-kim', description: 'AI researcher and writer.', avatarUrl: 'https://i.pravatar.cc/96?img=11' },
+      { id: 2, name: 'Sara Patel', slug: 'sara-patel', description: 'ML engineer and benchmarking enthusiast.', avatarUrl: 'https://i.pravatar.cc/96?img=5' },
+      { id: 3, name: 'James Liu', slug: 'james-liu', description: 'Full-stack developer and AI tooling reviewer.', avatarUrl: 'https://i.pravatar.cc/96?img=33' },
     ]
     const raw = authors.find(a => a.slug === slug)
-    return raw ? new AuthorModel(raw as any) : null
+    return raw ? { id: raw.id, name: raw.name, description: raw.description, avatarUrl: raw.avatarUrl } : null
   }
 
   async getComments(_postId: number): Promise<IComment[]> {

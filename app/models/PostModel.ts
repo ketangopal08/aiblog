@@ -29,6 +29,8 @@ export class PostModel implements IPost {
   modifiedDate: string
   authorSlug: string
   featuredImage: string | null
+  formattedDate: string
+  readingTime: number
   private _ogImageWidth?: number
   private _ogImageHeight?: number
   author: IAuthor
@@ -84,18 +86,33 @@ export class PostModel implements IPost {
         tags: this.tags.map(t => t.name),
       },
     }
-  }
 
-  get formattedDate(): string {
-    return new Date(this.date).toLocaleDateString('en-US', {
+    this.formattedDate = new Date(this.date).toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
     })
+    this.readingTime = Math.ceil(this.content.replace(/<[^>]+>/g, '').split(/\s+/).length / 200)
   }
 
-  get readingTime(): number {
-    const words = this.content.replace(/<[^>]+>/g, '').split(/\s+/).length
-    return Math.ceil(words / 200)
+  static toPlain(raw: WPPost): IPost {
+    const m = new PostModel(raw)
+    return {
+      id: m.id,
+      slug: m.slug,
+      title: m.title,
+      excerpt: m.excerpt,
+      content: m.content,
+      date: m.date,
+      modifiedDate: m.modifiedDate,
+      authorSlug: m.authorSlug,
+      featuredImage: m.featuredImage,
+      formattedDate: m.formattedDate,
+      readingTime: m.readingTime,
+      author: { id: m.author.id, name: m.author.name, avatarUrl: m.author.avatarUrl, description: m.author.description },
+      categories: m.categories.map(c => ({ id: c.id, name: c.name, slug: c.slug, count: c.count })),
+      tags: m.tags.map(t => ({ id: t.id, name: t.name, slug: t.slug })),
+      seo: m.seo,
+    }
   }
 }

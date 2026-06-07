@@ -13,6 +13,8 @@ export interface IPost {
   modifiedDate: string
   authorSlug: string
   featuredImage: string | null
+  formattedDate: string
+  readingTime: number
   author: IAuthor
   categories: ICategory[]
   tags: ITag[]

@@ -7,9 +7,6 @@ import type { IComment } from '~/interfaces/IComment'
 import type { IPaginatedResult } from '~/interfaces/IPaginatedResult'
 import type { WPPost, WPTerm, WPComment, WPUser } from '~/types/wordpress'
 import { PostModel } from '~/models/PostModel'
-import { CategoryModel } from '~/models/CategoryModel'
-import { TagModel } from '~/models/TagModel'
-import { AuthorModel } from '~/models/AuthorModel'
 
 export class WordPressService implements IWordPressService {
   private baseUrl: string
@@ -37,7 +34,7 @@ export class WordPressService implements IWordPressService {
     })
     const { total, totalPages } = this.parsePaginationHeaders(response.headers)
     return {
-      items: (response._data ?? []).map((raw: WPPost) => new PostModel(raw)),
+      items: (response._data ?? []).map((raw: WPPost) => PostModel.toPlain(raw)),
       total,
       totalPages,
     }
@@ -49,28 +46,28 @@ export class WordPressService implements IWordPressService {
     const data = await $fetch<WPPost[]>(`${this.apiBase}/posts`, {
       params: { page, per_page: perPage, _embed: true },
     })
-    return data.map(raw => new PostModel(raw))
+    return data.map(raw => PostModel.toPlain(raw))
   }
 
   async getPostBySlug(slug: string): Promise<IPost | null> {
     const data = await $fetch<WPPost[]>(`${this.apiBase}/posts`, {
       params: { slug, _embed: true },
     })
-    return data.length ? new PostModel(data[0]) : null
+    return data.length ? PostModel.toPlain(data[0]) : null
   }
 
   async getCategories(): Promise<ICategory[]> {
     const data = await $fetch<WPTerm[]>(`${this.apiBase}/categories`, {
       params: { per_page: 100, hide_empty: true },
     })
-    return data.map(raw => new CategoryModel(raw))
+    return data.map(raw => ({ id: raw.id, name: raw.name, slug: raw.slug, count: raw.count }))
   }
 
   async getPostsByCategory(categoryId: number, page = 1): Promise<IPost[]> {
     const data = await $fetch<WPPost[]>(`${this.apiBase}/posts`, {
       params: { categories: categoryId, page, per_page: 10, _embed: true },
     })
-    return data.map(raw => new PostModel(raw))
+    return data.map(raw => PostModel.toPlain(raw))
   }
 
   // ── New paginated methods ─────────────────────────────────
@@ -101,14 +98,22 @@ export class WordPressService implements IWordPressService {
     const data = await $fetch<WPTerm[]>(`${this.apiBase}/tags`, {
       params: { per_page: 100, hide_empty: true },
     })
-    return data.map(raw => new TagModel(raw))
+    return data.map(raw => ({ id: raw.id, name: raw.name, slug: raw.slug }))
   }
 
   async getAuthorBySlug(slug: string): Promise<IAuthor | null> {
     const data = await $fetch<WPUser[]>(`${this.apiBase}/users`, {
       params: { slug },
     })
-    return data.length ? new AuthorModel(data[0]) : null
+    if (!data.length) return null
+    const raw = data[0]
+    const avatarSizes = Object.keys(raw.avatar_urls).sort((a, b) => Number(b) - Number(a))
+    return {
+      id: raw.id,
+      name: raw.name,
+      description: raw.description,
+      avatarUrl: avatarSizes.length ? raw.avatar_urls[avatarSizes[0]] : null,
+    }
   }
 
   // ── Comments ──────────────────────────────────────────────

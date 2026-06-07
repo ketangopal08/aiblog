@@ -6,6 +6,23 @@
 .wp-article a { color: #4bc471 !important; }
 .wp-article a:hover { color: #4bc471; opacity: 0.8; }
 
+/* WordPress gallery — carousel base styles (JS adds track + controls) */
+.wp-article .gallery {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  margin: 1.5em 0;
+}
+.wp-article .gallery-item { overflow: hidden; }
+.wp-article .gallery-icon a { display: block; }
+.wp-article .gallery-icon img {
+  width: 100% !important;
+  height: auto !important;
+  display: block !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+}
+
 /* Single source of truth for all post/card image border radius */
 .img-card { border-radius: 8px; overflow: hidden; }
 
