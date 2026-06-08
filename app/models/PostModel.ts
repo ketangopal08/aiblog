@@ -42,7 +42,7 @@ export class PostModel implements IPost {
     this.id = raw.id
     this.slug = raw.slug
     this.title = decodeHtmlEntities(raw.title.rendered)
-    this.excerpt = raw.excerpt.rendered
+    this.excerpt = raw.excerpt.rendered.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim()
     this.content = raw.content.rendered
       .replace(/^(\s*<figure\b[^>]*class="[^"]*wp-block-image[^"]*"[^>]*>[\s\S]*?<\/figure>\s*)+/i, '')
       .replace(/^(\s*<img\b[^>]*\/?\s*>\s*)+/i, '')
