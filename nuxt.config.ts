@@ -47,6 +47,7 @@ export default defineNuxtConfig({
   },
   routeRules: {
     '/': { isr: 60 },
+    '/blog': { isr: 300 },
     '/blog/**': { isr: 300 },
     '/category/**': { isr: 120 },
     '/tag/**': { isr: 120 },

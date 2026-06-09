@@ -11,6 +11,7 @@ function postImg(post: PostModel, w = 600, h = 400) {
 useSeoMeta({
   title: 'Newsletters – NeuralBriefly',
   description: 'Catch up on all our top AI newsletters and stories.',
+  robots: 'noindex, follow',
 })
 </script>
 

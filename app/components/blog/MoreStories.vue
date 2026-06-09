@@ -143,7 +143,7 @@ function timeAgo(dateStr: string): string {
                 </div>
                 <h3 class="text-[15px] sm:text-[18px] lg:text-[20px] font-bold text-gray-900 dark:text-white
                            leading-snug group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors"
-                    style="overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2"
+                    style="overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;font-size: 1.4rem !important;"
                     v-html="post.title" />
                 <p
                   v-if="post.excerpt"

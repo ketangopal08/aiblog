@@ -70,6 +70,10 @@ function buildMainJsonLd(seo: ISeo, canonicalUrl: string, siteOrigin: string): R
         '@type': 'Organization',
         name: 'NeuralBriefly',
         url: siteOrigin,
+        logo: {
+          '@type': 'ImageObject',
+          url: `${siteOrigin}/logo-green-transparent.png`,
+        },
       },
       url: canonicalUrl,
       ...(seo.article.tags?.length && { keywords: seo.article.tags.join(', ') }),
