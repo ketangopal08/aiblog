@@ -59,8 +59,7 @@ watch(menuOpen, (val) => {
       >
         <div class="flex items-center justify-between px-5 h-14 border-b border-gray-100 dark:border-[#222] flex-shrink-0">
           <NuxtLink to="/" class="flex items-center gap-2" @click="menuOpen = false">
-            <img src="/logo-dark.png" alt="" class="h-8 w-auto dark:hidden" />
-            <img src="/logo-light.png" alt="" class="h-8 w-auto hidden dark:block" />
+            <span class="h-8 text-gray-900 dark:text-white"><LogoIcon /></span>
             <span class="text-base text-gray-900 dark:text-white" style="font-family: 'Playfair Display', serif !important; font-weight: 200 !important; letter-spacing: 1px">NeuralBriefly</span>
           </NuxtLink>
           <button type="button" @click="menuOpen = false"
@@ -162,8 +161,7 @@ watch(menuOpen, (val) => {
 
         <!-- Centre brand — flex grow to push buttons to edges -->
         <NuxtLink to="/" class="flex-1 flex items-center justify-center gap-2">
-          <img src="/logo-dark.png" alt="" class="h-7 w-auto dark:hidden" />
-          <img src="/logo-light.png" alt="" class="h-7 w-auto hidden dark:block" />
+          <span class="h-7 text-gray-900 dark:text-white"><LogoIcon /></span>
           <span class="text-[1.1rem] text-gray-900 dark:text-white whitespace-nowrap" style="font-family: 'Playfair Display', serif !important; font-weight: 200 !important; letter-spacing: 1px">NeuralBriefly</span>
         </NuxtLink>
 
@@ -190,8 +188,7 @@ watch(menuOpen, (val) => {
 
       <!-- Brand -->
       <NuxtLink to="/" class="flex items-center gap-3 flex-shrink-0">
-        <img src="/logo-dark.png" alt="" class="h-7 w-auto dark:hidden" />
-        <img src="/logo-light.png" alt="" class="h-7 w-auto hidden dark:block" />
+        <span class="h-7 text-gray-900 dark:text-white"><LogoIcon /></span>
         <span
           class="text-gray-900 dark:text-white leading-none"
           style="font-size: 22px; font-family: Playfair Display, serif; font-weight: 200; letter-spacing: 1px"
