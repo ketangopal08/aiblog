@@ -187,11 +187,11 @@ watch(menuOpen, (val) => {
     <div class="max-w-[1238px] mx-auto flex items-center h-[60px]">
 
       <!-- Brand -->
-      <NuxtLink to="/" class="flex items-center gap-3 flex-shrink-0">
+      <NuxtLink to="/" class="flex items-center flex-shrink-0">
         <span class="h-7 text-gray-900 dark:text-white"><LogoIcon /></span>
         <span
           class="text-gray-900 dark:text-white leading-none"
-          style="font-size: 22px; font-family: Playfair Display, serif; font-weight: 200; letter-spacing: 1px"
+          style="font-size: 26px; font-family: Playfair Display, serif; font-weight: 200; letter-spacing: 1px"
         >NeuralBriefly</span>
       </NuxtLink>
 
