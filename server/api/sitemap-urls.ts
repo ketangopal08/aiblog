@@ -26,7 +26,7 @@ export default defineCachedEventHandler(async () => {
     const perPage = 100
     while (true) {
       const posts = await $fetch<WPPostWithMedia[]>(`${apiBase}/posts`, {
-        params: { per_page: perPage, page, _embed: 'wp:featuredmedia', _fields: 'slug,title,_embedded' },
+        params: { per_page: perPage, page, _embed: true, _fields: 'slug,title,_links,_embedded' },
       })
       for (const p of posts) {
         const media = p._embedded?.['wp:featuredmedia']?.[0]
