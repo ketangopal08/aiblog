@@ -152,20 +152,19 @@ watch(menuOpen, (val) => {
           </span>
         </button>
 
-        <button type="button" aria-label="Search" @click="openSearch"
-          class="relative z-10 w-10 h-10 flex items-center justify-center text-gray-700 dark:text-gray-300 flex-shrink-0">
-          <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/>
-          </svg>
-        </button>
-
         <!-- Centre brand — flex grow to push buttons to edges -->
         <NuxtLink to="/" class="flex-1 flex items-center justify-center gap-2">
           <span class="h-7 text-gray-900 dark:text-white"><LogoIcon /></span>
           <span class="text-[1.1rem] text-gray-900 dark:text-white whitespace-nowrap" style="font-family: 'Playfair Display', serif !important; font-weight: 200 !important; letter-spacing: 1px">NeuralBriefly</span>
         </NuxtLink>
 
-        <!-- Right: theme toggle -->
+        <!-- Right: search + theme toggle -->
+        <button type="button" aria-label="Search" @click="openSearch"
+          class="relative z-10 w-10 h-10 flex items-center justify-center text-gray-700 dark:text-gray-300 flex-shrink-0">
+          <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/>
+          </svg>
+        </button>
         <button type="button" @click="toggleTheme" :title="isDark ? 'Light mode' : 'Dark mode'"
           class="relative z-10 w-10 h-10 flex items-center justify-center text-gray-700 dark:text-gray-300 flex-shrink-0">
           <svg v-if="!isDark" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">

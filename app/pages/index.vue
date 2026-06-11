@@ -202,11 +202,6 @@ function postImg(post: PostModel, w = 800, h = 500) {
     ══════════════════════════════════ -->
     <MoreStories />
 
-    <!-- ══════════════════════════════════
-         NEWSLETTER SLIDER
-    ══════════════════════════════════ -->
-    <NewsletterSlider />
-
   </div>
 </template>
 
