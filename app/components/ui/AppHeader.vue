@@ -38,6 +38,7 @@ watch(menuOpen, (val) => {
   if (import.meta.client) document.body.style.overflow = val ? 'hidden' : ''
 })
 
+
 </script>
 
 <template>
