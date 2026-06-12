@@ -72,7 +72,7 @@ function buildMainJsonLd(seo: ISeo, canonicalUrl: string, siteOrigin: string): R
         url: siteOrigin,
         logo: {
           '@type': 'ImageObject',
-          url: `${siteOrigin}/logo-green-transparent.png`,
+          url: `${siteOrigin}/icon.png`,
         },
       },
       url: canonicalUrl,

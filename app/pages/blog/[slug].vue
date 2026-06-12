@@ -14,7 +14,7 @@ if (post.value) {
 
   const ogImage = p.featuredImage
     ? `https://www.neuralbriefly.com/api/og-image?url=${encodeURIComponent(p.featuredImage)}`
-    : 'https://www.neuralbriefly.com/logo-green-transparent.png'
+    : 'https://www.neuralbriefly.com/icon.png'
 
   useSeo({
     ...p.seo,

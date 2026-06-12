@@ -23,6 +23,10 @@ const homeSeo = {
   title: 'NeuralBriefly – AI News & Analysis',
   description: 'Latest articles on GPT, Gemini, Claude and the AI world.',
   ogType: 'website' as const,
+  canonicalUrl: 'https://www.neuralbriefly.com/',
+  ogImage: 'https://www.neuralbriefly.com/icon.png',
+  ogImageWidth: 1200,
+  ogImageHeight: 630,
 }
 
 function postImg(post: PostModel, w = 800, h = 500) {

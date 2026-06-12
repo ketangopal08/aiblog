@@ -4,6 +4,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   app: {
     head: {
+      htmlAttrs: { lang: 'en' },
       script: [
         {
           innerHTML: `(function(){try{if(localStorage.getItem('theme')==='dark'){document.documentElement.classList.add('dark')}}catch(e){}})()`,
@@ -59,6 +60,9 @@ export default defineNuxtConfig({
     '/contact': { isr: 3600 },
     '/advertise': { isr: 3600 },
     '/search': { isr: 0 },
+  },
+  site: {
+    url: 'https://www.neuralbriefly.com',
   },
   sitemap: {
     sources: ['/api/sitemap-urls'],
