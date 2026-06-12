@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 /* WP content links use primary color */
-.wp-article a { color: #4bc471 !important; }
-.wp-article a:hover { color: #4bc471; opacity: 0.8; }
+.wp-article a { color: var(--accent) !important; }
+.wp-article a:hover { color: var(--accent); opacity: 0.8; }
 
 /* WordPress gallery — carousel base styles (JS adds track + controls) */
 .wp-article .gallery {
@@ -34,6 +34,7 @@
   :root {
     --font-primary: "Playfair Display", serif;
     --font-secondary: "Inter", sans-serif;
+    --accent: #4bc471;
   }
 
   html { background-color: #ffffff; }

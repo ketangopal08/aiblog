@@ -16,7 +16,7 @@ export default {
         display: ['Inter', 'sans-serif'],
       },
       colors: {
-        primary: '#4bc471',
+        primary: '#000000',
       },
     },
   },

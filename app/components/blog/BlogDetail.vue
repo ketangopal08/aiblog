@@ -34,8 +34,8 @@ async function copyLink() {
         v-for="cat in post.categories"
         :key="cat.id"
         :to="`/category/${cat.slug}`"
-        class="text-[13px] text-primary hover:text-primary/70 transition-colors"
-        style="font-family: 'Inter', sans-serif; font-weight: 400"
+        class="text-[13px] hover:text-primary/70 transition-colors"
+        style="font-family: 'Inter', sans-serif; font-weight: 400;color: var(--accent) !important"
       >
         {{ cat.name }}
       </NuxtLink>

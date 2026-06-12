@@ -38,7 +38,7 @@ function timeAgo(dateStr: string): string {
               class="text-[52px] sm:text-[64px] font-black tracking-tighter text-gray-900 dark:text-white"
               style="font-family: 'Inter', sans-serif !important; line-height: 1"
             >AI</span>
-            <span class="absolute bottom-0 left-0 h-[10px] w-[36px] bg-primary" />
+            <span class="absolute bottom-0 left-0 h-[10px] w-[36px] bg-[var(--accent)]" />
           </div>
           <p class="text-[9px] sm:text-[10px] font-bold uppercase tracking-[2.5px] text-gray-500 dark:text-gray-400 mb-1 max-w-[220px] leading-relaxed">
             Catch up on trending news on artificial intelligence

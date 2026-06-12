@@ -54,7 +54,7 @@ function initGalleryCarousels() {
     dotsWrap.style.cssText = 'position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:10;'
     const dots = items.map((_, i) => {
       const d = document.createElement('span')
-      d.style.cssText = `width:8px;height:8px;border-radius:50%;cursor:pointer;transition:background 0.2s;background:${i === 0 ? '#4bc471' : 'rgba(255,255,255,0.65)'};`
+      d.style.cssText = `width:8px;height:8px;border-radius:50%;cursor:pointer;transition:background 0.2s;background:${i === 0 ? 'var(--accent)' : 'rgba(255,255,255,0.65)'};`
       d.addEventListener('click', () => goTo(i))
       dotsWrap.appendChild(d)
       return d
@@ -63,7 +63,7 @@ function initGalleryCarousels() {
     function goTo(idx: number) {
       current = (idx + total) % total
       track.style.transform = `translateX(-${current * 100}%)`
-      dots.forEach((d, i) => { d.style.background = i === current ? '#4bc471' : 'rgba(255,255,255,0.65)' })
+      dots.forEach((d, i) => { d.style.background = i === current ? 'var(--accent)' : 'rgba(255,255,255,0.65)' })
     }
 
     if (total > 1) {
