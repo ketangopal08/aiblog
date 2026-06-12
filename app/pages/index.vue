@@ -21,7 +21,7 @@ const trendingPosts = computed(() => allPosts.value.slice(0, 8))
 
 const homeSeo = {
   title: 'NeuralBriefly – AI News & Analysis',
-  description: 'Latest articles on GPT, Gemini, Claude and the AI world.',
+  description: 'NeuralBriefly covers the latest AI news, research, and analysis — from GPT and Gemini to Claude and beyond. Stay ahead with daily briefings on artificial intelligence.',
   ogType: 'website' as const,
   canonicalUrl: 'https://www.neuralbriefly.com/',
   ogImage: 'https://www.neuralbriefly.com/icon.png',

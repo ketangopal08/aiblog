@@ -4,6 +4,7 @@ interface WPSlug {
 
 interface WPPostWithMedia {
   slug: string
+  modified: string
   title: { rendered: string }
   _embedded?: {
     'wp:featuredmedia'?: Array<{
@@ -26,14 +27,14 @@ export default defineCachedEventHandler(async () => {
     const perPage = 100
     while (true) {
       const posts = await $fetch<WPPostWithMedia[]>(`${apiBase}/posts`, {
-        params: { per_page: perPage, page, _embed: true, _fields: 'slug,title,_links,_embedded' },
+        params: { per_page: perPage, page, _embed: true, _fields: 'slug,title,modified,_links,_embedded' },
       })
       for (const p of posts) {
         const media = p._embedded?.['wp:featuredmedia']?.[0]
         const images = media?.source_url
           ? [{ loc: media.source_url, title: media.alt_text || media.title?.rendered || p.title.rendered }]
           : undefined
-        urls.push({ loc: `/blog/${p.slug}`, changefreq: 'weekly', priority: 0.8, ...(images && { images }) })
+        urls.push({ loc: `/blog/${p.slug}`, lastmod: p.modified, changefreq: 'weekly', priority: 0.8, ...(images && { images }) })
       }
       if (posts.length < perPage) break
       page++
