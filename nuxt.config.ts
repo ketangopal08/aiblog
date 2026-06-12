@@ -58,7 +58,6 @@ export default defineNuxtConfig({
     '/cookie-policy': { isr: 3600 },
     '/about': { isr: 3600 },
     '/contact': { isr: 3600 },
-    '/advertise': { isr: 3600 },
     '/search': { isr: 0 },
   },
   site: {

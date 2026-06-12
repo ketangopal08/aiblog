@@ -2,7 +2,6 @@
 const primaryLinks = [
   { label: 'About Us',   to: '/about' },
   { label: 'Contact',    to: '/contact' },
-  { label: 'Advertise',  to: '/advertise' },
   { label: 'News',       to: '/category/news' },
   { label: 'How-to',     to: '/category/how-to' },
   { label: 'Features',   to: '/category/features' },
