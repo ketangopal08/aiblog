@@ -46,10 +46,9 @@ function timeAgo(dateStr: string): string {
         </div>
         <NuxtLink
           to="/blog"
-          class="hidden sm:flex flex-shrink-0 items-center gap-2 border border-primary
+          class="hidden sm:flex flex-shrink-0 items-center gap-2 bg-primary text-white
                  text-[11px] font-bold uppercase tracking-[1.5px] px-5 py-2.5
-                 text-primary
-                 hover:bg-primary hover:text-white hover:border-primary
+                 hover:bg-primary/80
                  transition-colors duration-200"
         >
           See More AI Stories
@@ -200,10 +199,9 @@ function timeAgo(dateStr: string): string {
           <div class="sm:hidden mt-6">
             <NuxtLink
               to="/blog"
-              class="flex items-center justify-center gap-2 border border-primary
+              class="flex items-center justify-center gap-2 bg-primary text-white
                      text-[11px] font-bold uppercase tracking-[1.5px] px-5 py-3 w-full
-                     text-primary
-                     hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900
+                     hover:bg-primary/80
                      transition-colors duration-200"
             >
               See More AI Stories

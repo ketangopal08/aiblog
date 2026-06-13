@@ -58,7 +58,7 @@
       </div>
       <div class="flex gap-3 flex-shrink-0">
         <NuxtLink to="/contact"
-          class="px-5 py-2.5 text-[12px] font-bold uppercase tracking-[1.5px] border border-primary text-primary hover:bg-primary hover:text-white transition-colors">
+          class="px-5 py-2.5 text-[12px] font-bold uppercase tracking-[1.5px] bg-primary text-white hover:bg-primary/80 transition-colors">
           Contact Us
         </NuxtLink>
         <NuxtLink to="/advertise"
