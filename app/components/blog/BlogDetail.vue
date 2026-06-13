@@ -26,7 +26,7 @@ async function copyLink() {
 </script>
 
 <template>
-  <article class="max-w-4xl mx-auto">
+  <article class="w-full">
 
     <!-- Categories -->
     <div class="flex gap-2 flex-wrap mb-4">
