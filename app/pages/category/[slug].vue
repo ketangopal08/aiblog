@@ -2,30 +2,24 @@
 import type { PostModel } from '~/models/PostModel'
 const route = useRoute()
 const { $wp } = useNuxtApp()
-const { categories, fetchCategories } = useCategories()
-
-try {
-  await fetchCategories()
-} catch {
-  // API unavailable — category list will be empty
-}
-
-const category = computed(() =>
-  categories.value.find(c => c.slug === route.params.slug)
-)
 
 const page = computed(() => Number(route.query.page ?? 1))
 
 const { data, refresh } = await useAsyncData(
-  () => `category-${route.params.slug}-${page.value}`,
+  `cat2-${route.params.slug}-${page.value}`,
   async () => {
-    if (!category.value) return null
-    return $wp.getPostsByCategoryPaginated(category.value.id, page.value)
+    const slug = String(route.params.slug)
+    const cats = await $wp.getCategories()
+    const matched = cats.find((c: { slug: string }) => c.slug === slug)
+    if (!matched) return null
+    const result = await $wp.getPostsByCategoryPaginated(matched.id, page.value)
+    return { category: matched, ...result }
   }
 )
 
 watch(page, () => refresh())
 
+const category = computed(() => data.value?.category ?? null)
 const posts = computed(() => (data.value?.items ?? []) as PostModel[])
 const totalPages = computed(() => data.value?.totalPages ?? 1)
 </script>
