@@ -17,7 +17,7 @@ try {
 
 const featuredPost = computed(() => allPosts.value[0] ?? null)
 const stackedPosts  = computed(() => allPosts.value.slice(1, 3))
-const trendingPosts = computed(() => allPosts.value.slice(0, 8))
+const trendingPosts = computed(() => allPosts.value.slice(0, 6))
 
 const homeSeo = {
   title: 'NeuralBriefly – AI News & Analysis',
