@@ -10,9 +10,20 @@ import { PostModel } from '~/models/PostModel'
 
 export class WordPressService implements IWordPressService {
   private baseUrl: string
+  private siteUrl: string
 
-  constructor(baseUrl: string) {
+  constructor(baseUrl: string, siteUrl = '') {
     this.baseUrl = baseUrl.replace(/\/$/, '')
+    this.siteUrl = siteUrl.replace(/\/$/, '')
+  }
+
+  private rewritePost(post: IPost): IPost {
+    if (!this.siteUrl || !this.baseUrl) return post
+    return {
+      ...post,
+      content: post.content.split(this.baseUrl).join(this.siteUrl),
+      excerpt: post.excerpt.split(this.baseUrl).join(this.siteUrl),
+    }
   }
 
   private get apiBase(): string {
@@ -34,7 +45,7 @@ export class WordPressService implements IWordPressService {
     })
     const { total, totalPages } = this.parsePaginationHeaders(response.headers)
     return {
-      items: (response._data ?? []).map((raw: WPPost) => PostModel.toPlain(raw)),
+      items: (response._data ?? []).map((raw: WPPost) => this.rewritePost(PostModel.toPlain(raw))),
       total,
       totalPages,
     }
@@ -46,14 +57,14 @@ export class WordPressService implements IWordPressService {
     const data = await $fetch<WPPost[]>(`${this.apiBase}/posts`, {
       params: { page, per_page: perPage, _embed: true },
     })
-    return data.map(raw => PostModel.toPlain(raw))
+    return data.map(raw => this.rewritePost(PostModel.toPlain(raw)))
   }
 
   async getPostBySlug(slug: string): Promise<IPost | null> {
     const data = await $fetch<WPPost[]>(`${this.apiBase}/posts`, {
       params: { slug, _embed: true },
     })
-    return data.length ? PostModel.toPlain(data[0]) : null
+    return data.length && data[0] ? this.rewritePost(PostModel.toPlain(data[0])) : null
   }
 
   async getCategories(): Promise<ICategory[]> {

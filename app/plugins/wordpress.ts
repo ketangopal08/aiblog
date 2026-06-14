@@ -6,7 +6,7 @@ export default defineNuxtPlugin(() => {
 
   const wpService = config.public.wpUseMock
     ? new MockWordPressService()
-    : new WordPressService(config.public.wpBaseUrl)
+    : new WordPressService(config.public.wpBaseUrl, config.public.siteUrl)
 
   return {
     provide: {

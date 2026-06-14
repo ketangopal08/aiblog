@@ -43,6 +43,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       wpBaseUrl: process.env.WP_BASE_URL ?? 'https://lime-hamster-756747.hostingersite.com',
+      siteUrl: process.env.SITE_URL ?? 'https://www.neuralbriefly.com',
       wpUseMock: process.env.WP_USE_MOCK === 'true',
     },
   },
