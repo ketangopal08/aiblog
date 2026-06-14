@@ -19,10 +19,13 @@ export class WordPressService implements IWordPressService {
 
   private rewritePost(post: IPost): IPost {
     if (!this.siteUrl || !this.baseUrl) return post
+    const wwwBase = this.baseUrl.replace('https://', 'https://www.')
+    const rewrite = (s: string) => s.split(wwwBase).join(this.siteUrl).split(this.baseUrl).join(this.siteUrl)
     return {
       ...post,
-      content: post.content.split(this.baseUrl).join(this.siteUrl),
-      excerpt: post.excerpt.split(this.baseUrl).join(this.siteUrl),
+      content: rewrite(post.content),
+      excerpt: rewrite(post.excerpt),
+      featuredImage: post.featuredImage ? rewrite(post.featuredImage) : post.featuredImage,
     }
   }
 
@@ -116,14 +119,14 @@ export class WordPressService implements IWordPressService {
     const data = await $fetch<WPUser[]>(`${this.apiBase}/users`, {
       params: { slug },
     })
-    if (!data.length) return null
     const raw = data[0]
+    if (!raw) return null
     const avatarSizes = Object.keys(raw.avatar_urls).sort((a, b) => Number(b) - Number(a))
     return {
       id: raw.id,
       name: raw.name,
       description: raw.description,
-      avatarUrl: avatarSizes.length ? raw.avatar_urls[avatarSizes[0]] : null,
+      avatarUrl: avatarSizes[0] ? (raw.avatar_urls[avatarSizes[0]] ?? null) : null,
     }
   }
 
