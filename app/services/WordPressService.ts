@@ -20,7 +20,11 @@ export class WordPressService implements IWordPressService {
   private rewritePost(post: IPost): IPost {
     if (!this.siteUrl || !this.baseUrl) return post
     const wwwBase = this.baseUrl.replace('https://', 'https://www.')
-    const rewrite = (s: string) => s.split(wwwBase).join(this.siteUrl).split(this.baseUrl).join(this.siteUrl)
+    const esc = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+    const rewrite = (html: string) =>
+      html
+        .replace(new RegExp(`href="${esc(wwwBase)}`, 'g'), `href="${this.siteUrl}`)
+        .replace(new RegExp(`href="${esc(this.baseUrl)}`, 'g'), `href="${this.siteUrl}`)
     return {
       ...post,
       content: rewrite(post.content),
