@@ -18,7 +18,7 @@ function updateThemeColor() {
 
 <template>
   <div class="min-h-screen flex flex-col bg-white dark:bg-[#0D0D0D] transition-colors duration-300 dark:[color-scheme:dark] font-sans">
-    <NuxtLoadingIndicator color="#27ae60" :height="3" :duration="2000" :throttle="0" />
+    <NuxtLoadingIndicator color="#2a90f6" :height="3" :duration="2000" :throttle="0" />
     <NuxtRouteAnnouncer />
     <AppHeader />
     <main class="flex-1 pt-5">
