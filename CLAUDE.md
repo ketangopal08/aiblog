@@ -11,6 +11,25 @@
 
 ---
 
+## 🚫 Protected Code — Do NOT Touch
+
+The following sections are frozen. **Never modify them unless the user explicitly says "change the embed code" or "update the Twitter/oEmbed logic":**
+
+### `app/components/blog/WpContent.vue` — Embed logic (entire file)
+- `embedTweetLinks()` function — regex that converts Twitter/X URL anchors to `<blockquote class="twitter-tweet">`
+- `loadTwitterWidgets()` function — loads `platform.twitter.com/widgets.js` and calls `twttr.widgets.load`
+- `initGalleryCarousels()` function — builds carousel for `.gallery` blocks
+- `cleanHtml` computed — the DOMPurify sanitize + embedTweetLinks pipeline
+- The `onMounted(init)` / `watch(() => props.content, init)` lifecycle hooks
+- **Any change here can silently break Twitter/X embeds and gallery carousels.**
+
+### `app/services/WordPressService.ts` — `rewritePost()` method
+- The URL-rewriting regex logic inside `rewritePost` must not be altered.
+- Do not add new `.replace()` calls or change the existing patterns.
+- **Any change here can break internal link rewriting across all posts.**
+
+---
+
 ## Typography
 
 See [`TYPOGRAPHY.md`](./TYPOGRAPHY.md) for all font rules.
@@ -43,6 +62,18 @@ Primary accent: `#4bc471` (green) — used for all buttons, borders, and interac
 - Category labels on light/card backgrounds: `text-gray-500 dark:text-gray-400`
 
 **Never use:** any orange hex values or `hover:bg-orange-*`.
+
+---
+
+## Browser Compatibility
+
+**Always build for both Chrome and Safari.** Safari (WebKit) has stricter defaults that Chrome silently forgives:
+
+- **Third-party scripts** — never rely solely on `script.onload`; use a `ready`-queue pattern (e.g. `twttr.ready()`) so the callback fires whether the script is cached, blocked, or still loading.
+- **BFCache (back/forward cache)** — Safari restores pages from memory. Script globals (`window.twttr`, etc.) can disappear. Always re-check and re-initialize on mount, not just on first load.
+- **Clipboard API** — `navigator.clipboard.writeText()` requires a secure context and user gesture on Safari; always keep the `execCommand` fallback.
+- **Dynamic script injection** — prefer `id`-based dedup (`document.getElementById('script-id')`) over `querySelector('[src*="..."]')` to avoid false positives from cached DOM nodes.
+- **CSS** — test any new layout (flex/grid gaps, `clamp()`, `overflow`, `-webkit-` prefixes) in Safari; it diverges from Chrome on edge cases.
 
 ---
 

@@ -22,12 +22,17 @@ function loadTwitterWidgets() {
   const el = articleRef.value
   if (!el || !el.querySelector('.twitter-tweet')) return
   const w = window as any
-  if (w.twttr?.widgets) { w.twttr.widgets.load(el); return }
-  if (document.querySelector('script[src*="platform.twitter.com/widgets.js"]')) return
+  // Twitter's official async snippet pattern — the ready() queue works whether the
+  // script has already loaded or is still in flight, fixing Safari's BFCache race.
+  if (!w.twttr) {
+    w.twttr = { _e: [] as Function[], ready(f: Function) { this._e.push(f) } }
+  }
+  w.twttr.ready(() => w.twttr.widgets.load(el))
+  if (document.getElementById('twitter-wjs')) return
   const script = document.createElement('script')
+  script.id = 'twitter-wjs'
   script.src = 'https://platform.twitter.com/widgets.js'
   script.async = true
-  script.onload = () => w.twttr?.widgets?.load(el)
   document.head.appendChild(script)
 }
 
