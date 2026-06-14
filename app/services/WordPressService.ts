@@ -25,7 +25,6 @@ export class WordPressService implements IWordPressService {
       ...post,
       content: rewrite(post.content),
       excerpt: rewrite(post.excerpt),
-      featuredImage: post.featuredImage ? rewrite(post.featuredImage) : post.featuredImage,
     }
   }
 
@@ -81,7 +80,7 @@ export class WordPressService implements IWordPressService {
     const data = await $fetch<WPPost[]>(`${this.apiBase}/posts`, {
       params: { categories: categoryId, page, per_page: 10, _embed: true },
     })
-    return data.map(raw => PostModel.toPlain(raw))
+    return data.map(raw => this.rewritePost(PostModel.toPlain(raw)))
   }
 
   // ── New paginated methods ─────────────────────────────────
