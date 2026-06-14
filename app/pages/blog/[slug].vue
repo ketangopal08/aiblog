@@ -45,7 +45,7 @@ function trendImg(p: PostModel) {
     <ClientOnly>
       <ReadingProgress />
     </ClientOnly>
-    <div class="max-w-[1238px] mx-auto px-4 lg:px-0 py-10">
+    <div class="max-w-[1238px] mx-auto px-4 lg:px-0 pb-10 pt-5">
       <LoadingSpinner v-if="loading" />
       <p v-else-if="error" class="text-red-500">{{ error }}</p>
       <template v-else-if="post">
