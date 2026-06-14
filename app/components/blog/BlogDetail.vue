@@ -100,7 +100,7 @@ async function copyLink() {
 
     <!-- Featured image -->
     <div class="img-card mb-8" style="height: clamp(300px, 50vw, 560px)">
-      <img :src="img" :alt="post.title" class="w-full h-full object-cover" />
+      <img :src="img" :alt="post.title" fetchpriority="high" width="1200" height="600" class="w-full h-full object-cover" />
     </div>
 
     <!-- Article content -->

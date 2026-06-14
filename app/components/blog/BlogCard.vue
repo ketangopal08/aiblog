@@ -16,9 +16,11 @@ defineProps<{ post: PostModel }>()
     <!-- Image -->
     <div class="relative w-full aspect-video overflow-hidden bg-gray-100 dark:bg-[#1f1f1f] flex-shrink-0">
       <img
-        :src="post.featuredImage || `https://picsum.photos/seed/${post.id}/800/450`"
+        :src="post.thumbnailImage || post.featuredImage || `https://picsum.photos/seed/${post.id}/768/432`"
         :alt="post.title"
         loading="lazy"
+        width="768"
+        height="432"
         class="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-500"
       />
       <span class="absolute top-2.5 right-2.5 bg-black/50 text-white text-[9px] font-bold px-2 py-0.5 rounded-full">

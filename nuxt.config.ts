@@ -30,7 +30,6 @@ export default defineNuxtConfig({
           rel: 'stylesheet',
           href: 'https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap',
         },
-        { rel: 'preconnect', href: 'https://neuralbriefly.com' },
         { rel: 'alternate', type: 'application/rss+xml', title: 'NeuralBriefly RSS Feed', href: '/api/rss.xml' },
       ],
     },

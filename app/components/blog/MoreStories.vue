@@ -8,7 +8,7 @@ type ViewMode = 'list' | 'grid'
 const view = ref<ViewMode>('list')
 
 function postImg(post: PostModel, w = 480, h = 320) {
-  return post.featuredImage || `https://picsum.photos/seed/${post.id}/${w}/${h}`
+  return post.thumbnailImage || post.featuredImage || `https://picsum.photos/seed/${post.id}/${w}/${h}`
 }
 
 function stripHtml(html: string): string {

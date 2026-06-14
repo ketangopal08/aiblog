@@ -29,6 +29,8 @@ export class PostModel implements IPost {
   modifiedDate: string
   authorSlug: string
   featuredImage: string | null
+  thumbnailImage: string | null
+  smallImage: string | null
   formattedDate: string
   readingTime: number
   private _ogImageWidth?: number
@@ -51,6 +53,12 @@ export class PostModel implements IPost {
     this.modifiedDate = raw.modified ?? raw.date
     const featuredMedia = raw._embedded?.['wp:featuredmedia']?.[0]
     this.featuredImage = featuredMedia?.source_url ?? null
+    this.thumbnailImage = featuredMedia?.media_details?.sizes?.['medium_large']?.source_url
+      ?? featuredMedia?.media_details?.sizes?.['large']?.source_url
+      ?? this.featuredImage
+    this.smallImage = featuredMedia?.media_details?.sizes?.['medium']?.source_url
+      ?? featuredMedia?.media_details?.sizes?.['thumbnail']?.source_url
+      ?? this.thumbnailImage
     this._ogImageWidth = featuredMedia?.media_details?.width
     this._ogImageHeight = featuredMedia?.media_details?.height
 
@@ -107,6 +115,8 @@ export class PostModel implements IPost {
       modifiedDate: m.modifiedDate,
       authorSlug: m.authorSlug,
       featuredImage: m.featuredImage,
+      thumbnailImage: m.thumbnailImage,
+      smallImage: m.smallImage,
       formattedDate: m.formattedDate,
       readingTime: m.readingTime,
       author: { id: m.author.id, name: m.author.name, avatarUrl: m.author.avatarUrl, description: m.author.description },

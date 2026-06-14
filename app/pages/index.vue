@@ -32,6 +32,12 @@ const homeSeo = {
 function postImg(post: PostModel, w = 800, h = 500) {
   return post.featuredImage || `https://picsum.photos/seed/${post.id}/${w}/${h}`
 }
+function thumbImg(post: PostModel, w = 480, h = 280) {
+  return post.thumbnailImage || post.featuredImage || `https://picsum.photos/seed/${post.id}/${w}/${h}`
+}
+function smallImg(post: PostModel, w = 136, h = 108) {
+  return post.smallImage || post.thumbnailImage || post.featuredImage || `https://picsum.photos/seed/${post.id}/${w}/${h}`
+}
 </script>
 
 <template>
@@ -65,6 +71,7 @@ function postImg(post: PostModel, w = 800, h = 500) {
                 <img
                   :src="postImg(featuredPost, 900, 560)"
                   :alt="featuredPost.title"
+                  fetchpriority="high"
                   class="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
                 />
                 <div class="absolute inset-0 pointer-events-none" style="background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.55) 25%, rgba(0,0,0,0.15) 50%, transparent 70%)" />
@@ -94,7 +101,7 @@ function postImg(post: PostModel, w = 800, h = 500) {
                     class="relative flex-1 img-card group block min-h-0 min-w-0"
                   >
                     <img
-                      :src="postImg(post, 480, 280)"
+                      :src="thumbImg(post, 480, 280)"
                       :alt="post.title"
                       class="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
                     />
@@ -188,7 +195,7 @@ function postImg(post: PostModel, w = 800, h = 500) {
               </div>
               <div class="w-[68px] h-[54px] flex-shrink-0 img-card bg-gray-100 dark:bg-[#1f1f1f]">
                 <img
-                  :src="postImg(post, 136, 108)"
+                  :src="smallImg(post, 136, 108)"
                   :alt="post.title"
                   loading="lazy"
                   class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
