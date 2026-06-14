@@ -1,13 +1,38 @@
 <script setup lang="ts">
+const { $config } = useNuxtApp()
 const form = reactive({ name: '', email: '', subject: '', message: '' })
 const submitted = ref(false)
 const submitting = ref(false)
+const submitError = ref('')
+const snackbar = ref(false)
 
 async function submit() {
   submitting.value = true
-  await new Promise(r => setTimeout(r, 800))
-  submitted.value = true
-  submitting.value = false
+  submitError.value = ''
+  try {
+    const body = new FormData()
+    body.append('your-name', form.name)
+    body.append('your-email', form.email)
+    body.append('your-subject', form.subject)
+    body.append('your-message', form.message)
+
+    const res: any = await $fetch(
+      `${$config.public.wpBaseUrl}/wp-json/neuralbriefly/v1/contact`,
+      { method: 'POST', body }
+    )
+
+    if (res.status === 'mail_sent') {
+      submitted.value = true
+      snackbar.value = true
+      setTimeout(() => { snackbar.value = false }, 4000)
+    } else {
+      submitError.value = res.message || 'Something went wrong. Please try again.'
+    }
+  } catch {
+    submitError.value = 'Failed to send. Please check your connection and try again.'
+  } finally {
+    submitting.value = false
+  }
 }
 
 const contactInfo = [
@@ -64,15 +89,7 @@ const contactInfo = [
 
       <!-- Form -->
       <div class="sm:col-span-2">
-        <div v-if="submitted" class="border border-primary/30 bg-primary/5 px-6 py-8 text-center">
-          <svg class="w-8 h-8 text-primary mx-auto mb-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
-          </svg>
-          <p class="text-[15px] font-bold text-gray-900 dark:text-white mb-1">Message sent!</p>
-          <p class="text-[13px] text-gray-500 dark:text-gray-400">We'll get back to you within 1–2 business days.</p>
-        </div>
-
-        <form v-else @submit.prevent="submit" class="flex flex-col gap-4">
+        <form @submit.prevent="submit" class="flex flex-col gap-4">
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label class="block text-[11px] font-bold uppercase tracking-[1.5px] text-gray-500 dark:text-gray-400 mb-1.5">
@@ -81,7 +98,7 @@ const contactInfo = [
               <input v-model="form.name" type="text" required placeholder="Your name"
                 class="w-full bg-transparent border border-gray-200 dark:border-white/[0.1] px-3 py-2.5 text-[14px]
                        text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-600
-                       outline-none focus:border-primary transition-colors" />
+                       rounded-lg outline-none focus:border-primary transition-colors" />
             </div>
             <div>
               <label class="block text-[11px] font-bold uppercase tracking-[1.5px] text-gray-500 dark:text-gray-400 mb-1.5">
@@ -90,7 +107,7 @@ const contactInfo = [
               <input v-model="form.email" type="email" required placeholder="your@email.com"
                 class="w-full bg-transparent border border-gray-200 dark:border-white/[0.1] px-3 py-2.5 text-[14px]
                        text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-600
-                       outline-none focus:border-primary transition-colors" />
+                       rounded-lg outline-none focus:border-primary transition-colors" />
             </div>
           </div>
 
@@ -111,19 +128,56 @@ const contactInfo = [
             <textarea v-model="form.message" required rows="6" placeholder="Your message…"
               class="w-full bg-transparent border border-gray-200 dark:border-white/[0.1] px-3 py-2.5 text-[14px]
                      text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-600
-                     outline-none focus:border-primary transition-colors resize-y" />
+                     rounded-lg outline-none focus:border-primary transition-colors resize-y" />
           </div>
 
-          <div>
+          <div class="flex flex-col gap-3">
             <button type="submit" :disabled="submitting"
-              class="bg-primary text-white px-6 py-2.5 text-[11px] font-black uppercase tracking-[2px]
+              class="rounded-lg bg-primary text-white px-6 py-2.5 text-[11px] font-black uppercase tracking-[2px]
                      hover:bg-primary/80 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
               <span v-if="submitting">Sending…</span>
               <span v-else>Send Message</span>
             </button>
+            <p v-if="submitError" class="text-[13px] text-red-500">{{ submitError }}</p>
           </div>
         </form>
       </div>
     </div>
   </div>
+
+  <!-- Snackbar -->
+  <Teleport to="body">
+    <Transition name="snack">
+      <div
+        v-if="snackbar"
+        class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50
+               flex items-center gap-3
+               bg-[#1a1a1a] dark:bg-white text-white dark:text-gray-900
+               px-5 py-3.5 rounded-xl shadow-2xl"
+        style="min-width: 280px"
+      >
+        <span class="w-5 h-5 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0">
+          <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+          </svg>
+        </span>
+        <div>
+          <p class="text-[13px] font-semibold leading-none mb-0.5">Message sent successfully!</p>
+          <p class="text-[11px] opacity-60">We'll get back to you within 1–2 business days.</p>
+        </div>
+        <button @click="snackbar = false" class="ml-auto opacity-50 hover:opacity-100 transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+    </Transition>
+  </Teleport>
 </template>
+
+<style scoped>
+.snack-enter-active { transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.snack-leave-active { transition: all 0.2s ease-in; }
+.snack-enter-from  { opacity: 0; transform: translate(-50%, 20px); }
+.snack-leave-to    { opacity: 0; transform: translate(-50%, 20px); }
+</style>
