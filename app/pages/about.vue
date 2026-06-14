@@ -4,6 +4,8 @@
       title: 'About NeuralBriefly – AI News & Analysis',
       description: 'NeuralBriefly is your daily source for AI news, model breakdowns, and practical guides on GPT, Claude, Gemini and beyond.',
       ogType: 'website',
+      canonicalUrl: 'https://www.neuralbriefly.com/about',
+      ogImage: 'https://www.neuralbriefly.com/icon.png',
     }" />
 
     <AppBreadcrumb :items="[{ label: 'Home', to: '/' }, { label: 'About Us' }]" />
@@ -60,10 +62,6 @@
         <NuxtLink to="/contact"
           class="px-5 py-2.5 text-[12px] font-bold uppercase tracking-[1.5px] bg-primary text-white hover:bg-primary/80 transition-colors">
           Contact Us
-        </NuxtLink>
-        <NuxtLink to="/advertise"
-          class="px-5 py-2.5 text-[12px] font-bold uppercase tracking-[1.5px] bg-primary text-white hover:bg-primary/80 transition-colors">
-          Advertise
         </NuxtLink>
       </div>
     </section>

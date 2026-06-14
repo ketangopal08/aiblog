@@ -32,6 +32,7 @@ const total = computed(() => data.value?.total ?? 0)
         description: author.description || `Articles by ${author.name} on NeuralBriefly.`,
         ogImage: author.avatarUrl ?? undefined,
         ogType: 'website',
+        canonicalUrl: `https://www.neuralbriefly.com/author/${route.params.slug}`,
         breadcrumbs: [
           { name: 'Home', url: '/' },
           { name: author.name, url: `/author/${route.params.slug}` },

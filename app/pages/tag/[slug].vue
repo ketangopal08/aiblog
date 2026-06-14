@@ -28,8 +28,9 @@ const totalPages = computed(() => data.value?.totalPages ?? 1)
     <template v-if="tag">
       <SeoHead :seo="{
         title: `#${tag.name} – NeuralBriefly`,
-        description: `Browse all articles tagged '${tag.name}' on NeuralBriefly.`,
+        description: `Browse all articles tagged '${tag.name}' on NeuralBriefly — AI news, guides, and analysis covering ${tag.name} and related topics.`,
         ogType: 'website',
+        canonicalUrl: `https://www.neuralbriefly.com/tag/${tag.slug}`,
         breadcrumbs: [
           { name: 'Home', url: '/' },
           { name: `#${tag.name}`, url: `/tag/${tag.slug}` },

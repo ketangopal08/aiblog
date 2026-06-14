@@ -38,8 +38,9 @@ function timeAgo(dateStr: string): string {
   <div class="bg-white dark:bg-[#0D0D0D] min-h-screen">
     <SeoHead :seo="{
       title: 'All Posts – NeuralBriefly',
-      description: 'Browse all AI articles on NeuralBriefly — GPT, Gemini, Claude and more.',
+      description: 'Browse all AI articles on NeuralBriefly — in-depth coverage of GPT, Gemini, Claude, open-source models, AI tools, and the latest research and news.',
       ogType: 'website',
+      canonicalUrl: 'https://www.neuralbriefly.com/blog',
     }" />
 
     <div class="max-w-[1238px] mx-auto px-5 py-10">

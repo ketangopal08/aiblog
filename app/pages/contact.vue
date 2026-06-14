@@ -60,6 +60,8 @@ const contactInfo = [
       title: 'Contact Us – NeuralBriefly',
       description: 'Get in touch with the NeuralBriefly team for editorial, partnership, or general enquiries.',
       ogType: 'website',
+      canonicalUrl: 'https://www.neuralbriefly.com/contact',
+      ogImage: 'https://www.neuralbriefly.com/icon.png',
     }" />
 
     <AppBreadcrumb :items="[{ label: 'Home', to: '/' }, { label: 'Contact Us' }]" />

@@ -3,6 +3,10 @@ const error = useError()
 const is404 = computed(() => error.value?.statusCode === 404)
 
 const handleBack = () => clearError({ redirect: '/' })
+
+useHead({
+  meta: [{ name: 'robots', content: 'noindex, follow' }],
+})
 </script>
 
 <template>

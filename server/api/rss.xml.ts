@@ -27,7 +27,7 @@ export default defineCachedEventHandler(async (event) => {
 
   const config = useRuntimeConfig()
   const baseUrl = config.public.wpBaseUrl
-  const siteUrl = 'https://neuralbriefly.com'
+  const siteUrl = 'https://www.neuralbriefly.com'
 
   let posts: WPPost[] = []
   try {

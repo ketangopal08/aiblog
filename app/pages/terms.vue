@@ -3,6 +3,7 @@
     <SeoHead :seo="{
       title: 'Terms of Service – NeuralBriefly',
       description: 'Read the Terms of Service for NeuralBriefly. By using our site you agree to these terms.',
+      canonicalUrl: 'https://www.neuralbriefly.com/terms',
       ogType: 'website',
     }" />
 

@@ -3,6 +3,7 @@
     <SeoHead :seo="{
       title: 'Cookie Policy – NeuralBriefly',
       description: 'Learn how NeuralBriefly uses cookies and how you can control them.',
+      canonicalUrl: 'https://www.neuralbriefly.com/cookie-policy',
       ogType: 'website',
     }" />
 

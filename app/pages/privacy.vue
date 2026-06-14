@@ -3,6 +3,7 @@
     <SeoHead :seo="{
       title: 'Privacy Policy – NeuralBriefly',
       description: 'Learn how NeuralBriefly collects, uses, and protects your personal data.',
+      canonicalUrl: 'https://www.neuralbriefly.com/privacy',
       ogType: 'website',
     }" />
 
