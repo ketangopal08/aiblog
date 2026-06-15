@@ -5,14 +5,15 @@ const props = defineProps<{ content: string }>()
 
 function embedTweetLinks(html: string): string {
   return html.replace(
-    /<a\s[^>]*href="(https?:\/\/(?:twitter\.com|x\.com)\/[^/]+\/status\/[^"]+)"[^>]*>\s*https?:\/\/(?:twitter\.com|x\.com)\/[^\s<]+\s*<\/a>/gi,
+    /<a\s[^>]*href="(https?:\/\/(?:twitter\.com|x\.com)\/[^/]+\/status\/\d+[^"]*)"[^>]*>[^<]*<\/a>/gi,
     (_, url) => `<blockquote class="twitter-tweet"><a href="${url}"></a></blockquote>`
   )
 }
 
 const cleanHtml = computed(() => {
-  if (!import.meta.client) return props.content
-  return DOMPurify.sanitize(embedTweetLinks(props.content))
+  const withEmbeds = embedTweetLinks(props.content)
+  if (!import.meta.client) return withEmbeds
+  return DOMPurify.sanitize(withEmbeds)
 })
 
 const articleRef = ref<HTMLElement | null>(null)
