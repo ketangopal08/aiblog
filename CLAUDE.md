@@ -8,6 +8,10 @@
 4. **Match exactly** — font sizes, weights, colors, spacing values must match what the user specifies precisely.
 5. **Ask before making large structural changes.** If a request could be interpreted multiple ways, confirm before acting.
 6. **No auto-commits.** Never run `git add/commit/push` unless the user explicitly says "commit" or "push".
+7. **Verify before declaring done.** After every code change, reason through the side effects on the rest of the page/component. A fix that breaks something else is worse than the original bug.
+8. **Know the API you're using.** Before using any Nuxt/Vue/framework API option, verify the correct value types and semantics. Example: `useAsyncData`'s `getCachedData` must return `undefined` (not `null`) to signal "no cache" — returning `null` is treated as a valid cached value and suppresses the fetch entirely.
+9. **One change, one responsibility.** Each edit must solve exactly the stated problem and leave all other behaviour identical. If a change requires touching more than one behaviour, flag it to the user first.
+10. **Think about the user's end-users.** Solutions must work for real users who cannot clear browser caches, restart servers, or run dev tools.
 
 ---
 

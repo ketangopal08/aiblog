@@ -5,8 +5,8 @@ const route = useRoute()
 const { $wp } = useNuxtApp()
 
 const [{ data: post, pending: loading, error: fetchError }, { data: trendingPosts }] = await Promise.all([
-  useAsyncData(`post-${route.params.slug}`, () => $wp.getPostBySlug(route.params.slug as string)),
-  useAsyncData('trending-posts', () => $wp.getPosts(1, 5) as Promise<PostModel[]>),
+  useAsyncData(`post-${route.params.slug}`, () => $wp.getPostBySlug(route.params.slug as string), { getCachedData: () => undefined }),
+  useAsyncData('trending-posts', () => $wp.getPosts(1, 5) as Promise<PostModel[]>, { getCachedData: () => undefined }),
 ])
 
 const error = computed(() => fetchError.value ? 'Failed to load post.' : null)
