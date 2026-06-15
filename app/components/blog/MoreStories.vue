@@ -66,33 +66,35 @@ function timeAgo(dateStr: string): string {
 
           <!-- View toggle -->
           <div class="flex justify-end mb-4">
-            <div class="flex gap-1">
-              <button
-                @click="view = 'list'"
-                :class="view === 'list'
-                  ? 'bg-primary text-white'
-                  : 'bg-gray-100 dark:bg-[#1a1a1a] text-gray-400 hover:text-gray-900 dark:hover:text-white'"
-                class="w-9 h-9 flex items-center justify-center transition-colors"
-                aria-label="List view"
-              >
-                <svg class="w-[15px] h-[15px]" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"/>
-                </svg>
-              </button>
+            <div class="flex items-center bg-gray-100 dark:bg-[#1a1a1a] rounded-full p-1 gap-1">
               <button
                 @click="view = 'grid'"
                 :class="view === 'grid'
-                  ? 'bg-primary text-white'
-                  : 'bg-gray-100 dark:bg-[#1a1a1a] text-gray-400 hover:text-gray-900 dark:hover:text-white'"
-                class="w-9 h-9 flex items-center justify-center transition-colors"
+                  ? 'bg-black dark:bg-white text-white dark:text-black shadow-sm'
+                  : 'text-gray-400 hover:text-gray-700 dark:hover:text-gray-200'"
+                class="flex items-center gap-1.5 px-4 py-1.5 rounded-full text-[12px] font-semibold transition-all duration-200"
                 aria-label="Grid view"
               >
-                <svg class="w-[14px] h-[14px]" fill="currentColor" viewBox="0 0 24 24">
+                <svg class="w-[13px] h-[13px]" fill="currentColor" viewBox="0 0 24 24">
                   <rect x="3" y="3" width="8" height="8" rx="1"/>
                   <rect x="13" y="3" width="8" height="8" rx="1"/>
                   <rect x="3" y="13" width="8" height="8" rx="1"/>
                   <rect x="13" y="13" width="8" height="8" rx="1"/>
                 </svg>
+                Grid
+              </button>
+              <button
+                @click="view = 'list'"
+                :class="view === 'list'
+                  ? 'bg-black dark:bg-white text-white dark:text-black shadow-sm'
+                  : 'text-gray-400 hover:text-gray-700 dark:hover:text-gray-200'"
+                class="flex items-center gap-1.5 px-4 py-1.5 rounded-full text-[12px] font-semibold transition-all duration-200"
+                aria-label="List view"
+              >
+                <svg class="w-[14px] h-[14px]" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"/>
+                </svg>
+                List
               </button>
             </div>
           </div>
