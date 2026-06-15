@@ -100,7 +100,7 @@ const contactInfo = [
               <input v-model="form.name" type="text" required placeholder="Your name"
                 class="w-full bg-transparent border border-gray-200 dark:border-white/[0.1] px-3 py-2.5 text-[14px]
                        text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-600
-                       rounded-lg outline-none focus:border-primary transition-colors" />
+                       rounded-full outline-none focus:border-primary transition-colors" />
             </div>
             <div>
               <label class="block text-[11px] font-bold uppercase tracking-[1.5px] text-gray-500 dark:text-gray-400 mb-1.5">
@@ -109,7 +109,7 @@ const contactInfo = [
               <input v-model="form.email" type="email" required placeholder="your@email.com"
                 class="w-full bg-transparent border border-gray-200 dark:border-white/[0.1] px-3 py-2.5 text-[14px]
                        text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-600
-                       rounded-lg outline-none focus:border-primary transition-colors" />
+                       rounded-full outline-none focus:border-primary transition-colors" />
             </div>
           </div>
 
@@ -130,12 +130,12 @@ const contactInfo = [
             <textarea v-model="form.message" required rows="6" placeholder="Your message…"
               class="w-full bg-transparent border border-gray-200 dark:border-white/[0.1] px-3 py-2.5 text-[14px]
                      text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-600
-                     rounded-lg outline-none focus:border-primary transition-colors resize-y" />
+                     rounded-full outline-none focus:border-primary transition-colors resize-y" />
           </div>
 
           <div class="flex flex-col gap-3">
             <button type="submit" :disabled="submitting"
-              class="rounded-lg bg-primary text-white px-6 py-2.5 text-[11px] font-black uppercase tracking-[2px]
+              class="rounded-full bg-primary text-white px-6 py-2.5 text-[11px] font-black uppercase tracking-[2px]
                      hover:bg-primary/80 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
               <span v-if="submitting">Sending…</span>
               <span v-else>Send Message</span>

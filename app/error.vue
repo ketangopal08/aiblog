@@ -28,7 +28,7 @@ useHead({
         <button
           type="button"
           class="text-sm font-bold text-primary
-                 bg-primary text-white px-6 py-3
+                 bg-primary text-white px-6 py-3 rounded-full
                  hover:bg-primary/80 transition"
           @click="handleBack"
         >

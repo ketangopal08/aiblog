@@ -153,7 +153,7 @@ async function submit() {
           <button
             type="submit"
             :disabled="submitting"
-            class="bg-primary text-white px-6 py-2.5 text-[11px] font-black uppercase tracking-[2px]
+            class="bg-primary text-white px-6 py-2.5 text-[11px] font-black uppercase tracking-[2px] rounded-full
                    hover:bg-primary/80 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <span v-if="submitting" class="flex items-center gap-2">

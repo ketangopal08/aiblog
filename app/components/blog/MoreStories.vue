@@ -47,7 +47,7 @@ function timeAgo(dateStr: string): string {
         <NuxtLink
           to="/blog"
           class="hidden sm:flex flex-shrink-0 items-center gap-2 bg-primary text-white
-                 text-[11px] font-bold uppercase tracking-[1.5px] px-5 py-2.5
+                 text-[11px] font-bold uppercase tracking-[1.5px] px-5 py-2.5 rounded-full
                  hover:bg-primary/80
                  transition-colors duration-200"
         >
@@ -200,7 +200,7 @@ function timeAgo(dateStr: string): string {
             <NuxtLink
               to="/blog"
               class="flex items-center justify-center gap-2 bg-primary text-white
-                     text-[11px] font-bold uppercase tracking-[1.5px] px-5 py-3 w-full
+                     text-[11px] font-bold uppercase tracking-[1.5px] px-5 py-3 w-full rounded-full
                      hover:bg-primary/80
                      transition-colors duration-200"
             >

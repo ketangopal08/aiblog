@@ -34,7 +34,7 @@
   :root {
     --font-primary: "Playfair Display", serif;
     --font-secondary: "Inter", sans-serif;
-    --accent: #2a90f6;
+    --accent: #0171e3;
   }
 
   html { background-color: #ffffff; }
