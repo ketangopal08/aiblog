@@ -69,7 +69,7 @@ function smallImg(post: PostModel, w = 136, h = 108) {
                        h-[240px] sm:h-full w-full sm:w-[58%]"
               >
                 <img
-                  :src="postImg(featuredPost, 900, 560)"
+                  :src="thumbImg(featuredPost, 900, 560)"
                   :alt="featuredPost.title"
                   fetchpriority="high"
                   class="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
