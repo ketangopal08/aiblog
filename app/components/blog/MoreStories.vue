@@ -152,6 +152,21 @@ function timeAgo(dateStr: string): string {
                   style="overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2"
                   v-html="post.excerpt"
                 />
+                <!-- Author meta row -->
+                <div class="flex items-center gap-1.5 mt-3 pt-3 " style="font-family: 'Inter', sans-serif">
+                  <span class="text-[11px] text-gray-400 dark:text-gray-500">By</span>
+                  <span class="text-[11px] font-semibold text-gray-700 dark:text-gray-300">{{ post.author.name }}</span>
+                  <span class="text-[11px] text-gray-400 dark:text-gray-500">·</span>
+                  <span class="flex items-center gap-1 text-[11px] text-gray-400 dark:text-gray-500">
+                    <svg class="w-3 h-3 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                      <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                      <line x1="16" y1="2" x2="16" y2="6"/>
+                      <line x1="8" y1="2" x2="8" y2="6"/>
+                      <line x1="3" y1="10" x2="21" y2="10"/>
+                    </svg>
+                    {{ post.formattedDate }}
+                  </span>
+                </div>
               </div>
             </NuxtLink>
           </template>
