@@ -130,6 +130,9 @@ export class WordPressService implements IWordPressService {
       name: raw.name,
       description: raw.description,
       avatarUrl: avatarSizes[0] ? (raw.avatar_urls[avatarSizes[0]] ?? null) : null,
+      socialTwitter: raw.social_twitter || undefined,
+      socialLinkedIn: raw.social_linkedin || undefined,
+      socialInstagram: raw.social_instagram || undefined,
     }
   }
 

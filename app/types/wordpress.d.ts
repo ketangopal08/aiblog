@@ -57,4 +57,7 @@ export interface WPUser {
   slug: string
   description: string
   avatar_urls: Record<string, string>
+  social_twitter?: string
+  social_linkedin?: string
+  social_instagram?: string
 }

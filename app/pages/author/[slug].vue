@@ -58,6 +58,44 @@ const total = computed(() => data.value?.total ?? 0)
           <p class="text-[11px] font-bold uppercase tracking-[2px] text-gray-400 dark:text-gray-500 mt-2">
             {{ total }} article{{ total !== 1 ? 's' : '' }}
           </p>
+          <div v-if="author.socialTwitter || author.socialLinkedIn || author.socialInstagram" class="flex items-center gap-2 mt-3">
+            <a
+              v-if="author.socialTwitter"
+              :href="author.socialTwitter"
+              target="_blank" rel="noopener noreferrer" aria-label="Twitter / X"
+              class="w-8 h-8 flex items-center justify-center rounded border border-gray-200 dark:border-white/10
+                     text-gray-500 dark:text-gray-400 hover:border-primary hover:text-primary transition-colors"
+            >
+              <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L2.25 2.25h6.865l4.254 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+            </a>
+            <a
+              v-if="author.socialLinkedIn"
+              :href="author.socialLinkedIn"
+              target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
+              class="w-8 h-8 flex items-center justify-center rounded border border-gray-200 dark:border-white/10
+                     text-gray-500 dark:text-gray-400 hover:border-primary hover:text-primary transition-colors"
+            >
+              <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/>
+                <circle cx="4" cy="4" r="2"/>
+              </svg>
+            </a>
+            <a
+              v-if="author.socialInstagram"
+              :href="author.socialInstagram"
+              target="_blank" rel="noopener noreferrer" aria-label="Instagram"
+              class="w-8 h-8 flex items-center justify-center rounded border border-gray-200 dark:border-white/10
+                     text-gray-500 dark:text-gray-400 hover:border-primary hover:text-primary transition-colors"
+            >
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                <circle cx="12" cy="12" r="4"/>
+                <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
+              </svg>
+            </a>
+          </div>
         </div>
       </div>
 

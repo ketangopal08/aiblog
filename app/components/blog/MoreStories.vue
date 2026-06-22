@@ -2,7 +2,28 @@
 import type { PostModel } from '~/models/PostModel'
 
 const { $wp } = useNuxtApp()
-const { data: posts } = await useAsyncData('more-stories', () => $wp.getPosts(1, 8))
+const PER_PAGE = 8
+
+const { data: initial } = await useAsyncData('more-stories', () => $wp.getPostsPaginated(1, PER_PAGE))
+
+const allPosts = ref<PostModel[]>((initial.value?.items ?? []) as PostModel[])
+const currentPage = ref(1)
+const totalPages = ref(initial.value?.totalPages ?? 1)
+const isLoadingMore = ref(false)
+const hasMore = computed(() => currentPage.value < totalPages.value)
+
+async function loadMore() {
+  if (isLoadingMore.value || !hasMore.value) return
+  isLoadingMore.value = true
+  try {
+    const result = await $wp.getPostsPaginated(currentPage.value + 1, PER_PAGE)
+    allPosts.value.push(...(result.items as PostModel[]))
+    currentPage.value++
+    totalPages.value = result.totalPages
+  } finally {
+    isLoadingMore.value = false
+  }
+}
 
 type ViewMode = 'list' | 'grid'
 const view = ref<ViewMode>('list')
@@ -102,7 +123,7 @@ function timeAgo(dateStr: string): string {
           <!-- ── LIST VIEW ── -->
           <template v-if="view === 'list'">
             <!-- Skeleton -->
-            <template v-if="!posts?.length">
+            <template v-if="!allPosts.length">
               <div
                 v-for="n in 5" :key="n"
                 class="flex items-start gap-5 py-5 border-b border-gray-100 dark:border-white/[0.06] animate-pulse"
@@ -117,7 +138,7 @@ function timeAgo(dateStr: string): string {
             </template>
 
             <NuxtLink
-              v-for="post in posts"
+              v-for="post in allPosts"
               :key="post.id"
               :to="`/blog/${post.slug}`"
               class="flex items-start gap-4 sm:gap-5 py-5 border-b border-gray-100 dark:border-white/[0.06]
@@ -153,7 +174,7 @@ function timeAgo(dateStr: string): string {
                   v-html="post.excerpt"
                 />
                 <!-- Author meta row -->
-                <div class="flex items-center gap-1.5 mt-3 pt-3 " style="font-family: 'Inter', sans-serif">
+                <div class="flex items-center gap-1.5 mt-3 pt-3 border-t border-gray-100 dark:border-white/[0.06]" style="font-family: 'Inter', sans-serif">
                   <span class="text-[11px] text-gray-400 dark:text-gray-500">By</span>
                   <span class="text-[11px] font-semibold text-gray-700 dark:text-gray-300">{{ post.author.name }}</span>
                   <span class="text-[11px] text-gray-400 dark:text-gray-500">·</span>
@@ -174,7 +195,7 @@ function timeAgo(dateStr: string): string {
           <!-- ── GRID VIEW ── -->
           <template v-else>
             <!-- Skeleton -->
-            <div v-if="!posts?.length" class="grid grid-cols-2 lg:grid-cols-3 gap-5">
+            <div v-if="!allPosts.length" class="grid grid-cols-2 lg:grid-cols-3 gap-5">
               <div v-for="n in 6" :key="n" class="animate-pulse">
                 <div class="bg-gray-200 dark:bg-[#1a1a1a] mb-3" style="height:160px" />
                 <div class="h-2.5 bg-gray-200 dark:bg-[#1a1a1a] rounded w-20 mb-2" />
@@ -185,7 +206,7 @@ function timeAgo(dateStr: string): string {
 
             <div v-else class="grid grid-cols-2 lg:grid-cols-3 gap-5">
               <NuxtLink
-                v-for="post in posts"
+                v-for="post in allPosts"
                 :key="post.id"
                 :to="`/blog/${post.slug}`"
                 class="group"
@@ -211,6 +232,30 @@ function timeAgo(dateStr: string): string {
               </NuxtLink>
             </div>
           </template>
+
+          <!-- Load More button -->
+          <div v-if="hasMore" class="flex justify-center mt-8">
+            <button
+              @click="loadMore"
+              :disabled="isLoadingMore"
+              class="flex items-center gap-2 border border-gray-300 dark:border-white/20
+                     text-[12px] font-bold uppercase tracking-[1.5px] px-8 py-2.5 rounded-full
+                     text-gray-700 dark:text-gray-300
+                     hover:border-primary hover:text-primary
+                     disabled:opacity-50 disabled:cursor-not-allowed
+                     transition-colors duration-200"
+              style="font-family: 'Inter', sans-serif"
+            >
+              <svg
+                v-if="isLoadingMore"
+                class="w-3.5 h-3.5 animate-spin"
+                fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48 2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48 2.83-2.83"/>
+              </svg>
+              {{ isLoadingMore ? 'Loading…' : 'Load More' }}
+            </button>
+          </div>
 
           <!-- Mobile "See More" link -->
           <div class="sm:hidden mt-6">
