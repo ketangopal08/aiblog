@@ -57,7 +57,9 @@ export interface WPUser {
   slug: string
   description: string
   avatar_urls: Record<string, string>
-  social_twitter?: string
-  social_linkedin?: string
-  social_instagram?: string
+  yoast_head_json?: {
+    schema?: {
+      '@graph'?: Array<{ '@type': string; sameAs?: string[] }>
+    }
+  }
 }

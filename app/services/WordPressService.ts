@@ -125,14 +125,17 @@ export class WordPressService implements IWordPressService {
     const raw = data[0]
     if (!raw) return null
     const avatarSizes = Object.keys(raw.avatar_urls).sort((a, b) => Number(b) - Number(a))
+    const sameAs = raw.yoast_head_json?.schema?.['@graph']
+      ?.find(n => n['@type'] === 'Person')
+      ?.sameAs ?? []
     return {
       id: raw.id,
       name: raw.name,
       description: raw.description,
       avatarUrl: avatarSizes[0] ? (raw.avatar_urls[avatarSizes[0]] ?? null) : null,
-      socialTwitter: raw.social_twitter || undefined,
-      socialLinkedIn: raw.social_linkedin || undefined,
-      socialInstagram: raw.social_instagram || undefined,
+      socialTwitter: sameAs.find(u => u.includes('x.com') || u.includes('twitter.com')),
+      socialLinkedIn: sameAs.find(u => u.includes('linkedin.com')),
+      socialInstagram: sameAs.find(u => u.includes('instagram.com')),
     }
   }
 
