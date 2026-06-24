@@ -174,7 +174,7 @@ function timeAgo(dateStr: string): string {
                   v-html="post.excerpt"
                 />
                 <!-- Author meta row -->
-                <div class="flex items-center gap-1.5 mt-3 pt-3 border-t border-gray-100 dark:border-white/[0.06]" style="font-family: 'Inter', sans-serif">
+                <div class="flex items-center gap-1.5 mt-3 pt-3 " style="font-family: 'Inter', sans-serif">
                   <span class="text-[11px] text-gray-400 dark:text-gray-500">By</span>
                   <span class="text-[11px] font-semibold text-gray-700 dark:text-gray-300">{{ post.author.name }}</span>
                   <span class="text-[11px] text-gray-400 dark:text-gray-500">·</span>
