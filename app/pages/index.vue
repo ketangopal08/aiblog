@@ -69,7 +69,7 @@ function smallImg(post: PostModel, w = 136, h = 108) {
                        h-[240px] sm:h-full w-full sm:w-[58%]"
               >
                 <img
-                  :src="thumbImg(featuredPost, 900, 560)"
+                  :src="postImg(featuredPost)"
                   :alt="featuredPost.title"
                   fetchpriority="high"
                   class="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
@@ -101,7 +101,7 @@ function smallImg(post: PostModel, w = 136, h = 108) {
                     class="relative flex-1 img-card group block min-h-0 min-w-0"
                   >
                     <img
-                      :src="thumbImg(post, 480, 280)"
+                      :src="postImg(post)"
                       :alt="post.title"
                       class="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
                     />
