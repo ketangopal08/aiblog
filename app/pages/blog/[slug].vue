@@ -23,6 +23,11 @@ if (post.value) {
     ogImage,
     canonicalUrl: `https://www.neuralbriefly.com/blog/${p.slug}`,
   })
+} else {
+  useHead({
+    link: [{ rel: 'canonical', href: `https://www.neuralbriefly.com/blog/${route.params.slug}` }],
+    meta: [{ name: 'robots', content: 'noindex, follow' }],
+  })
 }
 
 const breadcrumbItems = computed(() => {
