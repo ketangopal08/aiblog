@@ -79,9 +79,11 @@ export class PostModel implements IPost {
     breadcrumbs.push({ name: this.title, url: `/blog/${this.slug}` })
 
     const plainDesc = this.excerpt.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim()
+    const yoastTitle = raw.yoast_head_json?.title?.replace(/\s*\|\s*[^|]*$/, '').trim()
+    const yoastDesc = raw.yoast_head_json?.description
     this.seo = {
-      title: this.title,
-      description: plainDesc.length > 160 ? plainDesc.slice(0, 157) + '…' : plainDesc,
+      title: yoastTitle || this.title,
+      description: yoastDesc || (plainDesc.length > 160 ? plainDesc.slice(0, 157) + '…' : plainDesc),
       ogImage: this.featuredImage ?? undefined,
       ogImageWidth: this._ogImageWidth,
       ogImageHeight: this._ogImageHeight,

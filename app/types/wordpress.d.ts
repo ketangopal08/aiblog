@@ -8,6 +8,10 @@ export interface WPPost {
   title: { rendered: string }
   excerpt: { rendered: string }
   content: { rendered: string }
+  yoast_head_json?: {
+    title?: string
+    description?: string
+  }
   _embedded?: {
     author?: WPAuthor[]
     'wp:featuredmedia'?: WPMedia[]
