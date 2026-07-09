@@ -5,7 +5,7 @@ const route = useRoute()
 const { $wp } = useNuxtApp()
 
 const [{ data: post, pending: loading, error: fetchError }, { data: trendingPosts }] = await Promise.all([
-  useAsyncData(`post-${route.params.slug}`, () => $wp.getPostBySlug(route.params.slug as string), { getCachedData: () => undefined }),
+  useAsyncData(`post-${route.params.slug}`, () => $wp.getPostBySlug(route.params.slug as string), { getCachedData: (key, nuxtApp) => nuxtApp.payload.data[key] }),
   useAsyncData('trending-posts', () => $wp.getPosts(1, 5) as Promise<PostModel[]>, { getCachedData: () => undefined }),
 ])
 
@@ -26,7 +26,6 @@ if (post.value) {
 } else {
   useHead({
     link: [{ rel: 'canonical', href: `https://www.neuralbriefly.com/blog/${route.params.slug}` }],
-    meta: [{ name: 'robots', content: 'noindex, follow' }],
   })
 }
 
