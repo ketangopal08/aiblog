@@ -24,9 +24,7 @@ if (post.value) {
     canonicalUrl: `https://www.neuralbriefly.com/blog/${p.slug}`,
   })
 } else {
-  useHead({
-    link: [{ rel: 'canonical', href: `https://www.neuralbriefly.com/blog/${route.params.slug}` }],
-  })
+  throw createError({ statusCode: 404, statusMessage: 'Post not found' })
 }
 
 const breadcrumbItems = computed(() => {
